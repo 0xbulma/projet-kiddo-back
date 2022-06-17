@@ -1,0 +1,1 @@
+export const EXEMPLE_LAMBDA_VALUE = 'VALUE';
