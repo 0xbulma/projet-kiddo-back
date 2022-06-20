@@ -1,0 +1,190 @@
+users : {
+    _id: (Généré par Mongoose)
+    created_at: (Généré par Mongoose) 
+    updated_at: (Généré par Mongoose)?
+    connection_history: [{ip, date}] (Généré par Mongoose) 
+    rank_id: (Par défault 0) || enum
+
+    email: 
+    password:
+
+    gafa_type: 
+    pseudo: (Par défault prénom + 1ère lettre du nom de famille + 5 chiffres aléatoire)
+    first_name:
+    last_name:
+    birthdate:
+    phone: (Vérification factive car payante)
+    adress : [{ city, zipcode, adress_line_1$, adress_line_2$}]
+    gps: {lat, lng}
+
+    profile_picture: {hd: '', thumbnail: ''}
+    description: 
+
+    childs: [{id: ?, name: name*, gender: M/F/?, age_range: X}]
+    is_available: boolean 
+ 
+    friends_request : [{target_id: , invited_at: }]
+    friends_pending : [{sender_id: , invited_at: }]
+    friends: [{friend_id:, accepted_at:}] (Relation)
+    badge: [{badge_id: , unlocked_at}]
+
+    pinned_events: [{event_id, pinned_at}]
+    booked_events: [{event_id, booked_at, family_size}]
+    finished_events: [{event_id, booked_at, canceled_at, started_at, finished_at}] 
+
+    signaled: [{user_id: , signaled_at: , type: }]
+    reaction: [{type: X, sender_id: X }]
+
+    comments : [{    
+    _id: 
+    childs_comment_id: comment_id
+    sender_id: 
+    created_at: date
+    modified_at: [{user_id, date}]
+    deleted_at: [{user_id, date, reason*}]
+    content: {title: X, message: X, photos_url: X}
+    reaction: [{type: X, sender_id: X }]
+    pinned: true/false
+    signaled: [{user_id: , signaled_at: , type: }]
+    }]
+}
+
+events : {
+    _id: (Généré par Mongoose)
+    created_at:
+    updated_at:
+    drafted_at:
+    visibility: ( Brouillon : 0 / Non répértorié : 1 / Public : 2) | enum
+    
+    main_owner: owner_id
+    co_owners: [owner_id]
+    content: {banner_url: *, title: X, subtitle: X, description: X, highlighted_message: {title: , message: }, message: X*, lang:}
+    content_media: {photos_url: [X], photos_main_url: X, video_url: X*}
+
+    group_size: X
+    group_participants: [{user_id: , booked_at: , group_detail: [{type: ADULT / CHILD, name: , kinship: , age: X}]}]
+    price:
+
+    event_dates : {started_at:, end_at: }
+    status: {type: unconfirmed / confirmed / canceled, date: }
+
+    adress : [{ city, zipcode, adress_line_1$, adress_line_2$}]
+    gps: {lat, lng}
+
+    filters: [{keyword: }]
+    categories: [enum]
+    restrictions: [enum]
+    group_range: {min: , max: }
+    age_range: {min: , max: }
+
+    highlighted: true/false
+    reaction: [{type: X, sender_id: X }]
+    signaled: [{user_id: , signaled_at: , type: }]
+
+    comments : [{    
+    _id: (Généré par Mongoose)
+    childs_comment_id: comment_id
+    event_review : true / false
+    sender_id: 
+    created_at: date
+    modified_at: [{user_id, date}]
+    deleted_at: [{user_id, date, reason*}]
+    content: {title: X, message: X, photos_url: X}
+    reaction: [{type: X, sender_id: X }]
+    pinned: true/false
+    signaled: [{user_id: , signaled_at: , type: }]
+    }]
+}
+
+articles: {
+    _id: (Généré par Mongoose)
+    created_at:
+    updated_at:
+    drafted_at:
+    visibility: ( Brouillon : 0 / Non répértorié : 1 / Public : 2) | enum
+    
+    author: user_id
+    content: {banner_url: *, title: X, subtitle: X, description: X, highlighted_message: {title: , message: }, message: X*, lang:}
+    content_media: {photos_url: [X], photos_main_url: X, video_url: X*}
+
+    filters: [{keyword: }]
+    categories: [enum]
+
+    highlighted: true/false
+    reaction: [{type: X, sender_id: X }]
+
+    comments : [{    
+    _id: (Généré par Mongoose)
+    childs_comment_id: comment_id
+    sender_id: 
+    created_at: date
+    modified_at: [{user_id, date}]
+    deleted_at: [{user_id, date, reason*}]
+    content: {title: X, message: X, photos_url: X}
+    reaction: [{type: X, sender_id: X }]
+    pinned: true/false
+    signaled: [{user_id: , signaled_at: , type: }]
+    }]
+}
+
+badges : {
+    _id:
+    name:
+    description:
+    icon_url:
+}
+
+categories {
+    _id:
+    name:
+}
+
+restrictions {
+    _id:
+    name:
+}
+
+//comments: {
+    _id: (Généré par Mongoose)
+    type: event_id / user_id
+    childs_comment_id: child_comment_id
+    event_review : true / false
+    sender_id: 
+    created_at: date
+    modified_at: [{user_id, date}]
+    deleted_at: [{user_id, date, reason*}]
+    content: {title: X, message: X, photos_url: X}
+    reaction: [{type: X, sender_id: X }]
+    pinned: true/false
+    signaled: [{user_id: , signaled_at: , type: }]
+}
+
+
+=============================================================================================
+Comment ID
+
+*name = optionel, par défaut 'Enfant1 ou ID'
+
+
+*Lecture du message > detection de l'url youtube > embed automatique en iframe*
+
+// Options
+$ = est optionel 
+
+Rank_ID : 
+
+0 = utilisateur
+1 = utilisateur confirmé
+20 = modérateur
+30 = administrateur
+
+/!\ **géospatial mongo /!\
+DOC: https://mongoosejs.com/docs/geojson.html
+
+Préférences : 
+
+email_notification_article
+email_notification_event_available
+email_notification_friend_request
+email_notification_message
+email_notification_response_message

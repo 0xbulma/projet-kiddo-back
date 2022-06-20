@@ -1,10 +1,13 @@
 import mongoose from 'mongoose';
 
+const CONNECT_TIMEOUT_MS = 3000;
+const SOCKET_TIMOUT_MS = 20000;
+
 export function connectToDB() {
   mongoose
     .connect(process.env.MONGO_URI, {
-      connectTimeoutMS: 3000,
-      socketTimeoutMS: 20000,
+      connectTimeoutMS: CONNECT_TIMEOUT_MS,
+      socketTimeoutMS: SOCKET_TIMOUT_MS,
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
