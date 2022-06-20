@@ -1,9 +1,9 @@
-import { gql } from 'apollo-server-express';
+import { loadFilesSync } from '@graphql-tools/load-files';
+import { mergeTypeDefs } from '@graphql-tools/merge';
 
-const typeDefs = gql`
-  type Query {
-    _id: String
-  }
-`;
+const typeDefs = loadFilesSync('.', {
+  extensions: ['graphql'],
+  recursive: true,
+});
 
-export default typeDefs;
+export default mergeTypeDefs([typeDefs]);
