@@ -8,7 +8,7 @@ import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 
 import { makeExecutableSchema } from '@graphql-tools/schema';
-import typeDefs from './config/graphql/typeDefs/index__typedefs.mjs';
+import typeDefs from './config/graphql/typeDefs/index__typeDefs.mjs';
 import resolvers from './config/graphql/resolvers/index__resolvers.mjs';
 import { typeDefs as scalarsTypedefs, resolvers as scalarsResolvers } from 'graphql-scalars';
 
