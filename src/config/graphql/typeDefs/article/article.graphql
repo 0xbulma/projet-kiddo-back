@@ -1,0 +1,59 @@
+# Variables
+scalar ObjectID
+scalar Date
+scalar DateTime
+scalar IPv4
+scalar EmailAddress
+scalar PhoneNumber
+scalar PostalCode
+scalar Latitude
+scalar Longitude
+scalar URL
+scalar NonNegativeInt
+
+##############
+# Main Object
+##############
+type Article {
+  _id: ObjectID
+  created_at: DateTime
+  updated_at: DateTime
+  drafted_at: DateTime
+  published_at: DateTime
+
+  author_id: ObjectID
+  content: Content
+  content_media: ContentMedia
+
+  status: Status
+
+  filters: [String]
+  categories: [ObjectID]
+
+  highlighted: Boolean
+  signalments: [Signaled]
+  reactions: [Reaction]
+
+  comments: [EventComment]
+}
+
+##############
+# Sub Object
+##############
+type Content {
+  title: String
+  subtitle: String
+  description: String
+  highlighted_message: [HighlightedMessage]
+}
+
+type HighlightedMessage {
+  title: String
+  message: String
+}
+
+type ContentMedia {
+  photos_url: [URL]
+  photo_main_url: URL
+  video_url: URL
+}

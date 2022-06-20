@@ -1,3 +1,7 @@
 type Query {
-  _id: String
+  toto: String
+}
+
+input toto {
+  name: String
 }

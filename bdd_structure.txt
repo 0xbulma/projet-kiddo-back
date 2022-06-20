@@ -54,6 +54,7 @@ events : {
     created_at:
     updated_at:
     drafted_at:
+    published_at: 
     visibility: ( Brouillon : 0 / Non répértorié : 1 / Public : 2) | enum
     
     main_owner: owner_id
@@ -62,11 +63,11 @@ events : {
     content_media: {photos_url: [X], photos_main_url: X, video_url: X*}
 
     group_size: X
-    group_participants: [{user_id: , booked_at: , group_detail: [{type: ADULT / CHILD, name: , kinship: , age: X}]}]
+    group_participants: [{user_id: , booked_at: , group_detail: [{type: ADULT / CHILD, name: , age: X}]}]
     price:
 
     event_dates : {started_at:, end_at: }
-    status: {type: unconfirmed / confirmed / canceled, date: }
+    status: {type: drafted / confirmed / canceled}
 
     adress : [{ city, zipcode, adress_line_1$, adress_line_2$}]
     gps: {lat, lng}
@@ -143,22 +144,6 @@ restrictions {
     _id:
     name:
 }
-
-//comments: {
-    _id: (Généré par Mongoose)
-    type: event_id / user_id
-    childs_comment_id: child_comment_id
-    event_review : true / false
-    sender_id: 
-    created_at: date
-    modified_at: [{user_id, date}]
-    deleted_at: [{user_id, date, reason*}]
-    content: {title: X, message: X, photos_url: X}
-    reaction: [{type: X, sender_id: X }]
-    pinned: true/false
-    signaled: [{user_id: , signaled_at: , type: }]
-}
-
 
 =============================================================================================
 Comment ID

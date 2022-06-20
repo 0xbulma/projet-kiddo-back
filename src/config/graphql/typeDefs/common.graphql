@@ -1,0 +1,98 @@
+# Variables
+enum SignalingType {
+  TOTO
+}
+
+enum ReactionType {
+  TOTO
+}
+
+enum Status {
+  DRAFTED
+  CONFIRMED
+  CANCELED
+}
+
+#TODO: TEMPORARY
+type Category {
+  _id: ObjectID
+  name: String
+}
+
+type Restriction {
+  _id: ObjectID
+  name: String
+}
+#TODO: TEMPORARY
+
+# Common object
+type Location {
+  city: String
+  zipCode: PostalCode
+  adress_line: String
+  adress_line_2: String
+}
+
+type Picture {
+  hd: URL
+  thumbnail: URL
+}
+
+type GeoLoc {
+  lat: Latitude
+  lng: Longitude
+}
+
+type Signaled {
+  type: SignalingType
+  sender_id: ObjectID
+  signaled_at: DateTime
+}
+
+type Reaction {
+  type: ReactionType
+  sender_id: ObjectID
+}
+
+type Comment {
+  _id: ObjectID
+  child_id: ObjectID
+  sender_id: ObjectID
+  created_at: DateTime
+  modified_at: DateTime
+  deleted_at: DateTime
+  contents: [CommentContent]
+  reactions: [Reaction]
+  pinned: Boolean
+  Signalments: [Signaled]
+}
+
+type EventComment {
+  _id: ObjectID
+  child_id: ObjectID
+  sender_id: ObjectID
+  created_at: DateTime
+  modified_at: DateTime
+  deleted_at: DateTime
+  event_review: Boolean
+  contents: [CommentContent]
+  reactions: [Reaction]
+  pinned: Boolean
+  Signalments: [Signaled]
+}
+
+type CommentContent {
+  title: String
+  message: String
+  photos_url: URL
+}
+
+type DateRange {
+  start: DateTime
+  end: DateTime
+}
+
+# Exemple
+type event {
+  comments: [EventComment]
+}

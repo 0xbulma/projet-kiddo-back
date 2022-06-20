@@ -1,0 +1,81 @@
+# Variables
+scalar ObjectID
+scalar Date
+scalar DateTime
+scalar IPv4
+scalar EmailAddress
+scalar PhoneNumber
+scalar PostalCode
+scalar Latitude
+scalar Longitude
+scalar URL
+scalar NonNegativeInt
+
+##############
+# Main Object
+##############
+type Event {
+  _id: ObjectID
+  created_at: DateTime
+  updated_at: DateTime
+  drafted_at: DateTime
+  published_at: DateTime
+
+  main_owner: ObjectID
+  co_owners: [ObjectID]
+  content: Content
+  content_media: ContentMedia
+
+  group_size: NonNegativeInt
+  group_participants: [Participant]
+  price: NonNegativeInt
+
+  event_date: DateRange
+  status: Status
+
+  adress: Location
+  gps: GeoLoc
+
+  filters: [String]
+  categories: [ObjectID]
+  restrictions: [ObjectID]
+
+  highlighted: Boolean
+  signalments: [Signaled]
+  reactions: [Reaction]
+
+  comments: [EventComment]
+}
+
+##############
+# Sub Object
+##############
+type Content {
+  title: String
+  subtitle: String
+  description: String
+  highlighted_message: [HighlightedMessage]
+}
+
+type HighlightedMessage {
+  title: String
+  message: String
+}
+
+type ContentMedia {
+  photos_url: [URL]
+  photo_main_url: URL
+  video_url: URL
+}
+
+type Participant {
+  user_id: ObjectID
+  booked_at: DateTime
+  group_detail: [MemberDetail]
+}
+
+type MemberDetail {
+  isChild: boolean
+  name: String
+  age: NonNegativeInt
+}
