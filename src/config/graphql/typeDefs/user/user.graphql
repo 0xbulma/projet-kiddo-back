@@ -1,0 +1,117 @@
+# Variables
+scalar ObjectID
+scalar Date
+scalar DateTime
+scalar IPv4
+scalar EmailAddress
+scalar PhoneNumber
+scalar PostalCode
+scalar Latitude
+scalar Longitude
+scalar URL
+scalar NonNegativeInt
+
+enum Rank {
+  USER
+  CONFIRMED_USER
+  MODERATOR
+  ADMINISTRATOR
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  UNKNOWN
+}
+
+##############
+# Main Object
+##############
+type User {
+  _id: ObjectID
+  created_at: DateTime
+  updated_at: DateTime
+  connection_history: [ConnectionHistory]
+  rank_id: Rank
+
+  email: EmailAddress
+  password: String
+  oAuth_link: [String]
+
+  pseudo: String
+  first_name: String
+  last_name: String
+  birthdate: Date
+  phone: PhoneNumber
+  adress: Location
+  gps: GeoLoc
+
+  profil_picture: Picture
+  description: String
+
+  children: [Child]
+  is_available: Boolean
+
+  friends_send_request: [FriendRequest]
+  friends_receive_request: [FriendRequest]
+  friends: [Friend]
+
+  badges: [Badge]
+
+  pinned_events: [PinnedEvent]
+  booked_events: [BookedEvent]
+  finished_events: [FinishedEvent]
+
+  signalments: [Signaled]
+  reactions: [Reaction]
+
+  comments: [Comment]
+}
+
+##############
+# Sub Object
+##############
+type ConnectionHistory {
+  ip: IPv4
+  date: DateTime
+}
+
+type Child {
+  id: ObjectID
+  name: String
+  gender: Gender
+  age: NonNegativeInt
+}
+
+type FriendRequest {
+  user_id: ObjectID
+  invited_at: DateTime
+}
+
+type Friend {
+  user_id: ObjectID
+  accepted_at: DateTime
+}
+
+type Badge {
+  badge_id: ObjectID
+  unlocked_at: DateTime
+}
+
+type PinnedEvent {
+  event_id: ObjectID
+  pinned_at: DateTime
+}
+
+type BookedEvent {
+  event_id: ObjectID
+  booked_at: DateTime
+}
+
+type FinishedEvent {
+  event_id: ObjectID
+  booked_at: DateTime
+  canceled_at: DateTime
+  started_at: DateTime
+  finished_at: DateTime
+}

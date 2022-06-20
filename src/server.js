@@ -7,12 +7,10 @@ import bodyParser from 'body-parser';
 import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 
-import typeDefs from './graphql/typeDefs';
-import resolvers from './graphql/resolvers';
-import { typeDefs as scalarsTypedefs, resolvers as scalarsResolvers } from 'graphql-scalars';
-
-import typeDefs from './config/graphql/typedefs/index__typedefs.mjs';
+import { makeExecutableSchema } from '@graphql-tools/schema';
+import typeDefs from './config/graphql/typeDefs/index__typedefs.mjs';
 import resolvers from './config/graphql/resolvers/index__resolvers.mjs';
+import { typeDefs as scalarsTypedefs, resolvers as scalarsResolvers } from 'graphql-scalars';
 
 import { connectToDB } from './config/database.mjs';
 

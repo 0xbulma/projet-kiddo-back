@@ -1,3 +1,5 @@
-const resolvers = {};
+import totoResolver from './toto.resolver.mjs';
 
-export default mergeResolvers([]);
+import { mergeResolvers } from '@graphql-tools/merge';
+
+export default mergeResolvers([totoResolver]);
