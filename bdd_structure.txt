@@ -145,6 +145,24 @@ restrictions {
     name:
 }
 
+<<<<<<< Updated upstream
+=======
+//comments: {
+    _id: (Généré par Mongoose)
+    type: event_id / user_id
+    childs_comment_id: child_comment_id
+    event_review : true / false
+    sender_id: 
+    created_at: date
+    modified_at: [{user_id, date}]
+    deleted_at: [{user_id, date, reason*}]
+    content: {title: X, message: X, photos_url: X}
+    reaction: [{type: X, sender_id: X }]
+    pinned: true/false
+    signaled: [{user_id: , signaled_at: , type: }]
+}
+
+>>>>>>> Stashed changes
 =============================================================================================
 Comment ID
 
