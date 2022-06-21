@@ -1,5 +1,7 @@
-import * as check from 'validator';
-import * as constants from '../../utils/constant.mjs';
+import mongoose from 'mongoose';
+
+import { default as check } from 'validator';
+import * as constants from '../../../utils/constant.mjs';
 
 export const OBJECT_ID_REF_USER = {
   type: mongoose.Schema.Types.ObjectId,
@@ -24,9 +26,14 @@ export const OBJECT_ID_REF_RESTRICTION = {
   ref: constants.COLLECTION_NAME.restriction,
 };
 
+export const OBJECT_ID_REF_BADGE = {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: constants.COLLECTION_NAME.badge,
+};
+
 export const SCHEMA_OPTIONS = (withTimestamp) => {
   return withTimestamp
-    ? { versionKey: false, timestamps: { created_at: 'created_at', updated_at: 'updated_at' } }
+    ? { versionKey: false, timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
     : { versionKey: false };
 };
 

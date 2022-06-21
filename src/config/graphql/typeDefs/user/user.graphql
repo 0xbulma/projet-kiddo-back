@@ -85,32 +85,32 @@ type Child {
 }
 
 type FriendRequest {
-  user_id: ObjectID
+  user: User
   invited_at: DateTime
 }
 
 type Friend {
-  user_id: ObjectID
+  user: User
   accepted_at: DateTime
 }
 
 type Badge {
-  badge_id: ObjectID
+  badge: Badge
   unlocked_at: DateTime
 }
 
 type PinnedEvent {
-  event_id: ObjectID
+  event: Event
   pinned_at: DateTime
 }
 
 type BookedEvent {
-  event_id: ObjectID
+  event: Event
   booked_at: DateTime
 }
 
 type FinishedEvent {
-  event_id: ObjectID
+  event: Event
   booked_at: DateTime
   canceled_at: DateTime
   started_at: DateTime

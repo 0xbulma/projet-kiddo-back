@@ -1,0 +1,5 @@
+type Query {
+  Categories: [Category]
+  Restrictions: [Restriction]
+  Badges: [Badge]
+}

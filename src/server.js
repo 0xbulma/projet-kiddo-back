@@ -26,6 +26,7 @@ async function startApolloServer() {
   });
 
   const server = new ApolloServer({
+    context: () => 'FUTUR AUTHORIZATION',
     schema,
     csrfPrevention: true,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],

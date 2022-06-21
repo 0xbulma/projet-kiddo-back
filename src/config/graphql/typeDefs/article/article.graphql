@@ -21,14 +21,14 @@ type Article {
   drafted_at: DateTime
   published_at: DateTime
 
-  author_id: ObjectID
+  author_id: User
   content: Content
   content_media: ContentMedia
 
   status: Status
 
   filters: [String]
-  categories: [ObjectID]
+  categories: [Category]
 
   highlighted: Boolean
   signalments: [Signaled]

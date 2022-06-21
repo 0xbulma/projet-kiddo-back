@@ -1,0 +1,58 @@
+# Common input
+input LocationInput {
+  city: String
+  zip_code: PostalCode
+  adress_line: String
+  adress_line_2: String
+}
+
+input PictureInput {
+  hd: URL
+  thumbnail: URL
+}
+
+input GeoLocInput {
+  lat: Latitude
+  lng: Longitude
+}
+
+input SignaledInput {
+  input: SignalingType
+  sender_id: ObjectID
+  signaled_at: DateTime
+}
+
+input ReactionInput {
+  input: ReactionType
+  sender_id: ObjectID
+}
+
+input CommentInput {
+  child_id: ObjectID
+  sender_id: ObjectID
+  created_at: DateTime
+  modified_at: DateTime
+  deleted_at: DateTime
+  pinned: Boolean
+}
+
+input EventCommentInput {
+  child_id: ObjectID
+  sender_id: ObjectID
+  created_at: DateTime
+  modified_at: DateTime
+  deleted_at: DateTime
+  event_review: Boolean
+  pinned: Boolean
+}
+
+input CommentContentInput {
+  title: String
+  message: String
+  photos_url: URL
+}
+
+input DateRangeInput {
+  start: DateTime
+  end: DateTime
+}

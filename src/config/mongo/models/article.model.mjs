@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import * as constants from '../../utils/constant';
+import * as constants from '../../../utils/constant';
 import * as commonSchema from './common.schema';
 
 // Liste des messages d'erreurs

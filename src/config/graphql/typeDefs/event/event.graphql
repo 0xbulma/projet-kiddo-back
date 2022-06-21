@@ -21,8 +21,8 @@ type Event {
   drafted_at: DateTime
   published_at: DateTime
 
-  main_owner: ObjectID
-  co_owners: [ObjectID]
+  main_owner: User
+  co_owners: [User]
   content: Content
   content_media: ContentMedia
 
@@ -37,8 +37,8 @@ type Event {
   gps: GeoLoc
 
   filters: [String]
-  categories: [ObjectID]
-  restrictions: [ObjectID]
+  categories: [Category]
+  restrictions: [Restriction]
 
   highlighted: Boolean
   signalments: [Signaled]
@@ -69,7 +69,7 @@ type ContentMedia {
 }
 
 type Participant {
-  user_id: ObjectID
+  user: User
   booked_at: DateTime
   group_detail: [MemberDetail]
 }

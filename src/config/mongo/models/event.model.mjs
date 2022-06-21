@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import * as check from 'validator';
+import { default as check } from 'validator';
 
-import * as constants from '../../utils/constant.mjs';
+import * as constants from '../../../utils/constant.mjs';
 import * as commonSchema from './common.schema.mjs';
 
 const ERROR_MESSAGE = {
