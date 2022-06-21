@@ -1,7 +1,7 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-import { default as check } from 'validator';
-import * as constants from '../../../utils/constant.mjs';
+import { default as check } from "validator";
+import * as constants from "../../../utils/constant.mjs";
 
 export const OBJECT_ID_REF_USER = {
   type: mongoose.Schema.Types.ObjectId,
@@ -33,7 +33,10 @@ export const OBJECT_ID_REF_BADGE = {
 
 export const SCHEMA_OPTIONS = (withTimestamp) => {
   return withTimestamp
-    ? { versionKey: false, timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
+    ? {
+        versionKey: false,
+        timestamps: { createdAt: "created_at", updatedAt: "updated_at" },
+      }
     : { versionKey: false };
 };
 
@@ -84,7 +87,10 @@ export const CONTENT_MEDIA = {
 export const COMMENT = {
   _id: { type: String },
   child_id: { type: String },
-  sender_id: { type: mongoose.Schema.Types.ObjectId, ref: constants.COLLECTION_NAME.user },
+  sender_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: constants.COLLECTION_NAME.user,
+  },
   created_at: { type: Date, default: Date.now },
   modified_at: { type: Date, default: Date.now },
   deleted_at: { type: Date, default: Date.now },
@@ -106,3 +112,6 @@ export const COMMENT = {
   pinned: { type: Boolean, default: false },
   signalments: [SIGNALMENT],
 };
+
+const toto = "toto";
+export default toto;

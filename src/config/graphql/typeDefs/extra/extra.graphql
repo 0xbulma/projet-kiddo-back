@@ -1,3 +1,7 @@
+# Variables
+scalar ObjectID
+scalar URL
+
 type Category {
   _id: ObjectID
   name: String
@@ -11,6 +15,6 @@ type Restriction {
 type Badge {
   _id: ObjectID
   name: String
-  Description: String
+  description: String
   icon_url: URL
 }
