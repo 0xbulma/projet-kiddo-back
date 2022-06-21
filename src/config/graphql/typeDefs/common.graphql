@@ -13,22 +13,10 @@ enum Status {
   CANCELED
 }
 
-#TODO: TEMPORARY
-type Category {
-  _id: ObjectID
-  name: String
-}
-
-type Restriction {
-  _id: ObjectID
-  name: String
-}
-#TODO: TEMPORARY
-
 # Common object
 type Location {
   city: String
-  zipCode: PostalCode
+  zip_code: PostalCode
   adress_line: String
   adress_line_2: String
 }
@@ -61,10 +49,10 @@ type Comment {
   created_at: DateTime
   modified_at: DateTime
   deleted_at: DateTime
-  contents: [CommentContent]
+  content: CommentContent
   reactions: [Reaction]
   pinned: Boolean
-  Signalments: [Signaled]
+  signalments: [Signaled]
 }
 
 type EventComment {
@@ -75,10 +63,10 @@ type EventComment {
   modified_at: DateTime
   deleted_at: DateTime
   event_review: Boolean
-  contents: [CommentContent]
+  content: CommentContent
   reactions: [Reaction]
   pinned: Boolean
-  Signalments: [Signaled]
+  signalments: [Signaled]
 }
 
 type CommentContent {
