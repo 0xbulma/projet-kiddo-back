@@ -28,7 +28,7 @@ type Restriction {
 # Common object
 type Location {
   city: String
-  zipCode: PostalCode
+  zip_code: PostalCode
   adress_line: String
   adress_line_2: String
 }
