@@ -6,4 +6,5 @@ const typeDefs = loadFilesSync('.', {
   recursive: true,
 });
 
+console.log('Toto');
 export default mergeTypeDefs([typeDefs]);
