@@ -1,38 +1,34 @@
 type Mutation {
   createEvent(input: EventInput): Event
+  updateEvent(id: ObjectID!, input: EventInput): Event
+  deleteEvent(id: ObjectID!): Event
 }
 
 ##############
 # Main Input
 ##############
+
 input EventInput {
   drafted_at: DateTime
   published_at: DateTime
-
   main_owner: ObjectID!
   co_owners: [ObjectID]
-  #content: Content
-  #content_media: ContentMedia
-
+  content: ContentInput
+  content_media: ContentMediaInput
   group_size: NonNegativeInt
-  #group_participants: [Participant]
+  group_participants: [ParticipantInput]
   price: NonNegativeInt
-
-  #event_date: DateRange
-  #status: Status
-
-  #adress: Location
-  #gps: GeoLoc
-
-  #filters: [String]
-  #categories: [Category]
-  #restrictions: [Restriction]
-
+  # event_date: DateRangeInput
+  status: String
+  # adress: LocationInput
+  # gps: GeoLocInput
+  filters: [String]
+  categories: [ObjectID]
+  restrictions: [ObjectID]
   highlighted: Boolean
-  #signalments: [Signaled]
-  #reactions: [Reaction]
-
-  #comments: [EventComment]
+  # signalments: [SignaledInput]
+  # reactions: [ReactionInput]
+  # comments: [EventCommentInput]
 }
 
 ##############
@@ -42,7 +38,7 @@ input ContentInput {
   title: String
   subtitle: String
   description: String
- # highlighted_message: [HighlightedMessage]
+  highlighted_message: [HighlightedMessageInput]
 }
 
 input HighlightedMessageInput {
@@ -57,9 +53,9 @@ input ContentMediaInput {
 }
 
 input ParticipantInput {
-  user: User
+  user: ObjectID
   booked_at: DateTime
-  #group_detail: [MemberDetail]
+  group_detail: [MemberDetailInput]
 }
 
 input MemberDetailInput {
