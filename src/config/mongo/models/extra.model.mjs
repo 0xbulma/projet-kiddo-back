@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import commonSchema from './common.schema.mjs';
+import * as commonSchema from './common.schema';
 
 // Liste des messages d'erreurs
 const ERROR_MESSAGE = {

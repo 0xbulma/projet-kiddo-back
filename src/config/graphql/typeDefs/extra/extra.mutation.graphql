@@ -1,5 +1,17 @@
 type Mutation {
-  createBadge(name: String!, description: String, icon_url: URL): Badge
-  modifyBadge(name: String, description: String, icon_url: URL): Badge
+  createBadge(input: BadgeInput): Badge
+  modifyBadge(input: ModifyBadgeInput): Badge
   deleteBadge(_id: ObjectID!): Badge
+}
+
+input BadgeInput {
+  name: String!
+  description: String
+  icon_url: String
+}
+
+input ModifyBadgeInput {
+  name: String
+  description: String
+  icon_url: String
 }
