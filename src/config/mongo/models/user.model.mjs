@@ -8,7 +8,7 @@ const schemaOptions = commonSchema.SCHEMA_OPTIONS(true);
 
 const EventSchema = new mongoose.Schema(
   {
-    rank_id: { type: String, enum: constants.ENUM_RANKS, default: constants.ENUM_RANKS[0] },
+    rank: { type: String, enum: constants.ENUM_RANKS, default: constants.ENUM_RANKS[0] },
     connection_history: [
       {
         ip: {
