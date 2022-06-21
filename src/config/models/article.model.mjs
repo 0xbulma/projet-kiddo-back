@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 import constants from '../../utils/constant';
 import commonSchema from './common.schema.mjs';
 
-const objectID = mongoose.Schema.Types.ObjectId;
 // Liste des messages d'erreurs
 const ERROR_MESSAGE = {
   name: 'Le titre est requis !',
@@ -19,11 +18,11 @@ const ArticleSchema = new mongoose.Schema(
     drafted_at: Date,
     visibility: {
       type: String,
-      enum: constants.STATUS_VALUES,
-      default: 'DRAFTED',
+      enum: constants.ENUM_STATUS,
+      default: constants.ENUM_STATUS[0],
     },
 
-    author: { type: objectID, ref: constants.COLLECTION_NAME.user },
+    author: commonSchema.OBJECT_ID_REF_USER,
     content: {
       title: String,
       subtitle: String,

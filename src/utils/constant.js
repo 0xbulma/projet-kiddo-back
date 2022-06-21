@@ -9,17 +9,33 @@ export const COLLECTION_NAME = {
 };
 
 //Enumération des valeurs pré définis.
-export const RANKS_VALUES = ['USER', 'CONFIRMED_USER', 'MODERATOR', 'ADMINISTRATOR'];
-export const STATUS_VALUES = ['DRAFTED', 'UNLISTED', 'PUBLIC', 'DELETED'];
-export const REACTIONS_VALUES = ['LIKE', 'LOVE'];
-export const GENDER_VALUES = ['MALE', 'FEMALE', 'UNKNOWN'];
-export const SIGNALMENTS_VALUES = [
-  'Sexuellement suggestif',
-  'Violence',
-  'Harcélement',
-  'Fausses informations',
-  'Contenu indésirable',
-  'Ventes non autorisées',
-  'Discours haineux',
-  'Autre chose',
+export const ENUM_RANKS = ['USER', 'CONFIRMED_USER', 'MODERATOR', 'ADMINISTRATOR'];
+
+export const ENUM_STATUS = ['DRAFTED', 'UNLISTED', 'PUBLIC', 'DELETED'];
+
+export const ENUM_REACTIONS = ['LIKE', 'LOVE'];
+
+export const ENUM_GENDER = ['MALE', 'FEMALE', 'UNKNOWN'];
+
+export const ENUM_SIGNALMENTS = [
+  'NUDITY',
+  'VIOLENCE',
+  'HARASSMENT',
+  'WRONG_NEWS',
+  'SPAM',
+  'ILLEGAL_SALE',
+  'HATE_SPEECH',
+  'OTHER',
+];
+
+// Valeurs des énumerations
+export const SIGNALEMENTS_VALUES = [
+  { type: 'NUDITY', description: 'Sexuellement suggestif' },
+  { type: 'VIOLENCE', description: 'Violence' },
+  { type: 'HARASSMENT', description: 'Harcélement' },
+  { type: 'WRONG_NEWS', description: 'Fausses informations' },
+  { type: 'SPAM', description: 'Contenu indésirable' },
+  { type: 'ILLEGAL_SALE', description: 'Ventes non autorisées' },
+  { type: 'HATE_SPEECH', description: 'Discours haineux' },
+  { type: 'OTHER', description: 'Autre chose' },
 ];

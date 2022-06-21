@@ -1,10 +1,18 @@
 # Variables
 enum SignalingType {
-  TOTO
+  NUDITY
+  VIOLENCE
+  HARASSMENT
+  WRONG_NEWS
+  SPAM
+  ILLEGAL_SALE
+  HATE_SPEECH
+  OTHER
 }
 
 enum ReactionType {
-  TOTO
+  LIKE
+  LOVE
 }
 
 enum Status {
@@ -78,9 +86,4 @@ type CommentContent {
 type DateRange {
   start: DateTime
   end: DateTime
-}
-
-# Exemple
-type event {
-  comments: [EventComment]
 }
