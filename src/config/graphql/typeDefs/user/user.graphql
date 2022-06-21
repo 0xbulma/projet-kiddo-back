@@ -43,6 +43,7 @@ type User {
   last_name: String
   birthdate: Date
   phone: PhoneNumber
+  profession: String
   adress: Location
   gps: GeoLoc
 
