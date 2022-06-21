@@ -11,6 +11,6 @@ type Restriction {
 type Badge {
   _id: ObjectID
   name: String
-  Description: String
+  description: String
   icon_url: URL
 }
