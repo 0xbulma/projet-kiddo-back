@@ -1,0 +1,19 @@
+type Mutation {
+  createArticle(
+    input: ArticleInput
+  ): Article
+}
+
+input ArticleInput {
+  content: Content
+  author_id: ObjectID
+}
+
+input Content {
+  title: String
+  subtitle: String
+  description: String
+  message: String
+}
+
+
