@@ -1,29 +1,26 @@
 # Variables
 enum SignalingType {
-  TOTO
+  NUDITY
+  VIOLENCE
+  HARASSMENT
+  WRONG_NEWS
+  SPAM
+  ILLEGAL_SALE
+  HATE_SPEECH
+  OTHER
 }
 
 enum ReactionType {
-  TOTO
+  LIKE
+  LOVE
 }
 
 enum Status {
   DRAFTED
   CONFIRMED
+  TERMINATED
   CANCELED
 }
-
-#TODO: TEMPORARY
-type Category {
-  _id: ObjectID
-  name: String
-}
-
-type Restriction {
-  _id: ObjectID
-  name: String
-}
-#TODO: TEMPORARY
 
 # Common object
 type Location {
@@ -61,10 +58,10 @@ type Comment {
   created_at: DateTime
   modified_at: DateTime
   deleted_at: DateTime
-  contents: [CommentContent]
+  content: CommentContent
   reactions: [Reaction]
   pinned: Boolean
-  Signalments: [Signaled]
+  signalments: [Signaled]
 }
 
 type EventComment {
@@ -75,10 +72,10 @@ type EventComment {
   modified_at: DateTime
   deleted_at: DateTime
   event_review: Boolean
-  contents: [CommentContent]
+  content: CommentContent
   reactions: [Reaction]
   pinned: Boolean
-  Signalments: [Signaled]
+  signalments: [Signaled]
 }
 
 type CommentContent {
@@ -90,9 +87,4 @@ type CommentContent {
 type DateRange {
   start: DateTime
   end: DateTime
-}
-
-# Exemple
-type event {
-  comments: [EventComment]
 }

@@ -14,6 +14,7 @@ users : {
     last_name:
     birthdate:
     phone: (Vérification factive car payante)
+    profession:
     adress : [{ city, zipcode, adress_line_1$, adress_line_2$}]
     gps: {lat, lng}
 
@@ -59,14 +60,14 @@ events : {
     
     main_owner: owner_id
     co_owners: [owner_id]
-    content: {banner_url: *, title: X, subtitle: X, description: X, highlighted_message: {title: , message: }, message: X*, lang:}
+    content: {banner_url: *, title: X, subtitle: X, description: X, highlighted_message: {icon: title: , message: }, message: X*}
     content_media: {photos_url: [X], photos_main_url: X, video_url: X*}
 
     group_size: X
     group_participants: [{user_id: , booked_at: , group_detail: [{type: ADULT / CHILD, name: , age: X}]}]
     price:
 
-    event_dates : {started_at:, end_at: }
+    event_dates : {started_at: , end_at: }
     status: {type: drafted / confirmed / canceled}
 
     adress : [{ city, zipcode, adress_line_1$, adress_line_2$}]
@@ -105,8 +106,8 @@ articles: {
     visibility: ( Brouillon : 0 / Non répértorié : 1 / Public : 2) | enum
     
     author: user_id
-    content: {banner_url: *, title: X, subtitle: X, description: X, highlighted_message: {title: , message: }, message: X*, lang:}
-    content_media: {photos_url: [X], photos_main_url: X, video_url: X*}
+    content: {title: X, subtitle: X, description: X, highlighted_message: {title: , message: }, message: X*}
+    content_media: {banner_url: *, photos_url: [X], photos_main_url: X, video_url: X*}
 
     filters: [{keyword: }]
     categories: [enum]
@@ -145,24 +146,7 @@ restrictions {
     name:
 }
 
-<<<<<<< Updated upstream
-=======
-//comments: {
-    _id: (Généré par Mongoose)
-    type: event_id / user_id
-    childs_comment_id: child_comment_id
-    event_review : true / false
-    sender_id: 
-    created_at: date
-    modified_at: [{user_id, date}]
-    deleted_at: [{user_id, date, reason*}]
-    content: {title: X, message: X, photos_url: X}
-    reaction: [{type: X, sender_id: X }]
-    pinned: true/false
-    signaled: [{user_id: , signaled_at: , type: }]
-}
 
->>>>>>> Stashed changes
 =============================================================================================
 Comment ID
 

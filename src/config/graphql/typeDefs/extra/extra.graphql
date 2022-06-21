@@ -1,0 +1,16 @@
+type Category {
+  _id: ObjectID
+  name: String
+}
+
+type Restriction {
+  _id: ObjectID
+  name: String
+}
+
+type Badge {
+  _id: ObjectID
+  name: String
+  Description: String
+  icon_url: URL
+}
