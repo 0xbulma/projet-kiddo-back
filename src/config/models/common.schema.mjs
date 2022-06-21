@@ -1,6 +1,5 @@
 import * as check from 'validator';
-
-import constants from '../../utils/constant';
+import * as constants from '../../utils/constant.mjs';
 
 export const OBJECT_ID_REF_USER = {
   type: mongoose.Schema.Types.ObjectId,
@@ -15,20 +14,30 @@ export const OBJECT_ID_REF_ARTICLE = {
   ref: constants.COLLECTION_NAME.article,
 };
 
+export const OBJECT_ID_REF_CATEGORY = {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: constants.COLLECTION_NAME.category,
+};
+
+export const OBJECT_ID_REF_RESTRICTION = {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: constants.COLLECTION_NAME.restriction,
+};
+
 export const SCHEMA_OPTIONS = (withTimestamp) => {
   return withTimestamp
-    ? { versionKey: false, timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
+    ? { versionKey: false, timestamps: { created_at: 'created_at', updated_at: 'updated_at' } }
     : { versionKey: false };
 };
 
 export const REACTION = {
   reaction_type: { type: String, enum: constants.ENUM_REACTIONS },
-  sender_id: { type: objectID, ref: constants.COLLECTION_NAME.user },
+  sender_id: OBJECT_ID_REF_USER,
 };
 
 export const SIGNALMENT = {
   type: { type: String, enum: constants.ENUM_SIGNALMENTS },
-  sender_id: { type: mongoose.Schema.Types.ObjectId, ref: constants.COLLECTION_NAME.user },
+  sender_id: OBJECT_ID_REF_USER,
   signaled_at: { type: Date, default: Date.now },
 };
 
@@ -80,9 +89,7 @@ export const COMMENT = {
       {
         type: String,
         validate: {
-          validator: function (value) {
-            return check.isURL(value);
-          },
+          validator: (value) => check.isURL(value),
           message: (props) => `${props.value} n'est pas une URL valide!`,
         },
       },

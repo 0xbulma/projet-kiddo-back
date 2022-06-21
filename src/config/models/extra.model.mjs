@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import constants from '../../utils/constant';
+import constants from '../../utils/constant.mjs';
 import commonSchema from './common.schema.mjs';
 
 // Liste des messages d'erreurs
