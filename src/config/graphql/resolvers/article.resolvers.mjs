@@ -1,5 +1,5 @@
 export default {
   Query: {
-    toto: () => 'toto',
+    Articles: () => 'Articles',
   },
 };

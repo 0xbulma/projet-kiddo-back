@@ -75,7 +75,7 @@ type Participant {
 }
 
 type MemberDetail {
-  isChild: boolean
+  isChild: Boolean
   name: String
   age: NonNegativeInt
 }
