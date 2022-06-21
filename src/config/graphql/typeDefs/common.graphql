@@ -1,10 +1,18 @@
 # Variables
 enum SignalingType {
-  TOTO
+  NUDITY
+  VIOLENCE
+  HARASSMENT
+  WRONG_NEWS
+  SPAM
+  ILLEGAL_SALE
+  HATE_SPEECH
+  OTHER
 }
 
 enum ReactionType {
-  TOTO
+  LIKE
+  LOVE
 }
 
 enum Status {
@@ -13,18 +21,6 @@ enum Status {
   TERMINATED
   CANCELED
 }
-
-#TODO: TEMPORARY
-type Category {
-  _id: ObjectID
-  name: String
-}
-
-type Restriction {
-  _id: ObjectID
-  name: String
-}
-#TODO: TEMPORARY
 
 # Common object
 type Location {
@@ -91,9 +87,4 @@ type CommentContent {
 type DateRange {
   start: DateTime
   end: DateTime
-}
-
-# Exemple
-type event {
-  comments: [EventComment]
 }
