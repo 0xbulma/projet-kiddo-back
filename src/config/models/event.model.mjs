@@ -53,9 +53,7 @@ const EventSchema = new mongoose.Schema(
       zip_code: {
         type: String,
         validate: {
-          validator: function (value) {
-            return check.isPostalCode(value, any);
-          },
+          validator: (value) => check.isPostalCode(value, any),
           message: (props) => `${props.value} n'est pas un code postal valide!`,
         },
       },
@@ -66,38 +64,24 @@ const EventSchema = new mongoose.Schema(
       lat: {
         type: Number,
         validate: {
-          validator: function (value) {
-            return check.isLatLong(value);
-          },
+          validator: (value) => check.isLatLong(value),
           message: (props) => `${props.value} n'est pas une latitude valide!`,
         },
       },
       lng: {
         type: Number,
         validate: {
-          validator: function (value) {
-            return check.isLatLong(value);
-          },
+          validator: (value) => check.isLatLong(value),
           message: (props) => `${props.value} n'est pas une longitude valide!`,
         },
       },
     },
     filters: [{ type: String }],
-    categories: [
-      // TODO Ajouter les valeurs ENUM du fichier constante
-      {
-        _id: commonSchema.OBJECT_ID_REF_CATEGORY,
-        name: { type: String, enum: ['TOTO'] },
-      },
-    ],
-    restrictions: [
-      // TODO Ajouter les valeurs ENUM du fichier constante
-      {
-        _id: commonSchema.OBJECT_ID_REF_RESTRICTION,
-        name: { type: String, enum: ['TOTO'] },
-      },
-    ],
+    categories: [{ _id: commonSchema.OBJECT_ID_REF_CATEGORY }],
+    restrictions: [{ _id: commonSchema.OBJECT_ID_REF_RESTRICTION }],
+
     highlighted: { type: Boolean, default: false },
+
     signalments: [commonSchema.SIGNALMENT],
     reactions: [commonSchema.REACTION],
     comments: [commonSchema.COMMENT],
