@@ -1,3 +1,7 @@
+# Variables
+scalar ObjectID
+scalar URL
+
 type Category {
   _id: ObjectID
   name: String

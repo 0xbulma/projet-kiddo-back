@@ -1,10 +1,10 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-import * as commonSchema from './common.schema';
+import * as commonSchema from "./common.schema.mjs";
 
 // Liste des messages d'erreurs
 const ERROR_MESSAGE = {
-  name: 'Name is required',
+  name: "Name is required",
 };
 
 // Options du schema
@@ -32,6 +32,17 @@ const BadgeSchema = new mongoose.Schema(
   schemaOptions
 );
 
-export const categorySchema = mongoose.model('Category', CategorySchema, 'Categories');
-export const restrictionSchema = mongoose.model('Restriction', RestrictionSchema, 'Restrictions');
-export const badgeSchema = mongoose.model('Badge', BadgeSchema, 'Badges');
+export const categorySchema = mongoose.model(
+  "Category",
+  CategorySchema,
+  "Categories"
+);
+export const restrictionSchema = mongoose.model(
+  "Restriction",
+  RestrictionSchema,
+  "Restrictions"
+);
+export const badgeSchema = mongoose.model("Badge", BadgeSchema, "Badges");
+
+const toto = "toto";
+export default toto;
