@@ -73,7 +73,7 @@ const EventSchema = new mongoose.Schema(
           {
             isChild: { type: Boolean, default: false },
             name: { type: String },
-            age: { type: Number },
+            age: { type: Number, default: 0, min:[0, 'Age invalide']},
           },
         ],
       },
