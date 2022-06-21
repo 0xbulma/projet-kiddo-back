@@ -1,6 +1,6 @@
 type Mutation {
   createBadge(input: BadgeInput): Badge
-  modifyBAdge(input: ModifyBadgeInput): Badge
+  modifyBadge(input: ModifyBadgeInput): Badge
   deleteBadge(_id: ObjectID!): Badge
   createCategory(name: String): Category
   #modifyCategory(name: String): Category

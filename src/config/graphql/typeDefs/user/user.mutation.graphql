@@ -6,10 +6,11 @@ type Mutation {
 # Main Input
 ##############
 input UserInput {
-  rank_id: Rank
+  connection_history: [ConnectionHistoryInput]
+  rank: Rank
 
-  email: EmailAddress!
-  password: String!
+  email: EmailAddress
+  password: String
   oAuth_link: [String]
 
   pseudo: String
@@ -18,10 +19,29 @@ input UserInput {
   birthdate: Date
   phone: PhoneNumber
   profession: String
+  adress: LocationInput
+  gps: GeoLocInput
 
+  profil_picture: PictureInput
   description: String
 
+  children: [ChildInput]
   is_available: Boolean
+
+  friends_send_request: [ObjectID]
+  friends_receive_request: [ObjectID]
+  friends: [ObjectID]
+
+  badges: [BadgeInput]
+
+  pinned_events: [ObjectID]
+  booked_events: [ObjectID]
+  finished_events: [FinishedEventInput]
+
+  signalments: [SignaledInput]
+  reactions: [ReactionInput]
+
+  comments: [CommentInput]
 }
 
 ##############
