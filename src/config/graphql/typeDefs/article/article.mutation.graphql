@@ -5,11 +5,11 @@ type Mutation {
 }
 
 input ArticleInput {
-  content: Content
+  content: ContentInput
   author_id: ObjectID
 }
 
-input Content {
+input ContentInput {
   title: String
   subtitle: String
   description: String
