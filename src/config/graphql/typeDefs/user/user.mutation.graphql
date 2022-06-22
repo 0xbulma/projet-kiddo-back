@@ -1,5 +1,7 @@
 type Mutation {
   createUser(input: UserInput): User
+  modifyUser(_id: ObjectID!, input: UserInput!): User
+  removeUser(_id: ObjectID!): User
 }
 
 ##############

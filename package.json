@@ -5,7 +5,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon --experimental-specifier-resolution=node -e js,graphql ./src/server.js"
+    "dev": "nodemon --experimental-specifier-resolution=node -e mjs,js,graphql ./src/server.js"
   },
   "repository": {
     "type": "git",
@@ -30,7 +30,9 @@
     "graphql-list-fields": "^2.0.2",
     "graphql-scalars": "^1.17.0",
     "mongoose": "^6.3.8",
-    "nodemon": "^2.0.16",
     "validator": "^13.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
   }
 }
