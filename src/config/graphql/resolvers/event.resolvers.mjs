@@ -11,7 +11,7 @@ export default {
     },
     event: (parent, { id }, context, info) => {
       const fields = getFields(info);
-      return eventRepository.getEvent(id, fields);
+      return eventRepository.getEventById(id, fields);
     },
   },
 
@@ -21,13 +21,13 @@ export default {
       return eventRepository.createEvent(input, fields);
     },
 
-    updateEvent: (parent, { id, input }, ctx, info) => {
+    modifyEvent: (parent, { id, input }, ctx, info) => {
       const fields = getFields(info);
-      return eventRepository.updateEvent(id, input, fields);
+      return eventRepository.modifyEvent(id, input, fields);
     },
 
-    deleteEvent: (parent, { id }, ctx, info) => {
-      return eventRepository.deleteEvent(id);
+    removeEvent: (parent, { id }, ctx, info) => {
+      return eventRepository.removeEvent(id);
     },
   },
 };

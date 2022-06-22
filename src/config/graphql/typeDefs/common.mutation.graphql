@@ -17,13 +17,13 @@ input GeoLocInput {
 }
 
 input SignaledInput {
-  input: SignalingType
+  type: String
   sender_id: ObjectID
   signaled_at: DateTime
 }
 
 input ReactionInput {
-  input: ReactionType
+  type: String
   sender_id: ObjectID
 }
 

@@ -1,7 +1,7 @@
 type Mutation {
   createEvent(input: EventInput): Event
-  updateEvent(id: ObjectID!, input: EventInput): Event
-  deleteEvent(id: ObjectID!): Event
+  modifyEvent(id: ObjectID!, input: EventInput): Event
+  removeEvent(id: ObjectID!): Event
 }
 
 ##############
@@ -18,17 +18,17 @@ input EventInput {
   group_size: NonNegativeInt
   group_participants: [ParticipantInput]
   price: NonNegativeInt
-  # event_date: DateRangeInput
+  event_date: DateRangeInput
   status: String
-  # adress: LocationInput
-  # gps: GeoLocInput
+  adress: LocationInput
+  gps: GeoLocInput
   filters: [String]
   categories: [ObjectID]
   restrictions: [ObjectID]
   highlighted: Boolean
-  # signalments: [SignaledInput]
-  # reactions: [ReactionInput]
-  # comments: [EventCommentInput]
+  signalments: [SignaledInput]
+  reactions: [ReactionInput]
+  comments: [EventCommentInput]
 }
 
 ##############
