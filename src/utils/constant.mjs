@@ -8,6 +8,7 @@ export const COLLECTION_NAME = {
   badge: 'Badge',
   signalment: 'Signalment',
   reaction: 'Reaction',
+  comment: 'Comment'
 };
 
 //Enumération des valeurs pré définis.
@@ -21,10 +22,12 @@ export const ENUM_GENDER = ['MALE', 'FEMALE', 'UNKNOWN'];
 
 export const ENUM_SIGNALMENTS = ['NUDITY', 'VIOLENCE', 'HARASSMENT', 'WRONG_NEWS', 'SPAM', 'ILLEGAL_SALE', 'HATE_SPEECH', 'OTHER'];
 
-export const ENUM_COMMENT_TYPE = [
-  'USER',
-  'EVENT' 
-]
+
+// ENUM PLUS NECESSAIRE COMMENT MIS EN COLLECTION
+// export const COMMENT_TYPE = {
+//   USER: 'Utilisateur',
+//   EVENT: 'Événement',
+// };
  
 // Valeurs des énumerations
 export const SIGNALMENTS_VALUES = [

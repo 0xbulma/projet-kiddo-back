@@ -1,8 +1,4 @@
 # Variables
-enum CommentType {
-  USER
-  EVENT
-}
 enum Status {
   DRAFTED
   CONFIRMED
@@ -26,27 +22,6 @@ type Picture {
 type GeoLoc {
   lat: Latitude
   lng: Longitude
-}
-
-type Comment {
-  _id: ObjectID
-  commentType: CommentType
-  child_id: ObjectID
-  sender_id: ObjectID
-  created_at: DateTime
-  modified_at: DateTime
-  deleted_at: DateTime
-  event_review: Boolean
-  content: CommentContent
-  reactions: [Reaction]
-  pinned: Boolean
-  signalments: [Signalment]
-}
-
-type CommentContent {
-  title: String
-  message: String
-  photos_url: URL
 }
 
 type DateRange {

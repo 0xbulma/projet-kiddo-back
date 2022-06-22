@@ -84,7 +84,7 @@ const EventSchema = new mongoose.Schema(
 
     signalments: [commonSchema.SIGNALMENT],
     reactions: [commonSchema.REACTION],
-    comments: [commonSchema.COMMENT],
+    comments: [commonSchema.OBJECT_ID_REF_COMMENT],
   },
   schemaOptions
 );

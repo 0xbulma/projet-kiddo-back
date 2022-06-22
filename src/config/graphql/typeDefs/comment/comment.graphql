@@ -1,0 +1,18 @@
+type Comment {
+  _id: ObjectID
+  child_id: ObjectID
+  sender_id: ObjectID
+  created_at: DateTime
+  modified_at: DateTime
+  deleted_at: DateTime
+  content: CommentContent
+  reactions: [Reaction]
+  pinned: Boolean
+  signalments: [Signalment]
+}
+
+type CommentContent {
+  title: String
+  message: String
+  photos_url: URL
+}
