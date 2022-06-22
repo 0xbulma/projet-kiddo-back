@@ -5,29 +5,29 @@ const eventRepository = new EventRepository();
 
 export default {
   Query: {
-    events: (parent, args, context, info) => {
+    events: async (parent, args, context, info) => {
       const fields = getFields(info);
-      return eventRepository.getEvents(fields);
+      return await eventRepository.getEvents(fields);
     },
-    event: (parent, { id }, context, info) => {
+    event: async (parent, { id }, context, info) => {
       const fields = getFields(info);
-      return eventRepository.getEventById(id, fields);
+      return await eventRepository.getEventById(id, fields);
     },
   },
 
   Mutation: {
-    createEvent: (parent, { input }, ctx, info) => {
+    createEvent: async (parent, { input }, ctx, info) => {
       const fields = getFields(info);
-      return eventRepository.createEvent(input, fields);
+      return await eventRepository.createEvent(input, fields);
     },
 
-    modifyEvent: (parent, { id, input }, ctx, info) => {
+    modifyEvent: async (parent, { id, input }, ctx, info) => {
       const fields = getFields(info);
-      return eventRepository.modifyEvent(id, input, fields);
+      return await eventRepository.modifyEvent(id, input, fields);
     },
 
-    removeEvent: (parent, { id }, ctx, info) => {
-      return eventRepository.removeEvent(id);
+    removeEvent: async (parent, { id }, ctx, info) => {
+      return await eventRepository.removeEvent(id);
     },
   },
 };

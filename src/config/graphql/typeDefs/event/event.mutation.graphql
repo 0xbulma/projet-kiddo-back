@@ -28,7 +28,7 @@ input EventInput {
   highlighted: Boolean
   signalments: [ObjectID]
   reactions: [ObjectID]
-  comments: [CommentInput]
+  comments: [ObjectID]
 }
 
 ##############

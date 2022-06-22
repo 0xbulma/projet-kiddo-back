@@ -35,3 +35,14 @@ export const COMMENT_TYPE = {
   USER: 'Utilisateur',
   EVENT: 'Événement',
 };
+
+export const SIGNALMENTS_VALUES = [
+  { type: 'NUDITY', description: 'Sexuellement suggestif' },
+  { type: 'VIOLENCE', description: 'Violence' },
+  { type: 'HARASSMENT', description: 'Harcélement' },
+  { type: 'WRONG_NEWS', description: 'Fausses informations' },
+  { type: 'SPAM', description: 'Contenu indésirable' },
+  { type: 'ILLEGAL_SALE', description: 'Ventes non autorisées' },
+  { type: 'HATE_SPEECH', description: 'Discours haineux' },
+  { type: 'OTHER', description: 'Autre chose' },
+];

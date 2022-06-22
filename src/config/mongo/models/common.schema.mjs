@@ -31,6 +31,11 @@ export const OBJECT_ID_REF_BADGE = {
   ref: constants.COLLECTION_NAME.BADGE,
 };
 
+export const OBJECT_ID_REF_COMMENT = {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: constants.COLLECTION_NAME.comment,
+};
+
 export const SCHEMA_OPTIONS = (withTimestamp) => {
   return withTimestamp
     ? {

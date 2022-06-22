@@ -30,11 +30,10 @@ const ArticleSchema = new mongoose.Schema(
       message: String,
     },
     content_media: commonSchema.CONTENT_MEDIA,
-
     filters: [String],
     highlighted: { type: Boolean, default: false },
     reactions: [commonSchema.REACTION],
-    comments: [commonSchema.COMMENT],
+    comments: [commonSchema.OBJECT_ID_REF_COMMENT],
   },
   schemaOptions
 );
