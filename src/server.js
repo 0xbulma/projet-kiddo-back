@@ -43,8 +43,8 @@ async function startApolloServer() {
   server.applyMiddleware({ app, path: '/' });
 
   // Création d'une promesse de connexion
-  await new Promise((resolve) => httpServer.listen(process.env.BACK_PORT, resolve));
-  console.log(`[Serveur] Démarré avec succès : http://localhost:${process.env.BACK_PORT}`);
+  await new Promise((resolve) => httpServer.listen(process.env.PORT, resolve));
+  console.log(`[Serveur] Démarré avec succès : http://localhost:${process.env.PORT}`);
 
   // DB : Connexion
   connectToDB();
