@@ -14,6 +14,8 @@ import { typeDefs as scalarsTypedefs, resolvers as scalarsResolvers } from 'grap
 
 import { connectToDB } from './config/database.mjs';
 
+// console.log("toto");
+
 // Initialisation des paramètres de l'application
 async function startApolloServer() {
   const app = express();

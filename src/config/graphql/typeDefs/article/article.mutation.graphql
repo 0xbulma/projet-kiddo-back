@@ -2,6 +2,13 @@ type Mutation {
   createArticle(
     input: ArticleInput
   ): Article
+  updateArticle(
+    id: ObjectID!
+    input: ArticleInput
+  ): Article
+  deleteArticle(
+    id: ObjectID!
+  ): String
 }
 
 input ArticleInput {
@@ -15,5 +22,3 @@ input ContentInput {
   description: String
   message: String
 }
-
-

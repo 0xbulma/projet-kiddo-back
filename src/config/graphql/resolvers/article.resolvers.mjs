@@ -4,13 +4,21 @@ const articleRepository = new ArticleRepository();
 
 export default {
   Query: {
-    Articles: () => 'Articles',
+    Articles: () => articleRepository.getArticles(),
+    Article: (_, { id }) => articleRepository.getArticle(id)
   },
   
   Mutation: {
     createArticle: (parent, { articleInput }, ctx, info) => {
-      const createdArticle = articleRepository.createArticle(articleInput);
-      return createdArticle;
+      return articleRepository.createArticle(articleInput);
+    },
+    
+    updateArticle: (parent, { id, input }, ctx, info) => {
+      return articleRepository.updateArticle(id, input);
+    },
+    
+    deleteArticle: (parent, { id }, ctx, info) => {
+      return articleRepository.deleteArticle(id);
     }
   },
 };

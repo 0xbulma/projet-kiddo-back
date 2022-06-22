@@ -22,6 +22,6 @@ export default class ArticleRepository {
   }
   
   async deleteArticle(id) {
-    return await this.model.findByIdAndDelete(id);
+    return await this.model.findByIdAndRemove(id);
   }
 }
