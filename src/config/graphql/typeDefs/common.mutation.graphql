@@ -1,10 +1,9 @@
-
 type Mutation {
-  createComment(input: CommentInput): 
-  modifyComment(id: ObjectID!, input: CommentInput): 
-  removeComment(id: ObjectID!): 
+  createComment(input: CommentInput): Comment
+  modifyComment(id: ObjectID!, input: CommentInput): Comment
+  removeComment(id: ObjectID!): Comment
 }
-  
+
 # Common input
 input LocationInput {
   city: String
@@ -33,9 +32,9 @@ input CommentInput {
   deleted_at: DateTime
   event_review: Boolean
   content: CommentContentInput
-  reactions: [ReactionInput]
+  reactions: [ObjectID]
   pinned: Boolean
-  signalments: [SignaledInput]
+  signalments: [ObjectID]
 }
 
 input CommentContentInput {

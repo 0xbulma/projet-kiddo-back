@@ -7,14 +7,10 @@ const userRepository = new UserRepository();
 
 export default {
   Query: {
-    comments: (parent, {isEvent}, context, info) => {
-      switch()
-
-      
+    comments: (parent, { isEvent }, context, info) => {
       return eventRepository.getEvents(fields);
     },
     comment: (parent, { id }, context, info) => {
-      
       return eventRepository.getEventById(id, fields);
     },
   },

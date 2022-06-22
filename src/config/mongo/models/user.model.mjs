@@ -8,7 +8,7 @@ const schemaOptions = commonSchema.SCHEMA_OPTIONS(true);
 
 const EventSchema = new mongoose.Schema(
   {
-    rank: { type: String, enum: constants.ENUM_RANKS, default: constants.ENUM_RANKS[0] },
+    rank: { type: String, enum: constants.RANKS_VALUES, default: constants.RANKS_VALUES.USER },
     connection_history: [
       {
         ip: {
@@ -118,8 +118,8 @@ const EventSchema = new mongoose.Schema(
         name: { type: String },
         gender: {
           type: String,
-          enum: constants.ENUM_GENDER,
-          default: constants.ENUM_GENDER['UNKNOWN'],
+          enum: constants.GENDER_VALUES,
+          default: constants.GENDER_VALUES.UNKNOWN,
         },
         age: { type: Number, default: 0, min: [0, 'doit être supérieur à 0'] },
       },
