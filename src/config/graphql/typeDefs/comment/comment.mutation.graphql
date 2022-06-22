@@ -5,10 +5,9 @@ type Mutation {
 }
 
 input CommentInput {
+  parent_id: ObjectID
   child_id: ObjectID
   sender_id: ObjectID
-  created_at: DateTime
-  modified_at: DateTime
   deleted_at: DateTime
   content: CommentContentInput
   reactions: [ObjectID]

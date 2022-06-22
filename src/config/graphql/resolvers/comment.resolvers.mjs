@@ -12,15 +12,14 @@ export default {
   },
 
   Mutation: {
-    createComment: async (parent, { id, input }, ctx, info) => {
-        return await commentRepository.createComment(id, input);
-      },
-    modifyComment: (parent, { id, input }, ctx, info) => {
+    createComment: async (parent, { input }, ctx, info) => {
+      return await commentRepository.createComment(input);
+    },
+    modifyComment: async (parent, { id, input }, ctx, info) => {
       return await commentRepository.modifyComment(id, input);
-      },
-    removeComment: (parent, { id }, ctx, info) => {
+    },
+    removeComment: async (parent, { id }, ctx, info) => {
       return await commentRepository.removeComment(id);
     },
   },
 };
-
