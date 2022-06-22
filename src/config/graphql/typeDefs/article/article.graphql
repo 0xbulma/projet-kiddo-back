@@ -44,11 +44,6 @@ type Content {
   title: String
   subtitle: String
   description: String
-  highlighted_message: [HighlightedMessage]
-}
-
-type HighlightedMessage {
-  title: String
   message: String
 }
 

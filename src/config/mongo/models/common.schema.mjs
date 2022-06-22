@@ -5,30 +5,30 @@ import * as constants from '../../../utils/constant.mjs';
 
 export const OBJECT_ID_REF_USER = {
   type: mongoose.Schema.Types.ObjectId,
-  ref: constants.COLLECTION_NAME.user,
+  ref: constants.COLLECTION_NAME.USER,
 };
 export const OBJECT_ID_REF_EVENT = {
   type: mongoose.Schema.Types.ObjectId,
-  ref: constants.COLLECTION_NAME.event,
+  ref: constants.COLLECTION_NAME.EVENT,
 };
 export const OBJECT_ID_REF_ARTICLE = {
   type: mongoose.Schema.Types.ObjectId,
-  ref: constants.COLLECTION_NAME.article,
+  ref: constants.COLLECTION_NAME.ARTICLE,
 };
 
 export const OBJECT_ID_REF_CATEGORY = {
   type: mongoose.Schema.Types.ObjectId,
-  ref: constants.COLLECTION_NAME.category,
+  ref: constants.COLLECTION_NAME.CATEGORY,
 };
 
 export const OBJECT_ID_REF_RESTRICTION = {
   type: mongoose.Schema.Types.ObjectId,
-  ref: constants.COLLECTION_NAME.restriction,
+  ref: constants.COLLECTION_NAME.RESTRICTION,
 };
 
 export const OBJECT_ID_REF_BADGE = {
   type: mongoose.Schema.Types.ObjectId,
-  ref: constants.COLLECTION_NAME.badge,
+  ref: constants.COLLECTION_NAME.BADGE,
 };
 
 export const OBJECT_ID_REF_COMMENT = {
@@ -46,12 +46,12 @@ export const SCHEMA_OPTIONS = (withTimestamp) => {
 };
 
 export const REACTION = {
-  type: { type: mongoose.Schema.Types.ObjectId, ref: constants.COLLECTION_NAME.reaction },
+  type: { type: mongoose.Schema.Types.ObjectId, ref: constants.COLLECTION_NAME.REACTION },
   sender_id: OBJECT_ID_REF_USER,
 };
 
 export const SIGNALMENT = {
-  type: { type: mongoose.Schema.Types.ObjectId, ref: constants.COLLECTION_NAME.signalment },
+  type: { type: mongoose.Schema.Types.ObjectId, ref: constants.COLLECTION_NAME.SIGNLAMENT },
   sender_id: OBJECT_ID_REF_USER,
   signaled_at: { type: Date, default: Date.now },
 };
@@ -89,5 +89,28 @@ export const CONTENT_MEDIA = {
   },
 };
 
-const toto = 'toto';
-export default toto;
+export const COMMENT = {
+  _id: { type: String },
+  child_id: { type: String },
+  sender_id: OBJECT_ID_REF_USER,
+  created_at: { type: Date, default: Date.now },
+  modified_at: { type: Date, default: Date.now },
+  deleted_at: { type: Date, default: Date.now },
+  event_review: { type: Boolean, default: false },
+  content: {
+    title: { type: String },
+    message: { type: String },
+    photos_url: [
+      {
+        type: String,
+        validate: {
+          validator: (value) => check.isURL(value),
+          message: (props) => `${props.value} n'est pas une URL valide!`,
+        },
+      },
+    ],
+  },
+  reactions: [REACTION],
+  pinned: { type: Boolean, default: false },
+  signalments: [SIGNALMENT],
+};

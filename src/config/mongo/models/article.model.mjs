@@ -18,8 +18,8 @@ const ArticleSchema = new mongoose.Schema(
     drafted_at: Date,
     visibility: {
       type: String,
-      enum: constants.ENUM_STATUS,
-      default: constants.ENUM_STATUS[0],
+      enum: constants.STATUS_VALUES,
+      default: constants.STATUS_VALUES.DRAFTED,
     },
 
     author: commonSchema.OBJECT_ID_REF_USER,

@@ -1,0 +1,32 @@
+type Mutation {
+  createArticle(input: ArticleInput): Article
+  updateArticle(id: ObjectID!, input: ArticleInput): Article
+  deleteArticle(id: ObjectID!): String
+}
+
+input ArticleInput {
+  drafted_at: DateTime
+  published_at: DateTime
+
+  author_id: ObjectID
+  content: ContentInput
+  content_media: ContentMediaInput
+
+  status: String
+
+  filters: [String]
+  categories: [ObjectID]
+
+  highlighted: Boolean
+  signalments: [ObjectID]
+  reactions: [ObjectID]
+
+  comments: [ObjectID]
+}
+
+input ContentInput {
+  title: String
+  subtitle: String
+  description: String
+  message: String
+}
