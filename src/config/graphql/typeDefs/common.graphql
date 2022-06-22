@@ -1,4 +1,8 @@
 # Variables
+enum CommentType {
+  USER
+  EVENT
+}
 enum Status {
   DRAFTED
   CONFIRMED
@@ -26,6 +30,7 @@ type GeoLoc {
 
 type Comment {
   _id: ObjectID
+  commentType: CommentType
   child_id: ObjectID
   sender_id: ObjectID
   created_at: DateTime

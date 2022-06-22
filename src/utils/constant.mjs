@@ -21,6 +21,11 @@ export const ENUM_GENDER = ['MALE', 'FEMALE', 'UNKNOWN'];
 
 export const ENUM_SIGNALMENTS = ['NUDITY', 'VIOLENCE', 'HARASSMENT', 'WRONG_NEWS', 'SPAM', 'ILLEGAL_SALE', 'HATE_SPEECH', 'OTHER'];
 
+export const ENUM_COMMENT_TYPE = [
+  'USER',
+  'EVENT' 
+]
+ 
 // Valeurs des énumerations
 export const SIGNALMENTS_VALUES = [
   { type: 'NUDITY', description: 'Sexuellement suggestif' },

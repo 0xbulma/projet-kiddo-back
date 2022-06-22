@@ -1,7 +1,7 @@
 import eventModel from '../models/event.model.mjs';
 
 const POPULATE_EVENT =
-  'main_owner co_owners group_participants categories restrictions signalments reactions';
+  'main_owner co_owners group_participants categories restrictions';
 
 export default class EventRepository {
   // Récupération des données liées à l'évènement
