@@ -21,7 +21,7 @@ type Article {
   drafted_at: DateTime
   published_at: DateTime
 
-  author_id: User
+  author: User
   content: Content
   content_media: ContentMedia
 

@@ -1,7 +1,6 @@
 import eventModel from '../models/event.model.mjs';
 
-const POPULATE_EVENT =
-  'main_owner co_owners group_participants categories restrictions';
+const POPULATE_EVENT = 'main_owner co_owners group_participants categories restrictions signalments reactions comments';
 
 export default class EventRepository {
   // Récupération des données liées à l'évènement
@@ -10,7 +9,7 @@ export default class EventRepository {
   }
 
   async getEventById(eventId) {
-    return await eventModel.findById(eventId).populate(POPULATE_EVENT).exec();
+    return await eventModel.findOne(eventId).populate(POPULATE_EVENT).exec();
   }
 
   // Création et modification de l'évènement
@@ -19,15 +18,11 @@ export default class EventRepository {
   }
 
   async modifyEvent(eventId, eventInput, fields) {
-    return await eventModel
-      .findByIdAndUpdate(eventId, eventInput, { new: true })
-      .populate(POPULATE_EVENT)
-      .exec();
-    //.select(fields).populate('Users', fields);
+    return await eventModel.findOneAndUpdate(eventId, eventInput, { new: true }).populate(POPULATE_EVENT).exec();
   }
 
   async removeEvent(eventId) {
-    return await eventModel.findByIdAndRemove(eventId);
+    return await eventModel.findOneAndRemove(eventId);
   }
 
   async removeEvents(idsArray) {

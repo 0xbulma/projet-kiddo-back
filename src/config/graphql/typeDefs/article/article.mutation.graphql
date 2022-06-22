@@ -1,7 +1,7 @@
 type Mutation {
   createArticle(input: ArticleInput): Article
-  updateArticle(id: ObjectID!, input: ArticleInput): Article
-  deleteArticle(id: ObjectID!): String
+  modifyArticle(id: ObjectID!, input: ArticleInput): Article
+  removeArticle(id: ObjectID!): String
 }
 
 input ArticleInput {

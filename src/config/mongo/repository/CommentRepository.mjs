@@ -9,7 +9,7 @@ export default class CommentRepository {
   }
 
   async getById(id) {
-    return await commentModel.findById(id);
+    return await commentModel.findOne(id);
   }
 
   //==========================================
@@ -20,11 +20,11 @@ export default class CommentRepository {
   }
 
   async modifyComment(id, input) {
-    return await commentModel.findByIdAndUpdate(id, input, { new: true });
+    return await commentModel.findOneAndUpdate(id, input, { new: true });
   }
 
   async removeComment(id) {
-    return await commentModel.findByIdAndRemove(id);
+    return await commentModel.findOneAndRemove(id);
   }
 
   async removeComments(idsArray) {

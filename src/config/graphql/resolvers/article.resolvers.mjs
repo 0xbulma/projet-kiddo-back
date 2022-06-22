@@ -4,8 +4,8 @@ const articleRepository = new ArticleRepository();
 
 export default {
   Query: {
-    Articles: () => articleRepository.getArticles(),
-    Article: (parent, { id }) => articleRepository.getArticle(id),
+    Articles: () => articleRepository.getAll(),
+    Article: (parent, { id }) => articleRepository.getById(id),
   },
 
   Mutation: {
@@ -13,12 +13,12 @@ export default {
       return articleRepository.createArticle(input);
     },
 
-    updateArticle: (parent, { id, input }, ctx, info) => {
-      return articleRepository.updateArticle(id, input);
+    modifyArticle: (parent, { id, input }, ctx, info) => {
+      return articleRepository.modifyArticle(id, input);
     },
 
-    deleteArticle: (parent, { id }, ctx, info) => {
-      return articleRepository.deleteArticle(id);
+    removeArticle: (parent, { id }, ctx, info) => {
+      return articleRepository.removeArticle(id);
     },
   },
 };

@@ -1,7 +1,16 @@
 type Query {
-  Categories: [Category]
-  Restrictions: [Restriction]
   Badges: [Badge]
+  Badge: Badge
+
+  Categories: [Category]
+  Categorie: Category
+
+  Restrictions: [Restriction]
+  Restriction: Restriction
+
   Signalments: [Signalment]
+  Signalment: Signalment
+
   Reactions: [Reaction]
+  Reaction: Reaction
 }

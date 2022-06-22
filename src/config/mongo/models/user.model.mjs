@@ -186,13 +186,12 @@ const UserSchema = new mongoose.Schema(
   schemaOptions
 );
 
-import CommentRepository from '../repository/CommentRepository.mjs'
+import CommentRepository from '../repository/CommentRepository.mjs';
 
 UserSchema.post('findOneAndRemove', (doc, next) => {
   // EN CONSTRUCTION A VERIFIER LA STRUCTURE DES ARGUMENTS DE REMOVECOMMENTS
-  new CommentRepository().removeComments(doc.comments)
+  new CommentRepository().removeComments(doc.comments);
   next();
 });
-
 
 export default mongoose.model('User', UserSchema, 'Users');
