@@ -3,6 +3,7 @@ enum CommentType {
   USER
   EVENT
 }
+
 enum Status {
   DRAFTED
   CONFIRMED

@@ -47,7 +47,7 @@ const EventSchema = new mongoose.Schema(
       start: { type: Date, default: Date.now },
       end: { type: Date, default: Date.now },
     },
-    status: { type: String, enum: constants.ENUM_STATUS, default: constants.ENUM_STATUS[0] },
+    status: { type: String, enum: constants.STATUS_VALUES, default: constants.STATUS_VALUES.DRAFTED },
     address: {
       city: { type: String },
       zip_code: {
