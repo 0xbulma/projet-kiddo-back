@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
-import * as constants from '../../../utils/constant';
-import * as commonSchema from './common.schema';
+import * as constants from '../../../utils/constant.mjs';
+import * as commonSchema from './common.schema.mjs';
 
 // Liste des messages d'erreurs
 const ERROR_MESSAGE = {
