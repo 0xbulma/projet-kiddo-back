@@ -5,20 +5,20 @@ const articleRepository = new ArticleRepository();
 export default {
   Query: {
     Articles: () => articleRepository.getArticles(),
-    Article: (_, { id }) => articleRepository.getArticle(id)
+    Article: (parent, { id }) => articleRepository.getArticle(id),
   },
-  
+
   Mutation: {
-    createArticle: (parent, { articleInput }, ctx, info) => {
-      return articleRepository.createArticle(articleInput);
+    createArticle: (parent, { input }, ctx, info) => {
+      return articleRepository.createArticle(input);
     },
-    
+
     updateArticle: (parent, { id, input }, ctx, info) => {
       return articleRepository.updateArticle(id, input);
     },
-    
+
     deleteArticle: (parent, { id }, ctx, info) => {
       return articleRepository.deleteArticle(id);
-    }
+    },
   },
 };

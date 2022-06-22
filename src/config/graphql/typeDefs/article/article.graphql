@@ -47,11 +47,6 @@ type Content {
   message: String
 }
 
-# type HighlightedMessage {
-#   title: String
-#   message: String
-# }
-
 type ContentMedia {
   photos_url: [URL]
   photo_main_url: URL
