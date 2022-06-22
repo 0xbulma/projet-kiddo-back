@@ -41,10 +41,10 @@ type Event {
   restrictions: [Restriction]
 
   highlighted: Boolean
-  signalments: [Signaled]
+  signalments: [Signalment]
   reactions: [Reaction]
 
-  comments: [EventComment]
+  comments: [Comment]
 }
 
 ##############

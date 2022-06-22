@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-import { default as check } from "validator";
-import * as constants from "../../../utils/constant.mjs";
+import { default as check } from 'validator';
+import * as constants from '../../../utils/constant.mjs';
 
 export const OBJECT_ID_REF_USER = {
   type: mongoose.Schema.Types.ObjectId,
@@ -35,18 +35,18 @@ export const SCHEMA_OPTIONS = (withTimestamp) => {
   return withTimestamp
     ? {
         versionKey: false,
-        timestamps: { createdAt: "created_at", updatedAt: "updated_at" },
+        timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
       }
     : { versionKey: false };
 };
 
 export const REACTION = {
-  reaction_type: { type: String, enum: constants.ENUM_REACTIONS },
+  type: { type: mongoose.Schema.Types.ObjectId, ref: constants.COLLECTION_NAME.reaction },
   sender_id: OBJECT_ID_REF_USER,
 };
 
 export const SIGNALMENT = {
-  type: { type: String, enum: constants.ENUM_SIGNALMENTS },
+  type: { type: mongoose.Schema.Types.ObjectId, ref: constants.COLLECTION_NAME.signalment },
   sender_id: OBJECT_ID_REF_USER,
   signaled_at: { type: Date, default: Date.now },
 };
@@ -113,5 +113,5 @@ export const COMMENT = {
   signalments: [SIGNALMENT],
 };
 
-const toto = "toto";
+const toto = 'toto';
 export default toto;

@@ -6,6 +6,8 @@ export const COLLECTION_NAME = {
   category: 'Category',
   restriction: 'Restriction',
   badge: 'Badge',
+  signalment: 'Signalment',
+  reaction: 'Reaction',
 };
 
 //Enumération des valeurs pré définis.
@@ -17,16 +19,7 @@ export const ENUM_REACTIONS = ['LIKE', 'LOVE'];
 
 export const ENUM_GENDER = ['MALE', 'FEMALE', 'UNKNOWN'];
 
-export const ENUM_SIGNALMENTS = [
-  'NUDITY',
-  'VIOLENCE',
-  'HARASSMENT',
-  'WRONG_NEWS',
-  'SPAM',
-  'ILLEGAL_SALE',
-  'HATE_SPEECH',
-  'OTHER',
-];
+export const ENUM_SIGNALMENTS = ['NUDITY', 'VIOLENCE', 'HARASSMENT', 'WRONG_NEWS', 'SPAM', 'ILLEGAL_SALE', 'HATE_SPEECH', 'OTHER'];
 
 export const ENUM_COMMENT_TYPE = [
   'USER',
@@ -34,7 +27,7 @@ export const ENUM_COMMENT_TYPE = [
 ]
  
 // Valeurs des énumerations
-export const SIGNALEMENTS_VALUES = [
+export const SIGNALMENTS_VALUES = [
   { type: 'NUDITY', description: 'Sexuellement suggestif' },
   { type: 'VIOLENCE', description: 'Violence' },
   { type: 'HARASSMENT', description: 'Harcélement' },

@@ -23,18 +23,7 @@ input GeoLocInput {
   lng: Longitude
 }
 
-input SignaledInput {
-  type: String
-  sender_id: ObjectID
-  signaled_at: DateTime
-}
-
-input ReactionInput {
-  type: String
-  sender_id: ObjectID
-}
-
-input Comment {
+input CommentInput {
   _id: ObjectID
   commentType: String
   child_id: ObjectID
