@@ -28,6 +28,11 @@ export const ENUM_SIGNALMENTS = [
   'OTHER',
 ];
 
+export const ENUM_COMMENT_TYPE = [
+  'USER',
+  'EVENT' 
+]
+ 
 // Valeurs des énumerations
 export const SIGNALEMENTS_VALUES = [
   { type: 'NUDITY', description: 'Sexuellement suggestif' },

@@ -1,4 +1,9 @@
 # Variables
+enum CommentType {
+  USER
+  EVENT
+}
+
 enum SignalingType {
   NUDITY
   VIOLENCE
@@ -53,19 +58,7 @@ type Reaction {
 
 type Comment {
   _id: ObjectID
-  child_id: ObjectID
-  sender_id: ObjectID
-  created_at: DateTime
-  modified_at: DateTime
-  deleted_at: DateTime
-  content: CommentContent
-  reactions: [Reaction]
-  pinned: Boolean
-  signalments: [Signaled]
-}
-
-type EventComment {
-  _id: ObjectID
+  commentType: CommentType
   child_id: ObjectID
   sender_id: ObjectID
   created_at: DateTime
