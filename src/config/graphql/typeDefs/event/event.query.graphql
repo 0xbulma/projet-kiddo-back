@@ -1,3 +1,4 @@
 type Query {
-  Events: [Event]
+    events: [Event]
+    event(id: ObjectID!): Event
 }
