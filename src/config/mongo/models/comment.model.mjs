@@ -8,11 +8,9 @@ const schemaOptions = commonSchema.SCHEMA_OPTIONS(true);
 
 const CommentSchema = new mongoose.Schema(
   {
-    child_id: { type: String },
-    sender_id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: constants.COLLECTION_NAME.USER,
-    },
+    parent_id: commonSchema.OBJECT_ID_REF_COMMENT,
+    child_id: commonSchema.OBJECT_ID_REF_COMMENT,
+    sender_id: commonSchema.OBJECT_ID_REF_USER,
     deleted_at: { type: Date, default: Date.now },
     content: {
       title: { type: String },
@@ -27,9 +25,9 @@ const CommentSchema = new mongoose.Schema(
         },
       ],
     },
-    reactions: [REACTION],
+    reactions: [commonSchema.REACTION],
     pinned: { type: Boolean, default: false },
-    signalments: [SIGNALMENT],
+    signalments: [commonSchema.REACTION],
   },
   schemaOptions
 );

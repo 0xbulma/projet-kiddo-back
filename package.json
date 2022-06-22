@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon -L --experimental-specifier-resolution=node -e js,mjs,gql,graphql ./src/server.js"
+    "dev": "nodemon -L -e js,mjs,gql,graphql ./src/server.js",
+    "start": "node src/server.js"
   },
   "repository": {
     "type": "git",
