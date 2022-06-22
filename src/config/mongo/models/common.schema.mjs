@@ -41,12 +41,12 @@ export const SCHEMA_OPTIONS = (withTimestamp) => {
 };
 
 export const REACTION = {
-  type: { type: String, enum: constants.ENUM_REACTIONS },
+  type: { type: mongoose.Schema.Types.ObjectId, ref: constants.COLLECTION_NAME.reaction },
   sender_id: OBJECT_ID_REF_USER,
 };
 
 export const SIGNALMENT = {
-  type: { type: String, enum: constants.ENUM_SIGNALMENTS },
+  type: { type: mongoose.Schema.Types.ObjectId, ref: constants.COLLECTION_NAME.signalment },
   sender_id: OBJECT_ID_REF_USER,
   signaled_at: { type: Date, default: Date.now },
 };

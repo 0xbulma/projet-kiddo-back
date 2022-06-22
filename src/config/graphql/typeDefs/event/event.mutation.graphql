@@ -26,9 +26,9 @@ input EventInput {
   categories: [ObjectID]
   restrictions: [ObjectID]
   highlighted: Boolean
-  signalments: [SignaledInput]
-  reactions: [ReactionInput]
-  comments: [EventCommentInput]
+  signalments: [ObjectID]
+  reactions: [ObjectID]
+  comments: [CommentInput]
 }
 
 ##############

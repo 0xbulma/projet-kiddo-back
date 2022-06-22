@@ -63,7 +63,7 @@ type User {
   booked_events: [BookedEvent]
   finished_events: [FinishedEvent]
 
-  signalments: [Signaled]
+  signalments: [Signalment]
   reactions: [Reaction]
 
   comments: [Comment]
