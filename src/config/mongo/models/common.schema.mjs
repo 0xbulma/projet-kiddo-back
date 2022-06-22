@@ -88,29 +88,3 @@ export const CONTENT_MEDIA = {
     },
   },
 };
-
-export const COMMENT = {
-  _id: { type: String },
-  child_id: { type: String },
-  sender_id: OBJECT_ID_REF_USER,
-  created_at: { type: Date, default: Date.now },
-  modified_at: { type: Date, default: Date.now },
-  deleted_at: { type: Date, default: Date.now },
-  event_review: { type: Boolean, default: false },
-  content: {
-    title: { type: String },
-    message: { type: String },
-    photos_url: [
-      {
-        type: String,
-        validate: {
-          validator: (value) => check.isURL(value),
-          message: (props) => `${props.value} n'est pas une URL valide!`,
-        },
-      },
-    ],
-  },
-  reactions: [REACTION],
-  pinned: { type: Boolean, default: false },
-  signalments: [SIGNALMENT],
-};

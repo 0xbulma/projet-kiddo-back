@@ -1,9 +1,3 @@
-type Mutation {
-  createComment(input: CommentInput): Comment
-  modifyComment(id: ObjectID!, input: CommentInput): Comment
-  removeComment(id: ObjectID!): Comment
-}
-
 # Common input
 input LocationInput {
   city: String
@@ -20,27 +14,6 @@ input PictureInput {
 input GeoLocInput {
   lat: Latitude
   lng: Longitude
-}
-
-input CommentInput {
-  _id: ObjectID
-  commentType: String
-  child_id: ObjectID
-  sender_id: ObjectID
-  created_at: DateTime
-  modified_at: DateTime
-  deleted_at: DateTime
-  event_review: Boolean
-  content: CommentContentInput
-  reactions: [ObjectID]
-  pinned: Boolean
-  signalments: [ObjectID]
-}
-
-input CommentContentInput {
-  title: String
-  message: String
-  photos_url: URL
 }
 
 input DateRangeInput {

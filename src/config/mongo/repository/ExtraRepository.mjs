@@ -99,7 +99,8 @@ export default class ExtraRepository {
     switch (type) {
       case EXTRA_TYPES.CATEGORY:
         break;
-      case EXTRA_TYPES.SIGNALMENT:
+      case EXTRA_TYPES.RESTRICTION:
+        return await extraSchema.restrictionSchema.create({ name });
         break;
       case EXTRA_TYPES.SIGNALMENT:
         break;
