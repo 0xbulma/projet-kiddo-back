@@ -18,3 +18,13 @@ type Badge {
   description: String
   icon_url: URL
 }
+
+type Signalment {
+  _id: ObjectID
+  name: String
+}
+
+type Reaction {
+  _id: ObjectID
+  name: String
+}

@@ -1,3 +1,10 @@
+
+type Mutation {
+  createComment(input: CommentInput): 
+  modifyComment(id: ObjectID!, input: CommentInput): 
+  removeComment(id: ObjectID!): 
+}
+  
 # Common input
 input LocationInput {
   city: String
@@ -16,34 +23,19 @@ input GeoLocInput {
   lng: Longitude
 }
 
-input SignaledInput {
-  input: SignalingType
-  sender_id: ObjectID
-  signaled_at: DateTime
-}
-
-input ReactionInput {
-  input: ReactionType
-  sender_id: ObjectID
-}
-
 input CommentInput {
-  child_id: ObjectID
-  sender_id: ObjectID
-  created_at: DateTime
-  modified_at: DateTime
-  deleted_at: DateTime
-  pinned: Boolean
-}
-
-input EventCommentInput {
+  _id: ObjectID
+  commentType: String
   child_id: ObjectID
   sender_id: ObjectID
   created_at: DateTime
   modified_at: DateTime
   deleted_at: DateTime
   event_review: Boolean
+  content: CommentContentInput
+  reactions: [ReactionInput]
   pinned: Boolean
+  signalments: [SignaledInput]
 }
 
 input CommentContentInput {

@@ -1,16 +1,20 @@
 import EventRepository from '../../mongo/repository/EventRepository.mjs';
+import UserRepository from '../../mongo/repository/EventRepository.mjs';
 import getFields from '../../../utils/getFields.mjs';
 
 const eventRepository = new EventRepository();
+const userRepository = new UserRepository();
 
 export default {
   Query: {
-    events: (parent, args, context, info) => {
-      const fields = getFields(info);
+    comments: (parent, {isEvent}, context, info) => {
+      switch()
+
+      
       return eventRepository.getEvents(fields);
     },
-    event: (parent, { id }, context, info) => {
-      const fields = getFields(info);
+    comment: (parent, { id }, context, info) => {
+      
       return eventRepository.getEventById(id, fields);
     },
   },

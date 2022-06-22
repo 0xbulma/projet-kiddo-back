@@ -1,5 +1,7 @@
 type Mutation {
   createUser(input: UserInput): User
+  modifyUser(_id: ObjectID!, input: UserInput!): User
+  removeUser(_id: ObjectID!): User
 }
 
 ##############
@@ -38,8 +40,8 @@ input UserInput {
   booked_events: [ObjectID]
   finished_events: [FinishedEventInput]
 
-  signalments: [SignaledInput]
-  reactions: [ReactionInput]
+  signalments: [ObjectID]
+  reactions: [ObjectID]
 
   comments: [CommentInput]
 }

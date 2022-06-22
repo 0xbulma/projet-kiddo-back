@@ -1,10 +1,23 @@
 type Mutation {
   createBadge(input: BadgeInput): Badge
-  modifyBadge(input: ModifyBadgeInput): Badge
-  deleteBadge(_id: ObjectID!): Badge
+  modifyBadge(_id: ObjectID!, input: ModifyBadgeInput): Badge
+  removeBadge(_id: ObjectID!): Badge
+
   createCategory(name: String): Category
-  #modifyCategory(name: String): Category
-  #deleteCategory(name: String): Category
+  modifyCategory(_id: ObjectID!, name: String): Category
+  removeCategory(_id: ObjectID!): Category
+
+  createRestriction(name: String): Restriction
+  modifyRestriction(_id: ObjectID!, name: String): Restriction
+  removeRestriction(_id: ObjectID!): Restriction
+
+  createSignalment(name: String): Signalment
+  modifySignalment(_id: ObjectID!, name: String): Signalment
+  removeSignalment(_id: ObjectID!): Signalment
+
+  createReaction(name: String): Reaction
+  modifyReaction(_id: ObjectID!, name: String): Reaction
+  removeReaction(_id: ObjectID!): Reaction
 }
 
 input BadgeInput {

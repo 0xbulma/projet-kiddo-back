@@ -1,0 +1,65 @@
+type Mutation {
+  createEvent(input: EventInput): Event
+  modifyEvent(id: ObjectID!, input: EventInput): Event
+  removeEvent(id: ObjectID!): Event
+}
+
+##############
+# Main Input
+##############
+
+input EventInput {
+  drafted_at: DateTime
+  published_at: DateTime
+  main_owner: ObjectID!
+  co_owners: [ObjectID]
+  content: ContentInput
+  content_media: ContentMediaInput
+  group_size: NonNegativeInt
+  group_participants: [ParticipantInput]
+  price: NonNegativeInt
+  event_date: DateRangeInput
+  status: String
+  adress: LocationInput
+  gps: GeoLocInput
+  filters: [String]
+  categories: [ObjectID]
+  restrictions: [ObjectID]
+  highlighted: Boolean
+  signalments: [ObjectID]
+  reactions: [ObjectID]
+  comments: [CommentInput]
+}
+
+##############
+# Sub Input
+##############
+input ContentInput {
+  title: String
+  subtitle: String
+  description: String
+  highlighted_message: [HighlightedMessageInput]
+}
+
+input HighlightedMessageInput {
+  title: String
+  message: String
+}
+
+input ContentMediaInput {
+  photos_url: [URL]
+  photo_main_url: URL
+  video_url: URL
+}
+
+input ParticipantInput {
+  user: ObjectID
+  booked_at: DateTime
+  group_detail: [MemberDetailInput]
+}
+
+input MemberDetailInput {
+  isChild: Boolean
+  name: String
+  age: NonNegativeInt
+}
