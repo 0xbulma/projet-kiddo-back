@@ -14,9 +14,7 @@ export default class EventRepository {
 
   // Création et modification de l'évènement
   async createEvent(eventInput, fields) {
-    const event = await eventModel.create(eventInput);
-
-    return await eventModel.findOne(event._id).populate(POPULATE_EVENT).exec();
+    return await eventModel.create(eventInput);
   }
 
   async modifyEvent(eventId, eventInput, fields) {
@@ -25,5 +23,10 @@ export default class EventRepository {
 
   async removeEvent(eventId) {
     return await eventModel.findOneAndRemove(eventId);
+  }
+
+  async removeEvents(idsArray) {
+    // EN CONSTRUCTION A VERIFIER LA STRUCTURE DES ARGUMENTS DE IDSARRAY
+    return await eventModel.deleteMany(idsArray);
   }
 }

@@ -32,6 +32,7 @@ async function startApolloServer() {
     schema,
     csrfPrevention: true,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+    introspection: true
   });
   await server.start();
 
@@ -40,7 +41,7 @@ async function startApolloServer() {
   app.use(bodyParser.json());
 
   // Application des Middleware
-  server.applyMiddleware({ app, path: '/' });
+  server.applyMiddleware({ app, path: '/graphql' });
 
   // Création d'une promesse de connexion
   await new Promise((resolve) => httpServer.listen(process.env.PORT, resolve));
