@@ -26,4 +26,9 @@ export default class CommentRepository {
   async removeComment(id) {
     return await commentModel.findByIdAndRemove(id);
   }
+
+  async removeComments(idsArray) {
+     // EN CONSTRUCTION A VERIFIER LA STRUCTURE DES ARGUMENTS DE IDSARRAY
+    return await commentModel.deleteMany(idsArray);
+  }
 }

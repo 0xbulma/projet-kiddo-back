@@ -24,6 +24,6 @@ export default class UserRepository {
   }
 
   async removeUser(id) {
-    return await userModel.findByIdAndRemove(id);
+    return await userModel.findOneAndRemove({_id : id});
   }
 }
