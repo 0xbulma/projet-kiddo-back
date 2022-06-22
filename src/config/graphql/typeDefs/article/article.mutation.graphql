@@ -5,8 +5,23 @@ type Mutation {
 }
 
 input ArticleInput {
-  content: ContentInput
+  drafted_at: DateTime
+  published_at: DateTime
+
   author_id: ObjectID
+  content: ContentInput
+  content_media: ContentMediaInput
+
+  status: String
+
+  filters: [String]
+  categories: [ObjectID]
+
+  highlighted: Boolean
+  signalments: [ObjectID]
+  reactions: [ObjectID]
+
+  comments: [ObjectID]
 }
 
 input ContentInput {
