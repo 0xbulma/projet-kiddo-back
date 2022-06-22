@@ -32,6 +32,7 @@ async function startApolloServer() {
     schema,
     csrfPrevention: true,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+    introspection: true
   });
   await server.start();
 
