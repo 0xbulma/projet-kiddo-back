@@ -1,7 +1,8 @@
 type Comment {
   _id: ObjectID
-  child_id: ObjectID
-  sender_id: ObjectID
+  parent_id: Comment
+  child_id: Comment
+  sender_id: User
   created_at: DateTime
   modified_at: DateTime
   deleted_at: DateTime
