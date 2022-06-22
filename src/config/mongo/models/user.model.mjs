@@ -6,7 +6,7 @@ import * as commonSchema from './common.schema.mjs';
 
 const schemaOptions = commonSchema.SCHEMA_OPTIONS(true);
 
-const EventSchema = new mongoose.Schema(
+const UserSchema = new mongoose.Schema(
   {
     rank: { type: String, enum: constants.RANKS_VALUES, default: constants.RANKS_VALUES.USER },
     connection_history: [
@@ -186,4 +186,4 @@ const EventSchema = new mongoose.Schema(
   schemaOptions
 );
 
-export default mongoose.model('User', EventSchema, 'Users');
+export default mongoose.model('User', UserSchema, 'Users');

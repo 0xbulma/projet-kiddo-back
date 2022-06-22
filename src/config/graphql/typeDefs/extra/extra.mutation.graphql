@@ -1,3 +1,4 @@
+# Main object
 type Mutation {
   createBadge(input: BadgeInput): Badge
   modifyBadge(_id: ObjectID!, input: ModifyBadgeInput): Badge
@@ -20,6 +21,7 @@ type Mutation {
   removeReaction(_id: ObjectID!): Reaction
 }
 
+# Sub input object
 input BadgeInput {
   name: String!
   description: String
