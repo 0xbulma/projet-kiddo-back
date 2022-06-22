@@ -40,8 +40,8 @@ input UserInput {
   booked_events: [ObjectID]
   finished_events: [FinishedEventInput]
 
-  signalments: [SignaledInput]
-  reactions: [ReactionInput]
+  signalments: [ObjectID]
+  reactions: [ObjectID]
 
   comments: [CommentInput]
 }
