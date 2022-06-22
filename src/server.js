@@ -40,7 +40,7 @@ async function startApolloServer() {
   app.use(bodyParser.json());
 
   // Application des Middleware
-  server.applyMiddleware({ app, path: '/' });
+  server.applyMiddleware({ app, path: '/graphql' });
 
   // Création d'une promesse de connexion
   await new Promise((resolve) => httpServer.listen(process.env.BACK_PORT, resolve));
