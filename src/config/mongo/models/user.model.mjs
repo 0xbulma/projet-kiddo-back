@@ -30,6 +30,7 @@ export const UserSchema = new mongoose.Schema(
         date: { type: Date, default: Date.now },
       },
     ],
+    token: { type: String },
     email: {
       type: String,
       required: true,
@@ -47,6 +48,7 @@ export const UserSchema = new mongoose.Schema(
       //   message: "le mot de passe n'est pas valable",
       // },
     },
+    reset_password_token: { token: { type: String }, created_at: { type: Date, default: Date.now } },
     oAuth_link: [
       // A check nature du Oauth (link ou id)
       {

@@ -10,6 +10,8 @@ scalar Latitude
 scalar Longitude
 scalar URL
 scalar NonNegativeInt
+scalar JWT
+scalar UUID
 
 enum Rank {
   USER
@@ -34,8 +36,10 @@ type User {
   connection_history: [ConnectionHistory]
   rank: Rank
 
+  token: JWT
   email: EmailAddress
   password: String
+  reset_password_token: ResetPasswordToken
   oAuth_link: [String]
 
   pseudo: String
@@ -75,6 +79,11 @@ type User {
 type ConnectionHistory {
   ip: IPv4
   date: DateTime
+}
+
+type ResetPasswordToken {
+  token: UUID
+  created_at: DateTime
 }
 
 type Child {

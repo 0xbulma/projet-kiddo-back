@@ -2,6 +2,9 @@ type Mutation {
   createUser(input: UserInput): User
   modifyUser(_id: ObjectID!, input: UserInput!): User
   removeUser(_id: ObjectID!): User
+  #Recover Password
+  recoverPassword(email: EmailAddress): User
+  resetPassword(_id: ObjectID, email: EmailAddress, token: UUID, password: String): User
 }
 
 ##############
@@ -11,8 +14,10 @@ input UserInput {
   connection_history: [ConnectionHistoryInput]
   rank: Rank
 
+  token: String
   email: EmailAddress
   password: String
+  reset_password_token: String
   oAuth_link: [String]
 
   pseudo: String
