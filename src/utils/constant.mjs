@@ -9,7 +9,7 @@ export const COLLECTION_NAME = {
   CATEGORY: 'Category',
   RESTRICTION: 'Restriction',
   BADGE: 'Badge',
-  SIGNLAMENT: 'Signalment',
+  SIGNALEMENT: 'Signalment',
   REACTION: 'Reaction',
 };
 

@@ -8,6 +8,10 @@ export default class CommentRepository {
     return await commentModel.find();
   }
 
+  async getAllbyIds(idsArray) {
+    return await userModel.find({ _id: { $in: idsArray } });
+  }
+
   async getById(id) {
     return await commentModel.findOne(id);
   }
@@ -28,7 +32,7 @@ export default class CommentRepository {
   }
 
   async removeComments(idsArray) {
-     // EN CONSTRUCTION A VERIFIER LA STRUCTURE DES ARGUMENTS DE IDSARRAY
-    return await commentModel.deleteMany(idsArray);
+    // EN CONSTRUCTION A VERIFIER LA STRUCTURE DES ARGUMENTS DE IDSARRAY
+    return await commentModel.deleteMany({ _id: { $in: idsArray } });
   }
 }

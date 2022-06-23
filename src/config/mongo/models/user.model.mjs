@@ -1,22 +1,30 @@
 import mongoose from 'mongoose';
 import { default as check } from 'validator';
 
+import CommentRepository from '../repository/CommentRepository.mjs';
+import UserRepository from '../repository/UserRepository.mjs';
+import EventRepository from '../repository/EventRepository.mjs';
+
 import * as constants from '../../../utils/constant.mjs';
 import * as commonSchema from './common.schema.mjs';
 
 const schemaOptions = commonSchema.SCHEMA_OPTIONS(true);
 
-const UserSchema = new mongoose.Schema(
+export const UserSchema = new mongoose.Schema(
   {
-    rank: { type: String, enum: constants.RANKS_VALUES, default: constants.RANKS_VALUES.USER },
+    rank: {
+      type: String,
+      enum: constants.RANKS_VALUES,
+      default: constants.RANKS_VALUES.USER,
+    },
     connection_history: [
       {
         ip: {
           type: String,
           required: [true, 'IP address required'],
           validate: {
-            validator: (value) => check.isIP(value),
-            message: (props) => `${props.value} is not a valid IP address!`,
+            validator: value => check.isIP(value),
+            message: props => `${props.value} is not a valid IP address!`,
           },
         },
         date: { type: Date, default: Date.now },
@@ -27,8 +35,8 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
       validate: {
-        validator: (value) => check.isEmail(value),
-        message: (props) => `${props.value} n'est pas un email valide`,
+        validator: value => check.isEmail(value),
+        message: props => `${props.value} n'est pas un email valide`,
       },
     },
 
@@ -46,8 +54,8 @@ const UserSchema = new mongoose.Schema(
       {
         type: String,
         validate: {
-          validator: (value) => check.isURL(value),
-          message: (props) => `${props.value} n'est pas une URL valide!`,
+          validator: value => check.isURL(value),
+          message: props => `${props.value} n'est pas une URL valide!`,
         },
       },
     ],
@@ -60,8 +68,9 @@ const UserSchema = new mongoose.Schema(
     phone: {
       type: Number,
       validate: {
-        validator: (value) => check.isMobilePhone(value),
-        message: (props) => `${props.value} n'est pas un numéro de téléphone valable`,
+        validator: value => check.isMobilePhone(value),
+        message: props =>
+          `${props.value} n'est pas un numéro de téléphone valable`,
       },
     },
 
@@ -70,8 +79,8 @@ const UserSchema = new mongoose.Schema(
       zip_code: {
         type: Number,
         validate: {
-          validator: (value) => check.isPostalCode(value),
-          message: (props) => `${props.value} n'est pas un code postal valable`,
+          validator: value => check.isPostalCode(value),
+          message: props => `${props.value} n'est pas un code postal valable`,
         },
       },
       adress_line: { type: String },
@@ -81,15 +90,15 @@ const UserSchema = new mongoose.Schema(
       lat: {
         type: Number,
         validate: {
-          validator: (value) => check.isLatLong(value),
-          message: (props) => `${props.value} n'est pas une latitude valide!`,
+          validator: value => check.isLatLong(value),
+          message: props => `${props.value} n'est pas une latitude valide!`,
         },
       },
       lng: {
         type: Number,
         validate: {
-          validator: (value) => check.isLatLong(value),
-          message: (props) => `${props.value} n'est pas une longitude valide!`,
+          validator: value => check.isLatLong(value),
+          message: props => `${props.value} n'est pas une longitude valide!`,
         },
       },
     },
@@ -98,8 +107,8 @@ const UserSchema = new mongoose.Schema(
         {
           type: String,
           validate: {
-            validator: (value) => check.isURL(value),
-            message: (props) => `${props.value} n'est pas une URL valide!`,
+            validator: value => check.isURL(value),
+            message: props => `${props.value} n'est pas une URL valide!`,
           },
         },
       ],
@@ -107,8 +116,8 @@ const UserSchema = new mongoose.Schema(
         {
           type: String,
           validate: {
-            validator: (value) => check.isURL(value),
-            message: (props) => `${props.value} n'est pas une URL valide!`,
+            validator: value => check.isURL(value),
+            message: props => `${props.value} n'est pas une URL valide!`,
           },
         },
       ],
@@ -188,11 +197,119 @@ const UserSchema = new mongoose.Schema(
   schemaOptions
 );
 
-import CommentRepository from '../repository/CommentRepository.mjs';
+// TODO: CASCADE SUR LES ARTICLES
 
-UserSchema.post('findOneAndRemove', (doc, next) => {
-  // EN CONSTRUCTION A VERIFIER LA STRUCTURE DES ARGUMENTS DE REMOVECOMMENTS
-  new CommentRepository().removeComments(doc.comments);
+// CASCADE A LA SUPPRESSION D'UN UTILISATEUR //
+UserSchema.post('findOneAndRemove', async (doc, next) => {
+  const userRepository = new UserRepository();
+  const eventRepository = new EventRepository();
+
+  // CASCADE SUR LE SYSTEME D'AMIS
+  if (doc.friends_send_request) {
+    const otherUsers = await userRepository.getAllbyIds(
+      doc.friends_send_request.map(obj => obj.user_id)
+    );
+
+    if (otherUsers) {
+      for (const user of otherUsers) {
+        await user.modifyUser(
+          { _id: user._id },
+          {
+            friends_receive_request: user.friends_receive_request.filter(
+              obj => obj.user_id !== doc._id
+            ),
+          }
+        );
+      }
+    }
+  }
+
+  if (doc.friends_receive_request) {
+    const otherUsers = await userRepository.getAllbyIds(
+      doc.friends_receive_request.map(obj => obj.user_id)
+    );
+
+    if (otherUsers) {
+      for (const user of otherUsers) {
+        await user.modifyUser(
+          { _id: user._id },
+          {
+            friends_send_request: user.friends_send_request.filter(
+              obj => obj.user_id !== doc._id
+            ),
+          }
+        );
+      }
+    }
+  }
+
+  if (doc.friends) {
+    const otherUsers = await userRepository.getAllbyIds(
+      doc.friends.map(obj => obj.user_id)
+    );
+
+    if (otherUsers) {
+      for (const user of otherUsers) {
+        await user.modifyUser(
+          { _id: user._id },
+          {
+            friends: user.friends.filter(obj => obj.user_id !== doc._id),
+          }
+        );
+      }
+    }
+  }
+
+  // CASCADE SUR LES EVENTS
+  if (doc.booked_events) {
+    const events = await eventRepository.getAllbyIds(
+      doc.booked_events.map(obj => obj.event_id)
+    );
+
+    if (events) {
+      for (const event of events) {
+        if (event.main_owner === doc._id) {
+          await event.removeEvent({ _id: doc._id });
+        } else {
+          await event.modifyEvent(
+            { _id: event._id },
+            {
+              group_participants: event.group_participants.filter(
+                obj => obj.user_id !== doc._id
+              ),
+              co_owners: event.co_owners.filter(obj => obj.user_id !== doc._id),
+            }
+          );
+        }
+      }
+    }
+  }
+
+  if (doc.finished_events) {
+    const events = await eventRepository.getAllbyIds(
+      doc.finished_events.map(obj => obj.event_id)
+    );
+
+    if (events) {
+      for (const event of events) {
+        await event.modifyEvent(
+          { _id: event._id },
+          {
+            group_participants: event.group_participants.filter(
+              obj => obj.user_id !== doc._id
+            ),
+            co_owners: event.co_owners.filter(obj => obj.user_id !== doc._id),
+          }
+        );
+      }
+    }
+  }
+
+  // CASCADE SUR LES COMMENTS
+  if (doc.comments) {
+    await new CommentRepository().removeComments(doc.comments);
+  }
+
   next();
 });
 
