@@ -1,11 +1,26 @@
 import eventModel from '../models/event.model.mjs';
 
-const POPULATE_EVENT = 'main_owner co_owners group_participants categories restrictions signalments reactions comments';
+const POPULATE_EVENT =
+  'main_owner co_owners group_participants.user_id categories restrictions signalments.type signalments.sender_id reactions.type reactions.sender_id comments';
 
 export default class EventRepository {
   // Récupération des données liées à l'évènement
-  async getEvents(fields) {
-    return await eventModel.find().select(fields);
+  async getEvents() {
+    return await eventModel.find().populate(POPULATE_EVENT).exec();
+  }
+
+  async getAllbyIds(idsArray) {
+    return await eventModel
+      .find({ _id: { $in: idsArray } })
+      .populate(POPULATE_EVENT)
+      .exec();
+  }
+
+  async getAllByFilter(filter, array){
+    return await eventModel
+    .find({ [filter]: { $in: array } })
+    .populate(POPULATE_EVENT)
+    .exec();
   }
 
   async getEventById(eventId) {
@@ -18,7 +33,10 @@ export default class EventRepository {
   }
 
   async modifyEvent(eventId, eventInput, fields) {
-    return await eventModel.findOneAndUpdate(eventId, eventInput, { new: true }).populate(POPULATE_EVENT).exec();
+    return await eventModel
+      .findOneAndUpdate(eventId, eventInput, { new: true })
+      .populate(POPULATE_EVENT)
+      .exec();
   }
 
   async removeEvent(eventId) {
@@ -26,7 +44,6 @@ export default class EventRepository {
   }
 
   async removeEvents(idsArray) {
-    // EN CONSTRUCTION A VERIFIER LA STRUCTURE DES ARGUMENTS DE IDSARRAY
-    return await eventModel.deleteMany(idsArray);
+    return await eventModel.deleteMany({ _id: { $in: idsArray } });
   }
 }

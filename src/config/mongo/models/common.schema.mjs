@@ -7,10 +7,12 @@ export const OBJECT_ID_REF_USER = {
   type: mongoose.Schema.Types.ObjectId,
   ref: constants.COLLECTION_NAME.USER,
 };
+
 export const OBJECT_ID_REF_EVENT = {
   type: mongoose.Schema.Types.ObjectId,
   ref: constants.COLLECTION_NAME.EVENT,
 };
+
 export const OBJECT_ID_REF_ARTICLE = {
   type: mongoose.Schema.Types.ObjectId,
   ref: constants.COLLECTION_NAME.ARTICLE,
@@ -51,7 +53,7 @@ export const REACTION = {
 };
 
 export const SIGNALMENT = {
-  type: { type: mongoose.Schema.Types.ObjectId, ref: constants.COLLECTION_NAME.SIGNLAMENT },
+  type: { type: mongoose.Schema.Types.ObjectId, ref: constants.COLLECTION_NAME.SIGNALEMENT },
   sender_id: OBJECT_ID_REF_USER,
   signaled_at: { type: Date, default: Date.now },
 };
