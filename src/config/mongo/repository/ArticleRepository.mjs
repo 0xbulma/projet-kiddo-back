@@ -3,8 +3,8 @@ import articleModel from '../models/article.model.mjs';
 const POPULATE_ARTICLE = 'author categories categories signalments reactions comments';
 
 export default class ArticleRepository {
-  constructor() {
-    this.model = articleModel;
+  constructor(model) {
+    this.model = model;
   }
 
   async getAll() {
