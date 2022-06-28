@@ -5,6 +5,8 @@ type Mutation {
   #Recover Password
   recoverPassword(email: EmailAddress): User
   resetPassword(_id: ObjectID, email: EmailAddress, token: UUID, password: String): User
+  #Friends
+  sendFriendRequest(senderEmail: EmailAddress!, targetEmail: EmailAddress!): User
 }
 
 ##############

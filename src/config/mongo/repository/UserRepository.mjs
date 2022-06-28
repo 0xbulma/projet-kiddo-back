@@ -1,10 +1,7 @@
 import userModel from '../models/user.model.mjs';
 
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
-
 const POPULATE_USER =
-  'pinned_events.event_id booked_events.event_id finished_events.event_id friends_send_request.user_id friends_receive_request.user_id friends.user_id signalments.type signalments.sender_id reactions.type reactions.sender_id comments';
+  'pinned_events.event_id booked_events.event_id finished_events.event_id friends_send_request.user friends_receive_request.user friends.user signalments.type signalments.sender_id reactions.type reactions.sender_id comments';
 
 export default class UserRepository {
   //===============================================
@@ -21,11 +18,11 @@ export default class UserRepository {
       .exec();
   }
 
-  async getAllByFilter(filter, array){
+  async getAllByFilter(filter, array) {
     return await userModel
-    .find({ [filter]: { $in: array } })
-    .populate(POPULATE_USER)
-    .exec();
+      .find({ [filter]: { $in: array } })
+      .populate(POPULATE_USER)
+      .exec();
   }
 
   async getById(id) {
@@ -39,21 +36,6 @@ export default class UserRepository {
   //==========================================
   // Création et modification de l'utilisateur
   //==========================================
-  async createUser(input, res) {
-    let token = jwt.sign(input, process.env.JWT_TOKEN_SECRET);
-    let email = input.email;
-
-    const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(input.password, salt);
-
-    const cookie_options = {
-      httpOnly: true,
-    };
-    res.cookie('authorization', 'Bearer ' + token, cookie_options);
-
-    return await userModel.create({ token: token, email: email, password: hash });
-  }
-
   async modifyUser(id, input) {
     return await userModel.findOneAndUpdate({ _id: id }, input, { new: true });
   }

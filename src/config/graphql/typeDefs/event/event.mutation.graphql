@@ -17,7 +17,7 @@ input EventInput {
   content_media: ContentMediaInput
   group_size: NonNegativeInt
   group_participants: [ParticipantInput]
-  price: NonNegativeInt
+  price: PricingInput
   event_date: DateRangeInput
   status: String
   adress: LocationInput
@@ -62,4 +62,9 @@ input MemberDetailInput {
   isChild: Boolean
   name: String
   age: NonNegativeInt
+}
+
+input PricingInput {
+  child: NonNegativeInt
+  adult: NonNegativeInt
 }

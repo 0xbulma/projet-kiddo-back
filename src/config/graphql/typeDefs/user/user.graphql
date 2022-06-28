@@ -34,7 +34,7 @@ type User {
   created_at: DateTime
   updated_at: DateTime
   connection_history: [ConnectionHistory]
-  rank: Rank
+  rank: String
 
   token: JWT
   email: EmailAddress
