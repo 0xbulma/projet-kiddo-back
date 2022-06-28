@@ -1,4 +1,5 @@
 type Query {
-  user(_id: ObjectID!): User
+  getUserById(_id: ObjectID!): User
+  getUserByEmail(email: EmailAddress): User
   users: [User]
 }

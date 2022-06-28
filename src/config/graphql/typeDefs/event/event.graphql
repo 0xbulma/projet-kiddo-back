@@ -28,7 +28,7 @@ type Event {
 
   group_size: NonNegativeInt
   group_participants: [Participant]
-  price: NonNegativeInt
+  price: Pricing
 
   event_date: DateRange
   status: Status
@@ -78,4 +78,9 @@ type MemberDetail {
   isChild: Boolean
   name: String
   age: NonNegativeInt
+}
+
+type Pricing {
+  child: NonNegativeInt
+  adult: NonNegativeInt
 }
