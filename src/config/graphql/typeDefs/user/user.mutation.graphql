@@ -14,7 +14,7 @@ type Mutation {
 ##############
 input UserInput {
   connection_history: [ConnectionHistoryInput]
-  rank: Rank
+  rank: String
 
   token: String
   email: EmailAddress

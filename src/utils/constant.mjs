@@ -15,24 +15,24 @@ export const COLLECTION_NAME = {
 
 //Enumération des valeurs pré définis.
 export const RANKS_VALUES = {
-  USER: 'Utilisateur',
-  CONFIRMED_USER: 'Utilisateur confirmé',
-  MODERATOR: 'Modérateur',
-  ADMINISTRATOR: 'Administrateur',
+  USER: 'USER',
+  CONFIRMED_USER: 'CONFIRMED_USER',
+  MODERATOR: 'MODERATOR',
+  ADMINISTRATOR: 'ADMINISTRATOR',
 };
 
 export const GENDER_VALUES = {
-  MALE: 'Masculin',
-  FEMALE: 'Féminin',
-  UNKNOWN: 'Non renseigné',
+  MALE: 'MALE',
+  FEMALE: 'FEMALE',
+  UNKNOWN: 'UNKNOWN',
 };
 
 export const STATUS_VALUES = {
-  DRAFTED: 'Brouillon',
-  PUBLISHED: 'Publié',
-  UNLISTED: 'Non répertorié',
-  PUBLIC: 'Publique',
-  CANCELED: 'Annulé',
+  DRAFTED: 'DRAFTED',
+  PUBLISHED: 'PUBLISHED',
+  UNLISTED: 'UNLISTED',
+  PUBLIC: 'PUBLIC',
+  CANCELED: 'CANCELED',
 };
 
 // Tools
