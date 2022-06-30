@@ -5,13 +5,26 @@ const eventRepository = new EventRepository();
 
 export default {
   Query: {
-    events: async (parent, args, context, info) => {
-      const fields = getFields(info);
-      return await eventRepository.getEvents(fields);
+    events: async (
+      parent,
+      { first, offset, filterKey, filter, geoloc, maxDist },
+      context,
+      info
+    ) => {
+      console.log(filter);
+
+      return await eventRepository.getEvents(
+        parseInt(first),
+        parseInt(offset),
+        filterKey?.toLowerCase().trim(),
+        filter?.toLowerCase().trim(),
+        geoloc,
+        maxDist
+      );
     },
+
     event: async (parent, { id }, context, info) => {
-      const fields = getFields(info);
-      return await eventRepository.getEventById(id, fields);
+      return await eventRepository.getEventById({id});
     },
   },
 
