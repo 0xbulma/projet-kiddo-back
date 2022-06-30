@@ -1,11 +1,11 @@
 type Comment {
   _id: ObjectID
-  parent_id: Comment
-  child_id: [Comment]
-  target_user_id: User
-  target_event_id: Event 
-  target_article_id: Article
-  sender_id: User
+  parent: Comment
+  child: [Comment]
+  target_user: User
+  target_event: Event
+  target_article: Article
+  sender: User
   created_at: DateTime
   modified_at: DateTime
   deleted_at: DateTime

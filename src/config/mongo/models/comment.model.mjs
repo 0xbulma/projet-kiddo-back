@@ -12,12 +12,12 @@ const schemaOptions = commonSchema.SCHEMA_OPTIONS(true);
 
 const CommentSchema = new mongoose.Schema(
   {
-    parent_id: commonSchema.OBJECT_ID_REF_COMMENT,
-    child_id: [commonSchema.OBJECT_ID_REF_COMMENT],
-    target_user_id: commonSchema.OBJECT_ID_REF_USER,
-    target_event_id: commonSchema.OBJECT_ID_REF_EVENT,
-    targer_article_id: commonSchema.OBJECT_ID_REF_ARTICLE,
-    sender_id: commonSchema.OBJECT_ID_REF_USER,
+    parent: commonSchema.OBJECT_ID_REF_COMMENT,
+    child: [commonSchema.OBJECT_ID_REF_COMMENT],
+    target_user: commonSchema.OBJECT_ID_REF_USER,
+    target_event: commonSchema.OBJECT_ID_REF_EVENT,
+    target_article: commonSchema.OBJECT_ID_REF_ARTICLE,
+    sender: commonSchema.OBJECT_ID_REF_USER,
     deleted_at: { type: Date, default: Date.now },
     content: {
       title: { type: String },
@@ -26,8 +26,8 @@ const CommentSchema = new mongoose.Schema(
         {
           type: String,
           validate: {
-            validator: value => check.isURL(value),
-            message: props => `${props.value} n'est pas une URL valide!`,
+            validator: (value) => check.isURL(value),
+            message: (props) => `${props.value} n'est pas une URL valide!`,
           },
         },
       ],
@@ -52,10 +52,7 @@ CommentSchema.post('findOneAndRemove', async (doc, next) => {
     const event = await eventRepository.getbyId({ _id: doc.target_event_id });
 
     if (event) {
-      event.modifyEvent(
-        { _id: doc.target_event_id },
-        { comments: doc.comments.filter(id => id !== doc._id) }
-      );
+      event.modifyEvent({ _id: doc.target_event_id }, { comments: doc.comments.filter((id) => id !== doc._id) });
     }
   }
 
@@ -64,10 +61,7 @@ CommentSchema.post('findOneAndRemove', async (doc, next) => {
     const user = await userRepository.getbyId({ _id: doc.target_user_id });
 
     if (user) {
-      user.modifyUser(
-        { _id: doc.target_user_id },
-        { comments: doc.comments.filter(id => id !== doc._id) }
-      );
+      user.modifyUser({ _id: doc.target_user_id }, { comments: doc.comments.filter((id) => id !== doc._id) });
     }
   }
 
@@ -87,7 +81,7 @@ CommentSchema.post('findOneAndRemove', async (doc, next) => {
             _id: comment._id,
           },
           {
-            child_id: comment.child_id.filter(obj => obj._id !== doc._id),
+            child_id: comment.child_id.filter((obj) => obj._id !== doc._id),
           }
         );
       }

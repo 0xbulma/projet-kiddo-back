@@ -9,6 +9,9 @@ export default {
     comment: async (parent, { id }, context, info) => {
       return await commentRepository.getById(id);
     },
+    getByTargetId: async (parent, { type, id }, context, info) => {
+      return await commentRepository.getByTargetId(type, id);
+    },
   },
 
   Mutation: {

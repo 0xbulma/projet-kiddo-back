@@ -5,12 +5,12 @@ type Mutation {
 }
 
 input CommentInput {
-  parent_id: ObjectID
-  child_id: [ObjectID]
-  target_user_id: ObjectID
-  target_event_id: ObjectID
-  target_article_id: ObjectID
-  sender_id: ObjectID
+  parent: ObjectID
+  child: [ObjectID]
+  target_user: ObjectID
+  target_event: ObjectID
+  target_article: ObjectID
+  sender: ObjectID
   deleted_at: DateTime
   content: CommentContentInput
   reactions: [ObjectID]

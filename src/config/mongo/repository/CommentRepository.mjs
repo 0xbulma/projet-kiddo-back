@@ -1,26 +1,43 @@
 import commentModel from '../models/comment.model.mjs';
 
+const POPULATE_COMMENT = 'parent child target_user target_event target_article sender';
+
 export default class CommentRepository {
   //===============================================
   // Récupération des données liées à l'utilisateur
   //===============================================
   async getAll() {
-    return await commentModel.find();
+    return await commentModel.find().populate(POPULATE_COMMENT).exec();
   }
 
   async getAllbyIds(idsArray) {
-    return await userModel.find({ _id: { $in: idsArray } });
+    return await userModel
+      .find({ _id: { $in: idsArray } })
+      .populate(POPULATE_COMMENT)
+      .exec();
   }
 
   async getById(id) {
-    return await commentModel.findOne(id);
+    return await commentModel.findOne(id).populate(POPULATE_COMMENT).exec();
+  }
+
+  async getByTargetId(type, id) {
+    switch (type) {
+      case 0:
+        return await commentModel.find({ target_user: id }).populate(POPULATE_COMMENT).exec();
+      case 1:
+        return await commentModel.find({ target_event: id }).populate(POPULATE_COMMENT).exec();
+      case 2:
+        return await commentModel.find({ target_article: id }).populate(POPULATE_COMMENT).exec();
+    }
   }
 
   //==========================================
   // Création et modification de l'utilisateur
   //==========================================
   async createComment(input) {
-    return await commentModel.create(input);
+    const comment = await commentModel.create(input);
+    return commentModel.findOne({ _id: comment._id }).populate(POPULATE_COMMENT).exec();
   }
 
   async modifyComment(id, input) {

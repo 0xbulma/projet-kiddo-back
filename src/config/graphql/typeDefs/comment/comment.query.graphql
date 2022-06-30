@@ -1,4 +1,5 @@
 type Query {
   comments: Comment
-  comment(id: ObjectID!) : Comment
+  comment(id: ObjectID!): Comment
+  getByTargetId(type: Int!, id: ObjectID!): [Comment]
 }
