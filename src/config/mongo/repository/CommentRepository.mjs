@@ -37,15 +37,22 @@ export default class CommentRepository {
   //==========================================
   async createComment(input) {
     const comment = await commentModel.create(input);
-    return commentModel.findOne({ _id: comment._id }).populate(POPULATE_COMMENT).exec();
+
+    if (input.parent !== undefined) {
+      const parentActualChilds = await commentModel.findOne({ _id: input.parent }).populate(POPULATE_COMMENT).exec();
+      const finalChilds = [...parentActualChilds.child, comment._id];
+      commentModel.findOneAndUpdate({ _id: input.parent }, { child: finalChilds }, { new: true });
+    }
+
+    return await commentModel.findOne({ _id: comment._id }).populate(POPULATE_COMMENT).exec();
   }
 
   async modifyComment(id, input) {
-    return await commentModel.findOneAndUpdate(id, input, { new: true });
+    return await commentModel.findOneAndUpdate({ _id: id }, input, { new: true });
   }
 
   async removeComment(id) {
-    return await commentModel.findOneAndRemove(id);
+    return await commentModel.findOneAndRemove({ _id: id });
   }
 
   async removeComments(idsArray) {
