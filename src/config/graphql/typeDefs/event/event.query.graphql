@@ -1,4 +1,11 @@
 type Query {
-    events: [Event]
-    event(id: ObjectID!): Event
+  events(
+    first: Int
+    offset: Int
+    filterKey: String
+    filter: String
+    geoloc: GeoLocInput
+    maxDist: Int
+  ): [Event]
+  event(id: ObjectID!): Event
 }

@@ -5,8 +5,20 @@ const POPULATE_EVENT =
 
 export default class EventRepository {
   // Récupération des données liées à l'évènement
-  async getEvents() {
-    return await eventModel.find().populate(POPULATE_EVENT).exec();
+  async getEvents(
+    first = 12,
+    offset = 0,
+    filterKey = null,
+    filter = null,
+    geoloc = null,
+    maxDist = null
+  ) {
+    return await eventModel
+      .find({[filterKey] : filter})
+      .skip(offset)
+      .limit(first)
+      .populate(POPULATE_EVENT)
+      .exec();
   }
 
   async getAllbyIds(idsArray) {
@@ -16,11 +28,11 @@ export default class EventRepository {
       .exec();
   }
 
-  async getAllByFilter(filter, array){
+  async getAllByFilter(filter, array) {
     return await eventModel
-    .find({ [filter]: { $in: array } })
-    .populate(POPULATE_EVENT)
-    .exec();
+      .find({ [filter]: { $in: array } })
+      .populate(POPULATE_EVENT)
+      .exec();
   }
 
   async getEventById(eventId) {

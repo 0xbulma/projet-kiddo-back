@@ -68,23 +68,29 @@ const EventSchema = new mongoose.Schema(
       address_line_2: { type: String },
     },
     gps: {
-      lat: {
-        type: Number,
-        validate: {
-          validator: (value) => check.isLatLong(value),
-          message: (props) => `${props.value} n'est pas une latitude valide!`,
-        },
-      },
-      lng: {
-        type: Number,
-        validate: {
-          validator: (value) => check.isLatLong(value),
-          message: (props) => `${props.value} n'est pas une longitude valide!`,
-        },
-      },
+      type : [Number],
+      default : [0, 0],
+      index: "2dsphere",
     },
+    // {
+
+    //   lat: {
+    //     type: Number,
+    //     validate: {
+    //       validator: (value) => check.isLatLong(value),
+    //       message: (props) => `${props.value} n'est pas une latitude valide!`,
+    //     },
+    //   },
+    //   lng: {
+    //     type: Number,
+    //     validate: {
+    //       validator: (value) => check.isLatLong(value),
+    //       message: (props) => `${props.value} n'est pas une longitude valide!`,
+    //     },
+    //   },
+    // },
     filters: [{ type: String }],
-    categories: [commonSchema.OBJECT_ID_REF_CATEGORY],
+    categories: commonSchema.OBJECT_ID_REF_CATEGORY,
     restrictions: [commonSchema.OBJECT_ID_REF_RESTRICTION],
 
     highlighted: { type: Boolean, default: false },
@@ -95,6 +101,11 @@ const EventSchema = new mongoose.Schema(
   },
   schemaOptions
 );
+
+//2Dindex
+EventSchema.index({gps: "2dsphere"})
+
+
 
 // TODO: CASCADE SUR LES ARTICLES
 
