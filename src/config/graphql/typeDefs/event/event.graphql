@@ -37,7 +37,7 @@ type Event {
   gps: GeoLoc
 
   filters: [String]
-  categories: [Category]
+  categories: Category
   restrictions: [Restriction]
 
   highlighted: Boolean

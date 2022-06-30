@@ -5,20 +5,20 @@ const extraRepository = new ExtraRepository();
 
 export default {
   Query: {
-    Badges: () => extraRepository.getBadges(),
-    Badge: (parent, { _id }) => extraRepository.getBadgeById(_id),
+    badges: () => extraRepository.getBadges(),
+    badge: (parent, { _id }) => extraRepository.getBadgeById(_id),
 
-    Categories: () => extraRepository.getAll(EXTRA_TYPES.CATEGORY),
-    Categorie: (parent, { _id }) => extraRepository.getById(EXTRA_TYPES.CATEGORY, _id),
+    categories: () => extraRepository.getAll(EXTRA_TYPES.CATEGORY),
+    category: (parent, { name }) => extraRepository.getById(EXTRA_TYPES.CATEGORY, {name}),
 
-    Restrictions: () => extraRepository.getAll(EXTRA_TYPES.RESTRICTION),
-    Restriction: (parent, { _id }) => extraRepository.getById(EXTRA_TYPES.RESTRICTION, _id),
+    restrictions: () => extraRepository.getAll(EXTRA_TYPES.RESTRICTION),
+    restriction: (parent, { _id }) => extraRepository.getById(EXTRA_TYPES.RESTRICTION, _id),
 
-    Signalments: () => extraRepository.getAll(EXTRA_TYPES.SIGNALMENT),
-    Signalment: (parent, { _id }) => extraRepository.getById(EXTRA_TYPES.SIGNALMENT, _id),
+    signalments: () => extraRepository.getAll(EXTRA_TYPES.SIGNALMENT),
+    signalment: (parent, { _id }) => extraRepository.getById(EXTRA_TYPES.SIGNALMENT, _id),
 
-    Reactions: () => extraRepository.getAll(EXTRA_TYPES.REACTION),
-    Reaction: (parent, { _id }) => extraRepository.getById(EXTRA_TYPES.REACTION, _id),
+    reactions: () => extraRepository.getAll(EXTRA_TYPES.REACTION),
+    reaction: (parent, { _id }) => extraRepository.getById(EXTRA_TYPES.REACTION, _id),
   },
 
   Mutation: {
