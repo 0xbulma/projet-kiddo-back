@@ -16,7 +16,7 @@ const schemaOptions = commonSchema.SCHEMA_OPTIONS(true);
 const EventSchema = new mongoose.Schema(
   {
     drafted_at: { type: Date, default: Date.now },
-    published_at: { type: Date, default: Date.now },
+    published_at: { type: Date},
     main_owner: commonSchema.OBJECT_ID_REF_USER,
     co_owners: [commonSchema.OBJECT_ID_REF_USER],
     content: {

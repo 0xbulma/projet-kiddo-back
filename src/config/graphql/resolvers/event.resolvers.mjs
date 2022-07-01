@@ -7,8 +7,8 @@ export default {
   Query: {
     events: async (parent, { first, offset, filterKey, filter, geoloc, maxDist }, context, info) => {
       return await eventRepository.getEvents(
-        parseInt(first),
-        parseInt(offset),
+        first,
+        offset,
         filterKey?.toLowerCase().trim(),
         filter?.toLowerCase().trim(),
         geoloc,
