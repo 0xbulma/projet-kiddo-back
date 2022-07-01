@@ -48,40 +48,42 @@ CommentSchema.post('findOneAndRemove', async (doc, next) => {
   const commentRepository = new CommentRepository();
 
   // CASCADE SUR LES EVENTS
-  if (doc.target_event_id) {
-    const event = await eventRepository.getbyId({ _id: doc.target_event_id });
+  console.log('DOC : ', doc);
+  if (doc.target_event) {
+    const event = await eventRepository.getEventById({ _id: doc.target_event });
 
     if (event) {
-      event.modifyEvent({ _id: doc.target_event_id }, { comments: doc.comments.filter((id) => id !== doc._id) });
+      console.log(event);
+      eventRepository.modifyEvent({ _id: doc.target_event }, { comments: event.comments.filter((id) => id !== doc._id) });
     }
   }
 
   // CASCADE SUR LES USERS
-  if (doc.target_user_id) {
-    const user = await userRepository.getbyId({ _id: doc.target_user_id });
+  if (doc.target_user) {
+    const user = await userRepository.getById({ _id: doc.target_user });
 
     if (user) {
-      user.modifyUser({ _id: doc.target_user_id }, { comments: doc.comments.filter((id) => id !== doc._id) });
+      userRepository.modifyUser({ _id: doc.target_user }, { comments: user.comments.filter((id) => id !== doc._id) });
     }
   }
 
   // CASCADE SUR LES CHILDS EVENTS
-  if (doc.child_id) {
-    commentRepository.removeComments(doc.child_id);
+  if (doc.child) {
+    commentRepository.removeComments(doc.child);
   }
 
   // CASCADE SUR LES PARENTS EVENTS
-  if (doc.parent_id) {
-    const comments = await commentRepository.getAllByIds(doc.parent_id);
+  if (doc.parent) {
+    const comments = await commentRepository.getAllByIds(doc.parent);
 
     if (comments) {
       for (const comment of comments) {
-        await comment.modifyComment(
+        await commentRepository.modifyComment(
           {
             _id: comment._id,
           },
           {
-            child_id: comment.child_id.filter((obj) => obj._id !== doc._id),
+            child: comment.child.filter((obj) => obj._id !== doc._id),
           }
         );
       }

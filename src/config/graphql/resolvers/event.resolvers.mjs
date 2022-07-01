@@ -5,14 +5,7 @@ const eventRepository = new EventRepository();
 
 export default {
   Query: {
-    events: async (
-      parent,
-      { first, offset, filterKey, filter, geoloc, maxDist },
-      context,
-      info
-    ) => {
-      console.log(filter);
-
+    events: async (parent, { first, offset, filterKey, filter, geoloc, maxDist }, context, info) => {
       return await eventRepository.getEvents(
         parseInt(first),
         parseInt(offset),
@@ -24,7 +17,7 @@ export default {
     },
 
     event: async (parent, { id }, context, info) => {
-      return await eventRepository.getEventById({id});
+      return await eventRepository.getEventById({ id });
     },
   },
 
