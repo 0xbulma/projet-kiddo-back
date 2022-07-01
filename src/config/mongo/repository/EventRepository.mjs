@@ -13,10 +13,11 @@ export default class EventRepository {
     geoloc = null,
     maxDist = null
   ) {
+   
     return await eventModel
-      .find({[filterKey] : filter})
-      .skip(offset)
-      .limit(first)
+      .find({[filterKey]:filter})
+      .skip(parseInt(offset))
+      .limit(parseInt(first))
       .populate(POPULATE_EVENT)
       .exec();
   }

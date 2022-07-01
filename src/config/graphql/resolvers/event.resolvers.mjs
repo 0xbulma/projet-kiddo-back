@@ -14,8 +14,8 @@ export default {
       console.log(filter);
 
       return await eventRepository.getEvents(
-        parseInt(first),
-        parseInt(offset),
+        first,
+        offset,
         filterKey?.toLowerCase().trim(),
         filter?.toLowerCase().trim(),
         geoloc,
@@ -24,7 +24,7 @@ export default {
     },
 
     event: async (parent, { id }, context, info) => {
-      return await eventRepository.getEventById({id});
+      return await eventRepository.getEventById({ id });
     },
   },
 

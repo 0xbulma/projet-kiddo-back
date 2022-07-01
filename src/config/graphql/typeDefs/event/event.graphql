@@ -34,7 +34,7 @@ type Event {
   status: Status
 
   adress: Location
-  gps: GeoLoc
+  gps: [Float]
 
   filters: [String]
   categories: Category

@@ -21,7 +21,7 @@ input EventInput {
   event_date: DateRangeInput
   status: String
   adress: LocationInput
-  gps: GeoLocInput
+  gps: [Float]
   filters: [String]
   categories: [ObjectID]
   restrictions: [ObjectID]
