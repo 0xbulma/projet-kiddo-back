@@ -38,10 +38,9 @@ export default class CommentRepository {
   async createComment(input) {
     const comment = await commentModel.create(input);
 
-    if (input.parent !== undefined) {
+    if (input.parent !== undefined && input.parent !== null) {
       const parentActualChilds = await commentModel.findOne({ _id: input.parent }).populate(POPULATE_COMMENT).exec();
       const finalChilds = [...parentActualChilds.child, comment._id];
-      console.log(finalChilds);
       await commentModel.findOneAndUpdate({ _id: input.parent }, { child: finalChilds });
     }
 
