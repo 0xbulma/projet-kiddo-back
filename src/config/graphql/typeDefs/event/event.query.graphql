@@ -21,7 +21,6 @@ type Query {
     maxDistMeters: Int
     minChildAge: Int
     maxChildAge: Int
-    isPriced: Boolean
     status: String
     restrictionsArray: [ObjectID]
   ): EventsResponse

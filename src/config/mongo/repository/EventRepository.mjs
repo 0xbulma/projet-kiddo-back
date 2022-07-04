@@ -111,7 +111,7 @@ export default class EventRepository {
         maxChildAge: { $lte: maxChildAge },
         // restrictions: { $in: restrictionsArray },
       })
-      // .sort({ 'event_date.start': dateOrder })
+      .sort({ 'event_date.start': dateOrder })
       .skip(offset)
       .limit(first)
       .populate(POPULATE_EVENT)

@@ -36,7 +36,6 @@ export default {
         maxDistMeters = 200000,
         minChildAge = 0,
         maxChildAge = 12,
-        price = null,
         status = '',
         restrictionsArray = [''],
       },
@@ -53,7 +52,6 @@ export default {
         maxDistMeters,
         minChildAge,
         maxChildAge,
-        price,
         status,
         restrictionsArray
       );
@@ -71,7 +69,6 @@ export default {
         maxDistMeters,
         minChildAge,
         maxChildAge,
-        price,
         status,
         restrictionsArray
       );
