@@ -3,6 +3,7 @@ import 'dotenv/config';
 import express from 'express';
 import http from 'http';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 
 import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
@@ -16,6 +17,8 @@ import { connectToDB } from './config/database.mjs';
 
 // Initialisation des paramètres de l'application
 async function startApolloServer() {
+  const isProduction = process.env.NODE_ENV === 'PROD';
+
   const app = express();
   const httpServer = http.createServer(app);
 
@@ -38,8 +41,14 @@ async function startApolloServer() {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
 
+  const corsOptions = {
+    origin: 'http://localhost:3000',
+    credentials: true,
+  };
+  // app.use(cors(corsOptions));
+
   // Application des Middleware
-  server.applyMiddleware({ app, path: '/graphql' });
+  server.applyMiddleware({ app, cors: corsOptions });
 
   // Création d'une promesse de connexion
   await new Promise((resolve) => httpServer.listen(process.env.PORT, resolve));
