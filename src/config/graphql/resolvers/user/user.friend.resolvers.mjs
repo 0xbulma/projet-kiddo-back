@@ -1,5 +1,8 @@
 import { GraphQLError } from 'graphql';
 
+import UserRepository from '../../../mongo/repository/UserRepository.mjs';
+const userRepository = new UserRepository();
+
 export const SEND_FRIEND_REQUEST_SECTION = async (parent, { senderEmail, targetEmail }) => {
   const sender = await userRepository.getByEmail(senderEmail);
   if (sender === null) return Error('Sender not found!');
