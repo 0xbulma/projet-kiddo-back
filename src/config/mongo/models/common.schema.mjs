@@ -53,8 +53,8 @@ export const REACTION = {
 };
 
 export const SIGNALMENT = {
-  type: { type: mongoose.Schema.Types.ObjectId, ref: constants.COLLECTION_NAME.SIGNALEMENT },
-  sender_id: OBJECT_ID_REF_USER,
+  signalment: { type: mongoose.Schema.Types.ObjectId, ref: constants.COLLECTION_NAME.SIGNALEMENT },
+  sender: OBJECT_ID_REF_USER,
   signaled_at: { type: Date, default: Date.now },
 };
 

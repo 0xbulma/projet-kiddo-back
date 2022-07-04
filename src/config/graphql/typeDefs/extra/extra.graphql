@@ -28,3 +28,9 @@ type Reaction {
   _id: ObjectID
   name: String
 }
+
+type SignalmentData {
+  signalment: Signalment
+  sender: User
+  signaled_at: DateTime
+}

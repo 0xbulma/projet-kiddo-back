@@ -33,3 +33,9 @@ input ModifyBadgeInput {
   description: String
   icon_url: URL
 }
+
+input SignalmentInput {
+  signalment: ObjectID
+  sender: ObjectID
+  signaled_at: DateTime
+}

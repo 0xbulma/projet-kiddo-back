@@ -1,7 +1,7 @@
 import userModel from '../models/user.model.mjs';
 
 const POPULATE_USER =
-  'pinned_events.event_id booked_events.event_id finished_events.event_id friends_send_request.user friends_receive_request.user friends.user signalments.type signalments.sender_id reactions.type reactions.sender_id comments';
+  'pinned_events.event_id booked_events.event_id finished_events.event_id friends_send_request.user friends_receive_request.user friends.user signalments.signalment signalments.sender reactions.type reactions.sender_id comments';
 
 export default class UserRepository {
   //===============================================
