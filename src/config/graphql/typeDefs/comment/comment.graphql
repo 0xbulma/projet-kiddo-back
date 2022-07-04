@@ -12,7 +12,7 @@ type Comment {
   content: CommentContent
   reactions: [Reaction]
   pinned: Boolean
-  signalments: [Signalment]
+  signalments: [SignalmentData]
 }
 
 type CommentContent {

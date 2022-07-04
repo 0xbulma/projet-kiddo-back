@@ -5,6 +5,7 @@ type Mutation {
 }
 
 input CommentInput {
+  _id: ObjectID
   parent: ObjectID
   child: [ObjectID]
   target_user: ObjectID
@@ -15,7 +16,7 @@ input CommentInput {
   content: CommentContentInput
   reactions: [ObjectID]
   pinned: Boolean
-  signalments: [ObjectID]
+  signalments: [SignalmentInput]
 }
 
 input CommentContentInput {
