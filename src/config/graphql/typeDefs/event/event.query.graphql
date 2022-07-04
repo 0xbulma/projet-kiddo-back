@@ -7,5 +7,19 @@ type Query {
     geoloc: GeoLocInput
     maxDist: Int
   ): [Event]
+  eventsComplexQuery(
+    first: Int
+    offset: Int
+    filterKey: String
+    filter: String
+    searchInput: String
+    lng: Longitude
+    lat: Latitude
+    maxDistMeters: Int
+    minChildAge: Int
+    maxChildAge: Int
+    isPriced: Boolean
+    restrictionsArray: [ObjectID]
+  ): [EventsResponse]
   event(id: ObjectID!): Event
 }

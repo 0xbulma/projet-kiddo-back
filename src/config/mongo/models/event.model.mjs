@@ -16,11 +16,14 @@ const schemaOptions = commonSchema.SCHEMA_OPTIONS(true);
 const EventSchema = new mongoose.Schema(
   {
     drafted_at: { type: Date, default: Date.now },
-    published_at: { type: Date},
+    published_at: { type: Date },
     main_owner: commonSchema.OBJECT_ID_REF_USER,
     co_owners: [commonSchema.OBJECT_ID_REF_USER],
     content: {
-      title: { type: String, required: [true, ERROR_MESSAGE.title] },
+      title: {
+        type: String,
+        required: [true, ERROR_MESSAGE.title],
+      },
       subtitle: { type: String },
       description: { type: String },
       highlighted_message: [
@@ -32,6 +35,14 @@ const EventSchema = new mongoose.Schema(
     },
     content_media: commonSchema.CONTENT_MEDIA,
     group_size: { type: Number, default: 0 },
+    minChildAge: {
+      type: Number,
+      min: [0, "L'âge de l'enfant ne peut être inférieur à 0"],
+    },
+    maxChildAge: {
+      type: Number,
+      max: [12, "l'âge de l'enfant ne peut être supérieur à 12ans"],
+    },
     group_participants: [
       {
         user_id: commonSchema.OBJECT_ID_REF_USER,
@@ -45,7 +56,10 @@ const EventSchema = new mongoose.Schema(
         ],
       },
     ],
-    price: { child: { type: Number, default: 0 }, adult: { type: Number, default: 0 } },
+    price: {
+      child: { type: Number, default: 0 },
+      adult: { type: Number, default: 0 },
+    },
     event_date: {
       start: { type: Date, default: Date.now },
       end: { type: Date, default: Date.now },
@@ -54,42 +68,26 @@ const EventSchema = new mongoose.Schema(
       type: String,
       enum: constants.STATUS_VALUES,
       default: constants.STATUS_VALUES.DRAFTED,
+      index: 'text'
     },
     address: {
       city: { type: String },
       zip_code: {
         type: String,
         validate: {
-          validator: (value) => check.isPostalCode(value, any),
-          message: (props) => `${props.value} n'est pas un code postal valide!`,
+          validator: value => check.isPostalCode(value, any),
+          message: props => `${props.value} n'est pas un code postal valide!`,
         },
       },
       address_line: { type: String },
       address_line_2: { type: String },
     },
     gps: {
-      type : [Number],
-      default : [0, 0],
-      index: "2dsphere",
+      type: [Number],
+      default: [0, 0],
+      index: '2dsphere',
     },
-    // {
-
-    //   lat: {
-    //     type: Number,
-    //     validate: {
-    //       validator: (value) => check.isLatLong(value),
-    //       message: (props) => `${props.value} n'est pas une latitude valide!`,
-    //     },
-    //   },
-    //   lng: {
-    //     type: Number,
-    //     validate: {
-    //       validator: (value) => check.isLatLong(value),
-    //       message: (props) => `${props.value} n'est pas une longitude valide!`,
-    //     },
-    //   },
-    // },
-    filters: [{ type: String }],
+    filters: [{ type: String, index: "text" }],
     categories: commonSchema.OBJECT_ID_REF_CATEGORY,
     restrictions: [commonSchema.OBJECT_ID_REF_RESTRICTION],
 
@@ -103,9 +101,11 @@ const EventSchema = new mongoose.Schema(
 );
 
 //2Dindex
-EventSchema.index({gps: "2dsphere"})
-
-
+EventSchema.index({
+  gps: '2dsphere',
+  filters: 'text',
+  status: 'text'
+});
 
 // TODO: CASCADE SUR LES ARTICLES
 
@@ -113,13 +113,19 @@ EventSchema.index({gps: "2dsphere"})
 EventSchema.post('findOneAndRemove', async (doc, next) => {
   const userRepository = new UserRepository();
 
-  const modifyUserEvent = async (user) => {
+  const modifyUserEvent = async user => {
     await user.modifyUser(
       { _id: user._id },
       {
-        booked_events: user.booked_events.filter((obj) => obj.event_id !== doc._id),
-        finished_events: user.finished_events.filter((obj) => obj.event_id !== doc._id),
-        pinned_events: user.pinned_events.filter((obj) => obj.event_id !== doc._id),
+        booked_events: user.booked_events.filter(
+          obj => obj.event_id !== doc._id
+        ),
+        finished_events: user.finished_events.filter(
+          obj => obj.event_id !== doc._id
+        ),
+        pinned_events: user.pinned_events.filter(
+          obj => obj.event_id !== doc._id
+        ),
       }
     );
   };
@@ -142,7 +148,9 @@ EventSchema.post('findOneAndRemove', async (doc, next) => {
   }
 
   if (doc.group_participants) {
-    const users = await userRepository.getAllbyIds(doc.group_participants.map((obj) => obj.user_id));
+    const users = await userRepository.getAllbyIds(
+      doc.group_participants.map(obj => obj.user_id)
+    );
     if (users) {
       for (const user of users) {
         await modifyUserEvent(user);
@@ -151,13 +159,15 @@ EventSchema.post('findOneAndRemove', async (doc, next) => {
   }
 
   if (doc.friends) {
-    const otherUsers = await userRepository.getAllbyIds(doc.friends.map((obj) => obj.user_id));
+    const otherUsers = await userRepository.getAllbyIds(
+      doc.friends.map(obj => obj.user_id)
+    );
     if (otherUsers) {
       for (const user of otherUsers) {
         await user.modifyUser(
           { _id: user._id },
           {
-            friends: user.friends.filter((obj) => obj.user_id !== doc._id),
+            friends: user.friends.filter(obj => obj.user_id !== doc._id),
           }
         );
       }

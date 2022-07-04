@@ -12,6 +12,14 @@ scalar URL
 scalar NonNegativeInt
 
 ##############
+# Response Object
+##############
+type EventsResponse {
+  results: [Event]
+  count: Int
+}
+
+##############
 # Main Object
 ##############
 type Event {
@@ -20,13 +28,15 @@ type Event {
   updated_at: DateTime
   drafted_at: DateTime
   published_at: DateTime
-
+  
   main_owner: User
   co_owners: [User]
   content: Content
   content_media: ContentMedia
 
   group_size: NonNegativeInt
+  minChildAge: Int
+  maxChildAge: Int
   group_participants: [Participant]
   price: Pricing
 

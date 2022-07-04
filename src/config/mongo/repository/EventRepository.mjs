@@ -13,13 +13,55 @@ export default class EventRepository {
     geoloc = null,
     maxDist = null
   ) {
-   
     return await eventModel
-      .find({[filterKey]:filter})
+      .find({ [filterKey]: filter })
       .skip(parseInt(offset))
       .limit(parseInt(first))
       .populate(POPULATE_EVENT)
       .exec();
+  }
+
+  async getCountByComplexSearch() {
+    return 'toto';
+  }
+
+  async getEventsByComplexSearch(
+    first,
+    offset,
+    filterKey,
+    filter,
+    searchInput,
+    lng,
+    lat,
+    maxDistMeters,
+    minChildAge,
+    maxChildAge,
+    isPriced,
+    restrictionsArray
+  ) {
+    return await eventModel
+      .find({
+        [filterKey]: filter,
+        'content.title': { $regex: `.*${searchInput}.*` },
+        'content.subtitle': { $regex: `.*${searchInput}.*` },
+        'content.description': { $regex: `.*${searchInput}.*` },
+        'content.highlighted_message.title': { $regex: `.*${searchInput}.*` },
+        'content.highlighted_message.message': { $regex: `.*${searchInput}.*` },
+      })
+      .skip(offset)
+      .limit(first)
+      .populate(POPULATE_EVENT)
+      .exec();
+  }
+
+  async getMatch() {
+    return await eventModel.aggregate([
+      {
+        $match: {
+          categories: ObjectId('62bda67384cf824356e890e0'),
+        },
+      },
+    ]);
   }
 
   async getAllbyIds(idsArray) {
