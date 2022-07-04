@@ -10,6 +10,7 @@ scalar Latitude
 scalar Longitude
 scalar URL
 scalar NonNegativeInt
+scalar Timestamp
 
 ##############
 # Response Object
@@ -28,7 +29,7 @@ type Event {
   updated_at: DateTime
   drafted_at: DateTime
   published_at: DateTime
-  
+
   main_owner: User
   co_owners: [User]
   content: Content

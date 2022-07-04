@@ -26,23 +26,25 @@ export default {
       {
         first = 12,
         offset = 0,
+        dateOrder = 'asc',
+        minDate = 0,
         filterKey = null,
         filter = null,
-        searchInput = null,
+        searchInput = '',
         lng = 0,
         lat = 0,
         maxDistMeters = 200000,
         minChildAge = 0,
         maxChildAge = 12,
-        isPriced,
+        price = null,
+        status = '',
         restrictionsArray = [''],
       },
       context,
       info
     ) => {
-      const response = await eventRepository.getEventsByComplexSearch(
-        parseInt(first),
-        parseInt(offset),
+      const count = await eventRepository.getCountByComplexSearch(
+        minDate,
         filterKey?.toLowerCase().trim(),
         filter?.toLowerCase().trim(),
         searchInput?.toLowerCase().trim(),
@@ -51,10 +53,29 @@ export default {
         maxDistMeters,
         minChildAge,
         maxChildAge,
-        isPriced,
-        restrictionsArray,
+        price,
+        status,
+        restrictionsArray
       );
-      return response;
+
+      const response = await eventRepository.getEventsByComplexSearch(
+        parseInt(first),
+        parseInt(offset),
+        dateOrder,
+        minDate,
+        filterKey?.toLowerCase().trim(),
+        filter?.toLowerCase().trim(),
+        searchInput?.toLowerCase().trim(),
+        lng,
+        lat,
+        maxDistMeters,
+        minChildAge,
+        maxChildAge,
+        price,
+        status,
+        restrictionsArray
+      );
+      return { count: count, results: response };
     },
 
     event: async (parent, { id }, context, info) => {

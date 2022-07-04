@@ -61,8 +61,8 @@ const EventSchema = new mongoose.Schema(
       adult: { type: Number, default: 0 },
     },
     event_date: {
-      start: { type: Date, default: Date.now },
-      end: { type: Date, default: Date.now },
+      start: { type: Number },
+      end: { type: Number },
     },
     status: {
       type: String,

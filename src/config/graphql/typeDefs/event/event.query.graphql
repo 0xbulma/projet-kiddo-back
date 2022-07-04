@@ -7,9 +7,12 @@ type Query {
     geoloc: GeoLocInput
     maxDist: Int
   ): [Event]
+
   eventsComplexQuery(
     first: Int
     offset: Int
+    dateOrder: String
+    minDate: NonNegativeInt
     filterKey: String
     filter: String
     searchInput: String
@@ -19,7 +22,9 @@ type Query {
     minChildAge: Int
     maxChildAge: Int
     isPriced: Boolean
+    status: String
     restrictionsArray: [ObjectID]
-  ): [EventsResponse]
+  ): EventsResponse
+
   event(id: ObjectID!): Event
 }
