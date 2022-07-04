@@ -23,8 +23,7 @@ export default class EventRepository {
 
   async getCountByComplexSearch(
     minDate,
-    filterKey,
-    filter,
+    categories,
     searchInput,
     lng,
     lat,
@@ -35,9 +34,11 @@ export default class EventRepository {
     status,
     restrictionsArray
   ) {
-    return await eventModel.count({
-      [filterKey]: filter,
-      $or: [
+  const categoryKey = categories ? "categories" : null;
+
+   return await eventModel.count({
+      [categoryKey] : categories,
+       $or: [
         {
           'content.title': { $regex: new RegExp(`.*${searchInput}.*`, 'i') },
         },
@@ -70,8 +71,7 @@ export default class EventRepository {
     offset,
     dateOrder,
     minDate,
-    filterKey,
-    filter,
+    categories,
     searchInput,
     lng,
     lat,
@@ -82,9 +82,10 @@ export default class EventRepository {
     status,
     restrictionsArray
   ) {
+    const categoryKey = categories ? "categories" : null;
     return await eventModel
       .find({
-        [filterKey]: filter,
+        [categoryKey] : categories,
         $or: [
           {
             'content.title': { $regex: new RegExp(`.*${searchInput}.*`, 'i') },
