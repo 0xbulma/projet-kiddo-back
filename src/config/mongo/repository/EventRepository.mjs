@@ -13,13 +13,120 @@ export default class EventRepository {
     geoloc = null,
     maxDist = null
   ) {
-   
     return await eventModel
-      .find({[filterKey]:filter})
+      .find({ [filterKey]: filter })
       .skip(parseInt(offset))
       .limit(parseInt(first))
       .populate(POPULATE_EVENT)
       .exec();
+  }
+
+  async getCountByComplexSearch(
+    minDate,
+    categories,
+    searchInput,
+    lng,
+    lat,
+    maxDistMeters,
+    minChildAge,
+    maxChildAge,
+    price,
+    status,
+    restrictionsArray
+  ) {
+  const categoryKey = categories ? "categories" : null;
+
+   return await eventModel.count({
+      [categoryKey] : categories,
+       $or: [
+        {
+          'content.title': { $regex: new RegExp(`.*${searchInput}.*`, 'i') },
+        },
+        {
+          'content.subtitle': {
+            $regex: new RegExp(`.*${searchInput}.*`, 'i'),
+          },
+        },
+        {
+          'content.highlighted_message.title': {
+            $regex: new RegExp(`.*${searchInput}.*`, 'i'),
+          },
+        },
+        {
+          'content.highlighted_message.message': {
+            $regex: new RegExp(`.*${searchInput}.*`, 'i'),
+          },
+        },
+      ],
+      status: { $regex: `.*${status}.*` },
+      'event_date.start': { $gte: minDate },
+      minChildAge: { $gte: minChildAge },
+      maxChildAge: { $lte: maxChildAge },
+      // restrictions: { $in: restrictionsArray },
+    });
+  }
+
+  async getEventsByComplexSearch(
+    first,
+    offset,
+    dateOrder,
+    minDate,
+    categories,
+    searchInput,
+    lng,
+    lat,
+    maxDistMeters,
+    minChildAge,
+    maxChildAge,
+    price,
+    status,
+    restrictionsArray
+  ) {
+    const categoryKey = categories ? "categories" : null;
+    return await eventModel
+      .find({
+        [categoryKey] : categories,
+        $or: [
+          {
+            'content.title': { $regex: new RegExp(`.*${searchInput}.*`, 'i') },
+          },
+          {
+            'content.subtitle': {
+              $regex: new RegExp(`.*${searchInput}.*`, 'i'),
+            },
+          },
+          {
+            'content.highlighted_message.title': {
+              $regex: new RegExp(`.*${searchInput}.*`, 'i'),
+            },
+          },
+          {
+            'content.highlighted_message.message': {
+              $regex: new RegExp(`.*${searchInput}.*`, 'i'),
+            },
+          },
+        ],
+        status: { $regex: `.*${status}.*` },
+        'event_date.start': { $gte: minDate },
+        minChildAge: { $gte: minChildAge },
+        maxChildAge: { $lte: maxChildAge },
+        // restrictions: { $in: restrictionsArray },
+      })
+      .sort({ 'event_date.start': dateOrder })
+      .skip(offset)
+      .limit(first)
+      .populate(POPULATE_EVENT)
+      .exec();
+  }
+
+  async getMatch() {
+    return await eventModel.aggregate([
+      {
+        $match: {
+          categories: ObjectId('62bda67384cf824356e890e0'),
+        },
+      },
+    ]);
   }
 
   async getAllbyIds(idsArray) {

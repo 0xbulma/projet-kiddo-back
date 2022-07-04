@@ -17,6 +17,6 @@ input GeoLocInput {
 }
 
 input DateRangeInput {
-  start: DateTime
-  end: DateTime
+  start: Timestamp
+  end: Timestamp
 }

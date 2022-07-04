@@ -5,7 +5,12 @@ const eventRepository = new EventRepository();
 
 export default {
   Query: {
-    events: async (parent, { first, offset, filterKey, filter, geoloc, maxDist }, context, info) => {
+    events: async (
+      parent,
+      { first, offset, filterKey, filter, geoloc, maxDist },
+      context,
+      info
+    ) => {
       return await eventRepository.getEvents(
         first,
         offset,
@@ -14,6 +19,57 @@ export default {
         geoloc,
         maxDist
       );
+    },
+
+    eventsComplexQuery: async (
+      parent,
+      {
+        first = 12,
+        offset = 0,
+        dateOrder = 'asc',
+        minDate = 0,
+        categories,
+        searchInput = '',
+        lng = 0,
+        lat = 0,
+        maxDistMeters = 200000,
+        minChildAge = 0,
+        maxChildAge = 12,
+        status = '',
+        restrictionsArray = [''],
+      },
+      context,
+      info
+    ) => {
+      const count = await eventRepository.getCountByComplexSearch(
+        minDate,
+        categories,
+        searchInput?.toLowerCase().trim(),
+        lng,
+        lat,
+        maxDistMeters,
+        minChildAge,
+        maxChildAge,
+        status,
+        restrictionsArray
+      );
+
+      const response = await eventRepository.getEventsByComplexSearch(
+        parseInt(first),
+        parseInt(offset),
+        dateOrder,
+        minDate,
+        categories,
+        searchInput?.toLowerCase().trim(),
+        lng,
+        lat,
+        maxDistMeters,
+        minChildAge,
+        maxChildAge,
+        status,
+        restrictionsArray
+      );
+      return { count: count, results: response };
     },
 
     event: async (parent, { id }, context, info) => {

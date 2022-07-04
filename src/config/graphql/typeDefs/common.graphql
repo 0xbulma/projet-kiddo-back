@@ -25,6 +25,6 @@ type GeoLoc {
 }
 
 type DateRange {
-  start: DateTime
-  end: DateTime
+  start: Timestamp
+  end: Timestamp
 }
