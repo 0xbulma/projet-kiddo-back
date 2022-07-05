@@ -1,6 +1,7 @@
 # Variables
 enum Status {
   DRAFTED
+  PUBLISHED
   CONFIRMED
   TERMINATED
   CANCELED
