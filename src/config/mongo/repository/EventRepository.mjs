@@ -93,9 +93,17 @@ export default class EventRepository {
   }
 
   async getEventsByComplexSearch(input) {
+    let queryOrder = {}
+    if (input.dateOrder) {
+      queryOrder['event_date.start'] = input.dateOrder
+    }
+    if (input.publishedOrder) {
+      queryOrder['published_at'] = input.publishedOrder
+    }
+
     return await eventModel
       .find(this.complexQueryConstructor(input))
-      .sort({ 'event_date.start': input.dateOrder })
+      .sort(queryOrder)
       .skip(input.offset)
       .limit(input.first)
       .populate(POPULATE_EVENT)

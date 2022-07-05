@@ -29,7 +29,7 @@ async function startApolloServer() {
   });
 
   const server = new ApolloServer({
-    context: (request) => request,
+    context: request => request,
     schema,
     csrfPrevention: true,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
@@ -42,8 +42,7 @@ async function startApolloServer() {
   app.use(bodyParser.json());
 
   const corsOptions = {
-   origin: process.env.FRONT_URL, // 'https://studio.apollographql.com' ||  process.env.FRONT_URL
-   // origin: 'https://studio.apollographql.com',
+    origin: ['https://studio.apollographql.com', process.env.FRONT_URL],
     credentials: true,
   };
   // app.use(cors(corsOptions));
@@ -52,7 +51,7 @@ async function startApolloServer() {
   server.applyMiddleware({ app, cors: corsOptions });
 
   // Création d'une promesse de connexion
-  await new Promise((resolve) => httpServer.listen(process.env.PORT, resolve));
+  await new Promise(resolve => httpServer.listen(process.env.PORT, resolve));
   console.log(`[Serveur] Démarré avec succès : http://localhost:${process.env.PORT}`);
 
   // DB : Connexion

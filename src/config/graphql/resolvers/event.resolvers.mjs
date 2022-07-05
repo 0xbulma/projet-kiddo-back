@@ -47,9 +47,6 @@ export default {
       if (!inputObject?.offset) {
         inputObject.offset = 0;
       }
-      if (!inputObject?.dateOrder) {
-        inputObject.dateOrder = 'asc';
-      }
       const count = await eventRepository.getCountByComplexSearch(inputObject);
       const response = await eventRepository.getEventsByComplexSearch(inputObject);
       return { count: count, results: response };

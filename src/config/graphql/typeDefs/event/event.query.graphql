@@ -19,6 +19,7 @@ input complexQueryInput {
     minDate: Timestamp
     minDraftedAt: Timestamp 
     minPublishedAt: Timestamp 
+    publishedOrder: String
     categories: ObjectID
     searchInput: String 
     lng: Longitude
