@@ -9,12 +9,19 @@ type Query {
   ): [Event]
 
   eventsComplexQuery(
-    first: Int
-    offset: Int
-    dateOrder: String
-    minDate: NonNegativeInt
+    input: complexQueryInput  
+  ): EventsResponse
+
+  event(id: ObjectID!): Event
+}
+
+input complexQueryInput {
+    minDate: Timestamp
+    minDraftedAt: Timestamp 
+    minPublishedAt: Timestamp 
+    publishedOrder: String
     categories: ObjectID
-    searchInput: String
+    searchInput: String 
     lng: Longitude
     lat: Latitude
     maxDistMeters: Int
@@ -22,7 +29,7 @@ type Query {
     maxChildAge: Int
     status: String
     restrictionsArray: [ObjectID]
-  ): EventsResponse
-
-  event(id: ObjectID!): Event
+    first: Int
+    offset: Int
+    dateOrder: String
 }

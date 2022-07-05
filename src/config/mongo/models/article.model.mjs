@@ -11,7 +11,6 @@ const ERROR_MESSAGE = {
 
 // Options du schema
 const schemaOptions = commonSchema.SCHEMA_OPTIONS(true);
-
 const ArticleSchema = new mongoose.Schema(
   {
     name: String,

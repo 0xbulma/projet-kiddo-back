@@ -9,54 +9,46 @@ export default {
       return await eventRepository.getEvents(first, offset, filterKey?.toLowerCase().trim(), filter?.toLowerCase().trim(), geoloc, maxDist);
     },
 
-    eventsComplexQuery: async (
-      parent,
-      {
-        first = 12,
-        offset = 0,
-        dateOrder = 'asc',
-        minDate = 0,
-        categories,
-        searchInput = '',
-        lng = 0,
-        lat = 0,
-        maxDistMeters = 200000,
-        minChildAge = 0,
-        maxChildAge = 12,
-        status = '',
-        restrictionsArray = [''],
-      },
-      context,
-      info
-    ) => {
-      const count = await eventRepository.getCountByComplexSearch(
-        minDate,
-        categories,
-        searchInput?.toLowerCase().trim(),
-        lng,
-        lat,
-        maxDistMeters,
-        minChildAge,
-        maxChildAge,
-        status,
-        restrictionsArray
-      );
-
-      const response = await eventRepository.getEventsByComplexSearch(
-        parseInt(first),
-        parseInt(offset),
-        dateOrder,
-        minDate,
-        categories,
-        searchInput?.toLowerCase().trim(),
-        lng,
-        lat,
-        maxDistMeters,
-        minChildAge,
-        maxChildAge,
-        status,
-        restrictionsArray
-      );
+    eventsComplexQuery: async (parent, { input }, context, info) => {
+      let inputObject = {};
+      
+      if (!input) {
+        input = inputObject;
+      } else {
+        inputObject = input;
+      }
+      if (!inputObject?.minDate) {
+        inputObject.minDate = 0;
+      }
+      if (!inputObject?.minDraftedAt) {
+        inputObject.minDraftedAt = 0;
+      }
+      if (!inputObject?.minPublishedAt) {
+        inputObject.minPublishedAt = 0;
+      }
+      if (inputObject?.searchInput) {
+        inputObject.searchInput?.toLowerCase().trim();
+      }
+      if (!inputObject?.searchInput) {
+        inputObject.searchInput = '';
+      }
+      if (!inputObject?.minChildAge) {
+        inputObject.minChildAge = 0;
+      }
+      if (!inputObject?.maxChildAge) {
+        inputObject.maxChildAge = 12;
+      }
+      if (!inputObject?.status) {
+        inputObject.status = '';
+      }
+      if (!inputObject?.first) {
+        inputObject.first = 12;
+      }
+      if (!inputObject?.offset) {
+        inputObject.offset = 0;
+      }
+      const count = await eventRepository.getCountByComplexSearch(inputObject);
+      const response = await eventRepository.getEventsByComplexSearch(inputObject);
       return { count: count, results: response };
     },
 

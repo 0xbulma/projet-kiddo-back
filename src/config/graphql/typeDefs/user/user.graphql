@@ -3,7 +3,7 @@ scalar ObjectID
 scalar Date
 scalar DateTime
 scalar IPv4
-scalar EmailAddress
+scalar Emailadress
 scalar PhoneNumber
 scalar PostalCode
 scalar Latitude
@@ -38,7 +38,7 @@ type User {
   rank: Rank
 
   token: JWT
-  email: EmailAddress
+  email: Emailadress
   password: String
   reset_password_token: ResetPasswordToken
   oAuth_link: [String]
