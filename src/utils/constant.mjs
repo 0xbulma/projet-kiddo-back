@@ -22,8 +22,8 @@ export const RANKS_VALUES = {
 };
 
 export const GENDER_VALUES = {
-  MALE: 'MALE',
-  FEMALE: 'FEMALE',
+  Male: 'Male',
+  Female: 'Female',
   UNKNOWN: 'UNKNOWN',
 };
 

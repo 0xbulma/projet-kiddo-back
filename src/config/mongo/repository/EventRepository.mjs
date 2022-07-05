@@ -127,7 +127,7 @@ export default class EventRepository {
   }
 
   async getEventById(eventId) {
-    return await eventModel.findOne(eventId).populate(POPULATE_EVENT).exec();
+    return await eventModel.findOne({ _id: eventId }).populate(POPULATE_EVENT).exec();
   }
 
   // Création et modification de l'évènement
