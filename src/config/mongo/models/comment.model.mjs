@@ -48,12 +48,10 @@ CommentSchema.post('findOneAndRemove', async (doc, next) => {
   const commentRepository = new CommentRepository();
 
   // CASCADE SUR LES EVENTS
-  console.log('DOC : ', doc);
   if (doc.target_event) {
     const event = await eventRepository.getEventById({ _id: doc.target_event });
 
     if (event) {
-      console.log(event);
       eventRepository.modifyEvent({ _id: doc.target_event }, { comments: event.comments.filter((id) => id !== doc._id) });
     }
   }

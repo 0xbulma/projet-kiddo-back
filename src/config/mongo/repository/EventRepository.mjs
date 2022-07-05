@@ -7,7 +7,6 @@ export default class EventRepository {
   // Récupération des données liées à l'évènement
 
   complexQueryConstructor(input) {
-    console.log(input);
     let query = {
       // restrictions: { $in: restrictionsArray },
     };
@@ -93,12 +92,12 @@ export default class EventRepository {
   }
 
   async getEventsByComplexSearch(input) {
-    let queryOrder = {}
+    let queryOrder = {};
     if (input.dateOrder) {
-      queryOrder['event_date.start'] = input.dateOrder
+      queryOrder['event_date.start'] = input.dateOrder;
     }
     if (input.publishedOrder) {
-      queryOrder['published_at'] = input.publishedOrder
+      queryOrder['published_at'] = input.publishedOrder;
     }
 
     return await eventModel
