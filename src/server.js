@@ -32,7 +32,7 @@ async function startApolloServer() {
   });
 
   const server = new ApolloServer({
-    context: (request) => request,
+    context: request => request,
     schema,
     csrfPrevention: true,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
