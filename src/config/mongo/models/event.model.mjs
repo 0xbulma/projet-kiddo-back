@@ -45,7 +45,7 @@ const EventSchema = new mongoose.Schema(
     },
     group_participants: [
       {
-        user_id: commonSchema.OBJECT_ID_REF_USER,
+        user: commonSchema.OBJECT_ID_REF_USER,
         booked_at: { type: Date, default: Date.now },
         group_detail: [
           {

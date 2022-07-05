@@ -6,6 +6,7 @@ enum Status {
   CONFIRMED
   TERMINATED
   CANCELED
+  UNLISTED
 }
 
 # Common object
