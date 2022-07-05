@@ -1,23 +1,26 @@
-import 'dotenv/config';
+import "dotenv/config";
 
-import express from 'express';
-import http from 'http';
-import bodyParser from 'body-parser';
-import cors from 'cors';
+import express from "express";
+import http from "http";
+import bodyParser from "body-parser";
+import cors from "cors";
 
-import { ApolloServer } from 'apollo-server-express';
-import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
+import { ApolloServer } from "apollo-server-express";
+import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
 
-import { makeExecutableSchema } from '@graphql-tools/schema';
-import typeDefs from './config/graphql/typeDefs/index__typeDefs.mjs';
-import resolvers from './config/graphql/resolvers/index__resolvers.mjs';
-import { typeDefs as scalarsTypedefs, resolvers as scalarsResolvers } from 'graphql-scalars';
+import { makeExecutableSchema } from "@graphql-tools/schema";
+import typeDefs from "./config/graphql/typeDefs/index__typeDefs.mjs";
+import resolvers from "./config/graphql/resolvers/index__resolvers.mjs";
+import {
+  typeDefs as scalarsTypedefs,
+  resolvers as scalarsResolvers,
+} from "graphql-scalars";
 
-import { connectToDB } from './config/database.mjs';
+import { connectToDB } from "./config/database.mjs";
 
 // Initialisation des paramètres de l'application
 async function startApolloServer() {
-  const isProduction = process.env.NODE_ENV === 'PROD';
+  const isProduction = process.env.NODE_ENV === "PROD";
 
   const app = express();
   const httpServer = http.createServer(app);
@@ -42,8 +45,7 @@ async function startApolloServer() {
   app.use(bodyParser.json());
 
   const corsOptions = {
-   origin: process.env.FRONT_URL, // 'https://studio.apollographql.com' ||  process.env.FRONT_URL
-   // origin: 'https://studio.apollographql.com',
+    origin: [process.env.FRONT_URL, "https://studio.apollographql.com"],
     credentials: true,
   };
   // app.use(cors(corsOptions));
@@ -53,7 +55,9 @@ async function startApolloServer() {
 
   // Création d'une promesse de connexion
   await new Promise((resolve) => httpServer.listen(process.env.PORT, resolve));
-  console.log(`[Serveur] Démarré avec succès : http://localhost:${process.env.PORT}`);
+  console.log(
+    `[Serveur] Démarré avec succès : http://localhost:${process.env.PORT}`
+  );
 
   // DB : Connexion
   connectToDB();
