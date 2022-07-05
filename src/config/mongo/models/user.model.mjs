@@ -21,10 +21,10 @@ export const UserSchema = new mongoose.Schema(
       {
         ip: {
           type: String,
-          required: [true, 'IP address required'],
+          required: [true, 'IP adress required'],
           validate: {
             validator: (value) => check.isIP(value),
-            message: (props) => `${props.value} is not a valid IP address!`,
+            message: (props) => `${props.value} is not a valid IP adress!`,
           },
         },
         date: { type: Date, default: Date.now },

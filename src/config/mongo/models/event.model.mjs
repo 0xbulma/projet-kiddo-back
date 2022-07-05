@@ -68,26 +68,26 @@ const EventSchema = new mongoose.Schema(
       type: String,
       enum: constants.STATUS_VALUES,
       default: constants.STATUS_VALUES.DRAFTED,
-      index: 'text'
+      index: 'text',
     },
-    address: {
+    adress: {
       city: { type: String },
       zip_code: {
         type: String,
         validate: {
-          validator: value => check.isPostalCode(value, any),
-          message: props => `${props.value} n'est pas un code postal valide!`,
+          validator: (value) => check.isPostalCode(value, any),
+          message: (props) => `${props.value} n'est pas un code postal valide!`,
         },
       },
-      address_line: { type: String },
-      address_line_2: { type: String },
+      adress_line: { type: String },
+      adress_line_2: { type: String },
     },
     gps: {
       type: [Number],
       default: [0, 0],
       index: '2dsphere',
     },
-    filters: [{ type: String, index: "text" }],
+    filters: [{ type: String, index: 'text' }],
     categories: commonSchema.OBJECT_ID_REF_CATEGORY,
     restrictions: [commonSchema.OBJECT_ID_REF_RESTRICTION],
 
@@ -104,7 +104,7 @@ const EventSchema = new mongoose.Schema(
 EventSchema.index({
   gps: '2dsphere',
   filters: 'text',
-  status: 'text'
+  status: 'text',
 });
 
 // TODO: CASCADE SUR LES ARTICLES
@@ -113,19 +113,13 @@ EventSchema.index({
 EventSchema.post('findOneAndRemove', async (doc, next) => {
   const userRepository = new UserRepository();
 
-  const modifyUserEvent = async user => {
+  const modifyUserEvent = async (user) => {
     await user.modifyUser(
       { _id: user._id },
       {
-        booked_events: user.booked_events.filter(
-          obj => obj.event_id !== doc._id
-        ),
-        finished_events: user.finished_events.filter(
-          obj => obj.event_id !== doc._id
-        ),
-        pinned_events: user.pinned_events.filter(
-          obj => obj.event_id !== doc._id
-        ),
+        booked_events: user.booked_events.filter((obj) => obj.event_id !== doc._id),
+        finished_events: user.finished_events.filter((obj) => obj.event_id !== doc._id),
+        pinned_events: user.pinned_events.filter((obj) => obj.event_id !== doc._id),
       }
     );
   };
@@ -148,9 +142,7 @@ EventSchema.post('findOneAndRemove', async (doc, next) => {
   }
 
   if (doc.group_participants) {
-    const users = await userRepository.getAllbyIds(
-      doc.group_participants.map(obj => obj.user_id)
-    );
+    const users = await userRepository.getAllbyIds(doc.group_participants.map((obj) => obj.user_id));
     if (users) {
       for (const user of users) {
         await modifyUserEvent(user);
@@ -159,15 +151,13 @@ EventSchema.post('findOneAndRemove', async (doc, next) => {
   }
 
   if (doc.friends) {
-    const otherUsers = await userRepository.getAllbyIds(
-      doc.friends.map(obj => obj.user_id)
-    );
+    const otherUsers = await userRepository.getAllbyIds(doc.friends.map((obj) => obj.user_id));
     if (otherUsers) {
       for (const user of otherUsers) {
         await user.modifyUser(
           { _id: user._id },
           {
-            friends: user.friends.filter(obj => obj.user_id !== doc._id),
+            friends: user.friends.filter((obj) => obj.user_id !== doc._id),
           }
         );
       }
