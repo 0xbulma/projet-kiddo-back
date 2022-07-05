@@ -43,6 +43,7 @@ async function startApolloServer() {
 
   const corsOptions = {
     origin: process.env.FRONT_URL, // 'https://studio.apollographql.com' ||  process.env.FRONT_URL
+    //origin: 'https://studio.apollographql.com',
     credentials: true,
   };
   // app.use(cors(corsOptions));

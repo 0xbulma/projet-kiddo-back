@@ -3,7 +3,7 @@ scalar ObjectID
 scalar Date
 scalar DateTime
 scalar IPv4
-scalar EmailAddress
+scalar Emailadress
 scalar PhoneNumber
 scalar PostalCode
 scalar Latitude
@@ -27,8 +27,8 @@ type Event {
   _id: ObjectID
   created_at: DateTime
   updated_at: DateTime
-  drafted_at: DateTime
-  published_at: DateTime
+  drafted_at: Timestamp
+  published_at: Timestamp
 
   main_owner: User
   co_owners: [User]
@@ -81,7 +81,7 @@ type ContentMedia {
 
 type Participant {
   user: User
-  booked_at: DateTime
+  booked_at: Timestamp
   group_detail: [MemberDetail]
 }
 

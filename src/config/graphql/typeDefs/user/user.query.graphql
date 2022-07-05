@@ -1,6 +1,6 @@
 type Query {
   getUserById(_id: ObjectID!): User
-  getUserByEmail(email: EmailAddress): User
+  getUserByEmail(email: Emailadress): User
   users: [User]
-  connectUser(email: EmailAddress, password: String): User
+  connectUser(email: Emailadress, password: String): User
 }

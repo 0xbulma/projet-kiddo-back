@@ -28,6 +28,8 @@ export default {
         offset = 0,
         dateOrder = 'asc',
         minDate = 0,
+        minDraftedAt = 0,
+        minPublishedAt = 0,
         categories,
         searchInput = '',
         lng = 0,
@@ -43,6 +45,8 @@ export default {
     ) => {
       const count = await eventRepository.getCountByComplexSearch(
         minDate,
+        minDraftedAt,
+        minPublishedAt,
         categories,
         searchInput?.toLowerCase().trim(),
         lng,
@@ -58,6 +62,8 @@ export default {
         parseInt(first),
         parseInt(offset),
         dateOrder,
+        minDraftedAt,
+        minPublishedAt,
         minDate,
         categories,
         searchInput?.toLowerCase().trim(),

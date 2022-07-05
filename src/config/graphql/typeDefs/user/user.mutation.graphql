@@ -3,10 +3,10 @@ type Mutation {
   modifyUser(_id: ObjectID!, input: UserInput!): User
   removeUser(_id: ObjectID!): User
   #Recover Password
-  recoverPassword(email: EmailAddress): User
-  resetPassword(_id: ObjectID, email: EmailAddress, token: UUID, password: String): User
+  recoverPassword(email: Emailadress): User
+  resetPassword(_id: ObjectID, email: Emailadress, token: UUID, password: String): User
   #Friends
-  sendFriendRequest(senderEmail: EmailAddress!, targetEmail: EmailAddress!): User
+  sendFriendRequest(senderEmail: Emailadress!, targetEmail: Emailadress!): User
 }
 
 ##############
@@ -17,7 +17,7 @@ input UserInput {
   rank: String
 
   token: String
-  email: EmailAddress
+  email: Emailadress
   password: String
   reset_password_token: String
   oAuth_link: [String]

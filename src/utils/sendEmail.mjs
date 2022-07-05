@@ -24,7 +24,7 @@ async function sendEmail(resetToken, emailTo) {
 
   // send mail with defined transport object
   let info = await transporter.sendMail({
-    from: '"Fred Foo 👻" <foo@example.com>', // sender address
+    from: '"Fred Foo 👻" <foo@example.com>', // sender adress
     to: "test@gmail.com", // list of receivers
     subject: "Kiddo : création d'un nouveau mot de passe", // Subject line
     text: `Lien de récupartion de mot de passe: /https://kiddo-front-la-passerelle.netlify.app/recoverpassowrd?token=${resetToken}`, // plain text body

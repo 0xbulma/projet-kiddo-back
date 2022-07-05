@@ -16,6 +16,8 @@ export default class EventRepository {
 
   async getCountByComplexSearch(
     minDate,
+    minDraftedAt,
+    minPublishedAt,
     categories,
     searchInput,
     lng,
@@ -51,28 +53,30 @@ export default class EventRepository {
           },
         },
         {
-          'address.city': {
+          'adress.city': {
             $regex: new RegExp(`.*${searchInput}.*`, 'i'),
           },
         },
         {
-          'address.zip_code': {
+          'adress.zip_code': {
             $regex: new RegExp(`.*${searchInput}.*`, 'i'),
           },
         },
         {
-          'address.address_line': {
+          'adress.adress_line': {
             $regex: new RegExp(`.*${searchInput}.*`, 'i'),
           },
         },
         {
-          'address.address_line2': {
+          'adress.adress_line2': {
             $regex: new RegExp(`.*${searchInput}.*`, 'i'),
           },
         }
       ],
       status: { $regex: `.*${status}.*` },
       'event_date.start': { $gte: minDate },
+      drafted_at: { $gte: minDraftedAt},
+      published_at: { $gte: minPublishedAt },
       minChildAge: { $gte: minChildAge },
       maxChildAge: { $lte: maxChildAge },
       // restrictions: { $in: restrictionsArray },
@@ -83,6 +87,8 @@ export default class EventRepository {
     first,
     offset,
     dateOrder,
+    minDraftedAt,
+    minPublishedAt,
     minDate,
     categories,
     searchInput,
@@ -119,28 +125,30 @@ export default class EventRepository {
             },
           },
           {
-            'address.city': {
+            'adress.city': {
               $regex: new RegExp(`.*${searchInput}.*`, 'i'),
             },
           },
           {
-            'address.zip_code': {
+            'adress.zip_code': {
               $regex: new RegExp(`.*${searchInput}.*`, 'i'),
             },
           },
           {
-            'address.address_line': {
+            'adress.adress_line': {
               $regex: new RegExp(`.*${searchInput}.*`, 'i'),
             },
           },
           {
-            'address.address_line2': {
+            'adress.adress_line2': {
               $regex: new RegExp(`.*${searchInput}.*`, 'i'),
             },
           },
         ],
         status: { $regex: `.*${status}.*` },
         'event_date.start': { $gte: minDate },
+        drafted_at: { $gte: minDraftedAt},
+        published_at: { $gte: minPublishedAt },
         minChildAge: { $gte: minChildAge },
         maxChildAge: { $lte: maxChildAge },
         // restrictions: { $in: restrictionsArray },

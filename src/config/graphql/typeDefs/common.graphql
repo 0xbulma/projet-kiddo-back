@@ -9,7 +9,7 @@ enum Status {
 # Common object
 type Location {
   city: String
-  zip_code: PostalCode
+  zip_code: String
   adress_line: String
   adress_line_2: String
 }

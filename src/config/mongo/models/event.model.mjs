@@ -15,8 +15,8 @@ const schemaOptions = commonSchema.SCHEMA_OPTIONS(true);
 
 const EventSchema = new mongoose.Schema(
   {
-    drafted_at: { type: Date, default: Date.now },
-    published_at: { type: Date },
+    drafted_at: { type: Number, default: Date.now() },
+    published_at: { type: Number },
     main_owner: commonSchema.OBJECT_ID_REF_USER,
     co_owners: [commonSchema.OBJECT_ID_REF_USER],
     content: {
@@ -46,7 +46,7 @@ const EventSchema = new mongoose.Schema(
     group_participants: [
       {
         user_id: commonSchema.OBJECT_ID_REF_USER,
-        booked_at: { type: Date, default: Date.now },
+        booked_at: { type: Number, default: Date.now() },
         group_detail: [
           {
             isChild: { type: Boolean, default: false },
@@ -70,7 +70,7 @@ const EventSchema = new mongoose.Schema(
       default: constants.STATUS_VALUES.DRAFTED,
       index: 'text'
     },
-    address: {
+    adress: {
       city: { type: String },
       zip_code: {
         type: String,
@@ -79,8 +79,8 @@ const EventSchema = new mongoose.Schema(
           message: props => `${props.value} n'est pas un code postal valide!`,
         },
       },
-      address_line: { type: String },
-      address_line_2: { type: String },
+      adress_line: { type: String },
+      adress_line_2: { type: String },
     },
     gps: {
       type: [Number],

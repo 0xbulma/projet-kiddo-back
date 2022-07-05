@@ -9,8 +9,8 @@ type Mutation {
 ##############
 
 input EventInput {
-  drafted_at: DateTime
-  published_at: DateTime
+  drafted_at: Timestamp
+  published_at: Timestamp
   main_owner: ObjectID!
   co_owners: [ObjectID]
   content: ContentInput
@@ -56,7 +56,7 @@ input ContentMediaInput {
 
 input ParticipantInput {
   user: ObjectID
-  booked_at: DateTime
+  booked_at: Timestamp
   group_detail: [MemberDetailInput]
 }
 
