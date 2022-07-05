@@ -1,21 +1,13 @@
 import eventModel from '../models/event.model.mjs';
 
 const POPULATE_EVENT =
-  'main_owner co_owners group_participants.user_id categories restrictions signalments.type signalments.sender_id reactions.type reactions.sender_id comments';
+  'main_owner co_owners group_participants.user_id categories restrictions signalments.signalment signalments.sender reactions.type reactions.sender_id comments';
 
 export default class EventRepository {
   // Récupération des données liées à l'évènement
-  async getEvents(
-    first = 12,
-    offset = 0,
-    filterKey = null,
-    filter = null,
-    geoloc = null,
-    maxDist = null
-  ) {
-   
+  async getEvents(first = 12, offset = 0, filterKey = null, filter = null, geoloc = null, maxDist = null) {
     return await eventModel
-      .find({[filterKey]:filter})
+      .find({ [filterKey]: filter })
       .skip(parseInt(offset))
       .limit(parseInt(first))
       .populate(POPULATE_EVENT)
@@ -46,10 +38,7 @@ export default class EventRepository {
   }
 
   async modifyEvent(eventId, eventInput, fields) {
-    return await eventModel
-      .findOneAndUpdate(eventId, eventInput, { new: true })
-      .populate(POPULATE_EVENT)
-      .exec();
+    return await eventModel.findOneAndUpdate(eventId, eventInput, { new: true }).populate(POPULATE_EVENT).exec();
   }
 
   async removeEvent(eventId) {
