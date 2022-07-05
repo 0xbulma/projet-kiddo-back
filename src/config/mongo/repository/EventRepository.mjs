@@ -50,6 +50,26 @@ export default class EventRepository {
             $regex: new RegExp(`.*${searchInput}.*`, 'i'),
           },
         },
+        {
+          'address.city': {
+            $regex: new RegExp(`.*${searchInput}.*`, 'i'),
+          },
+        },
+        {
+          'address.zip_code': {
+            $regex: new RegExp(`.*${searchInput}.*`, 'i'),
+          },
+        },
+        {
+          'address.address_line': {
+            $regex: new RegExp(`.*${searchInput}.*`, 'i'),
+          },
+        },
+        {
+          'address.address_line2': {
+            $regex: new RegExp(`.*${searchInput}.*`, 'i'),
+          },
+        }
       ],
       status: { $regex: `.*${status}.*` },
       'event_date.start': { $gte: minDate },
@@ -95,6 +115,26 @@ export default class EventRepository {
           },
           {
             'content.highlighted_message.message': {
+              $regex: new RegExp(`.*${searchInput}.*`, 'i'),
+            },
+          },
+          {
+            'address.city': {
+              $regex: new RegExp(`.*${searchInput}.*`, 'i'),
+            },
+          },
+          {
+            'address.zip_code': {
+              $regex: new RegExp(`.*${searchInput}.*`, 'i'),
+            },
+          },
+          {
+            'address.address_line': {
+              $regex: new RegExp(`.*${searchInput}.*`, 'i'),
+            },
+          },
+          {
+            'address.address_line2': {
               $regex: new RegExp(`.*${searchInput}.*`, 'i'),
             },
           },
