@@ -43,6 +43,8 @@ export default {
       context,
       info
     ) => {
+
+
       const count = await eventRepository.getCountByComplexSearch(
         minDate,
         minDraftedAt,
