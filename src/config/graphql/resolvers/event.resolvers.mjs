@@ -11,6 +11,7 @@ export default {
 
     eventsComplexQuery: async (parent, { input }, context, info) => {
       let inputObject = {};
+      
       if (!input) {
         input = inputObject;
       } else {
