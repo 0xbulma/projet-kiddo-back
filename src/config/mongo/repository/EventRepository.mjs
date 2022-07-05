@@ -5,14 +5,81 @@ const POPULATE_EVENT =
 
 export default class EventRepository {
   // Récupération des données liées à l'évènement
-  async getEvents(
-    first = 12,
-    offset = 0,
-    filterKey = null,
-    filter = null,
-    geoloc = null,
-    maxDist = null
-  ) {
+
+  complexQueryConstructor(input) {
+    console.log(input);
+    let query = {
+      // restrictions: { $in: restrictionsArray },
+    };
+    if (input?.categories) {
+      query['categories'] = input.categories;
+    }
+    if (input.minChildAge > 0) {
+      query['minChildAge'] = { $gte: input.minChildAge };
+    }
+    if (input.maxChildAge < 12) {
+      query['maxChildAge'] = { $lte: input.maxChildAge };
+    }
+    if (input.searchInput.length > 0) {
+      query['$or'] = [
+        {
+          'content.title': {
+            $regex: new RegExp(`.*${input.searchInput}.*`, 'i'),
+          },
+        },
+        {
+          'content.subtitle': {
+            $regex: new RegExp(`.*${input.searchInput}.*`, 'i'),
+          },
+        },
+        {
+          'content.highlighted_message.title': {
+            $regex: new RegExp(`.*${input.searchInput}.*`, 'i'),
+          },
+        },
+        {
+          'content.highlighted_message.message': {
+            $regex: new RegExp(`.*${input.searchInput}.*`, 'i'),
+          },
+        },
+        {
+          'adress.city': {
+            $regex: new RegExp(`.*${input.searchInput}.*`, 'i'),
+          },
+        },
+        {
+          'adress.zip_code': {
+            $regex: new RegExp(`.*${input.searchInput}.*`, 'i'),
+          },
+        },
+        {
+          'adress.adress_line': {
+            $regex: new RegExp(`.*${input.searchInput}.*`, 'i'),
+          },
+        },
+        {
+          'adress.adress_line2': {
+            $regex: new RegExp(`.*${input.searchInput}.*`, 'i'),
+          },
+        },
+      ];
+    }
+    if (input.status.length > 0) {
+      query['status'] = { $regex: `.*${input.status}.*` };
+    }
+    if (input.minDate !== 0) {
+      query['event_date.start'] = { $gte: input.minDate };
+    }
+    if (input.minDraftedAt !== 0) {
+      query['drafted_at'] = { $gte: input.minDraftedAt };
+    }
+    if (input.minPublishedAt !== 0) {
+      query['published_at'] = { $gte: input.minPublisheddAt };
+    }
+    return query;
+  }
+
+  async getEvents(first = 12, offset = 0, filterKey = null, filter = null, geoloc = null, maxDist = null) {
     return await eventModel
       .find({ [filterKey]: filter })
       .skip(parseInt(offset))
@@ -21,163 +88,16 @@ export default class EventRepository {
       .exec();
   }
 
-  async getCountByComplexSearch(
-    minDate,
-    minDraftedAt,
-    minPublishedAt,
-    categories,
-    searchInput,
-    lng,
-    lat,
-    maxDistMeters,
-    minChildAge,
-    maxChildAge,
-    price,
-    status,
-    restrictionsArray
-  ) {
-    const categoryKey = categories ? 'categories' : null;
-
-    let query = {
-      [categoryKey]: categories,
-      $or: [
-        {
-          'content.title': { $regex: new RegExp(`.*${searchInput}.*`, 'i') },
-        },
-        {
-          'content.subtitle': {
-            $regex: new RegExp(`.*${searchInput}.*`, 'i'),
-          },
-        },
-        {
-          'content.highlighted_message.title': {
-            $regex: new RegExp(`.*${searchInput}.*`, 'i'),
-          },
-        },
-        {
-          'content.highlighted_message.message': {
-            $regex: new RegExp(`.*${searchInput}.*`, 'i'),
-          },
-        },
-        {
-          'adress.city': {
-            $regex: new RegExp(`.*${searchInput}.*`, 'i'),
-          },
-        },
-        {
-          'adress.zip_code': {
-            $regex: new RegExp(`.*${searchInput}.*`, 'i'),
-          },
-        },
-        {
-          'adress.adress_line': {
-            $regex: new RegExp(`.*${searchInput}.*`, 'i'),
-          },
-        },
-        {
-          'adress.adress_line2': {
-            $regex: new RegExp(`.*${searchInput}.*`, 'i'),
-          },
-        },
-      ],
-      status: { $regex: `.*${status}.*` },
-      minChildAge: { $gte: minChildAge },
-      maxChildAge: { $lte: maxChildAge },
-     // restrictions: { $in: restrictionsArray },
-    };
-    if (minDate !== 0) {
-      query['event_date.start'] = { $gte: minDate };
-    }
-    if (minDraftedAt !== 0) {
-      query['drafted_at'] = { $gte: minDraftedAt };
-    }
-    if (minPublishedAt !== 0) {
-      query['published_at'] = { $gte: minPublisheddAt };
-    }
-    return await eventModel.count(query);
+  async getCountByComplexSearch(input) {
+    return await eventModel.count(this.complexQueryConstructor(input));
   }
 
-  async getEventsByComplexSearch(
-    first,
-    offset,
-    dateOrder,
-    minDraftedAt,
-    minPublishedAt,
-    minDate,
-    categories,
-    searchInput,
-    lng,
-    lat,
-    maxDistMeters,
-    minChildAge,
-    maxChildAge,
-    price,
-    status,
-    restrictionsArray
-  ) {
-    const categoryKey = categories ? 'categories' : null;
-    let query = {
-      [categoryKey]: categories,
-      $or: [
-        {
-          'content.title': { $regex: new RegExp(`.*${searchInput}.*`, 'i') },
-        },
-        {
-          'content.subtitle': {
-            $regex: new RegExp(`.*${searchInput}.*`, 'i'),
-          },
-        },
-        {
-          'content.highlighted_message.title': {
-            $regex: new RegExp(`.*${searchInput}.*`, 'i'),
-          },
-        },
-        {
-          'content.highlighted_message.message': {
-            $regex: new RegExp(`.*${searchInput}.*`, 'i'),
-          },
-        },
-        {
-          'adress.city': {
-            $regex: new RegExp(`.*${searchInput}.*`, 'i'),
-          },
-        },
-        {
-          'adress.zip_code': {
-            $regex: new RegExp(`.*${searchInput}.*`, 'i'),
-          },
-        },
-        {
-          'adress.adress_line': {
-            $regex: new RegExp(`.*${searchInput}.*`, 'i'),
-          },
-        },
-        {
-          'adress.adress_line2': {
-            $regex: new RegExp(`.*${searchInput}.*`, 'i'),
-          },
-        },
-      ],
-      status: { $regex: `.*${status}.*` },
-      minChildAge: { $gte: minChildAge },
-      maxChildAge: { $lte: maxChildAge },
-      // restrictions: { $in: restrictionsArray },
-    };
-    if (minDate !== 0) {
-      query['event_date.start'] = { $gte: minDate };
-    }
-    if (minDraftedAt !== 0) {
-      query['drafted_at'] = { $gte: minDraftedAt };
-    }
-    if (minPublishedAt !== 0) {
-      query['published_at'] = { $gte: minPublisheddAt };
-    }
-
+  async getEventsByComplexSearch(input) {
     return await eventModel
-      .find(query)
-      .sort({ 'event_date.start': dateOrder })
-      .skip(offset)
-      .limit(first)
+      .find(this.complexQueryConstructor(input))
+      .sort({ 'event_date.start': input.dateOrder })
+      .skip(input.offset)
+      .limit(input.first)
       .populate(POPULATE_EVENT)
       .exec();
   }
@@ -216,10 +136,7 @@ export default class EventRepository {
   }
 
   async modifyEvent(eventId, eventInput, fields) {
-    return await eventModel
-      .findOneAndUpdate(eventId, eventInput, { new: true })
-      .populate(POPULATE_EVENT)
-      .exec();
+    return await eventModel.findOneAndUpdate(eventId, eventInput, { new: true }).populate(POPULATE_EVENT).exec();
   }
 
   async removeEvent(eventId) {

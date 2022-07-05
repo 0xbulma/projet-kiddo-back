@@ -4,6 +4,9 @@ enum Status {
   CONFIRMED
   TERMINATED
   CANCELED
+  PUBLISHED
+  PUBLIC
+  UNLISTED
 }
 
 # Common object
