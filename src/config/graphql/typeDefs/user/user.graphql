@@ -23,6 +23,7 @@ enum Rank {
 enum Gender {
   Male
   Female
+  Bigender
   UNKNOWN
 }
 
