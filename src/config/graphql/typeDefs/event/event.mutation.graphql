@@ -16,6 +16,8 @@ input EventInput {
   content: ContentInput
   content_media: ContentMediaInput
   group_size: NonNegativeInt
+  minChildAge: Int
+  maxChildAge: Int
   group_participants: [ParticipantInput]
   price: PricingInput
   event_date: DateRangeInput

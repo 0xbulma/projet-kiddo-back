@@ -10,6 +10,15 @@ scalar Latitude
 scalar Longitude
 scalar URL
 scalar NonNegativeInt
+scalar Timestamp
+
+##############
+# Response Object
+##############
+type EventsResponse {
+  results: [Event]
+  count: Int
+}
 
 ##############
 # Main Object
@@ -27,6 +36,8 @@ type Event {
   content_media: ContentMedia
 
   group_size: NonNegativeInt
+  minChildAge: Int
+  maxChildAge: Int
   group_participants: [Participant]
   price: Pricing
 
