@@ -12,7 +12,9 @@ type Query {
     first: Int
     offset: Int
     dateOrder: String
-    minDate: NonNegativeInt
+    minDate: Timestamp
+    minDraftedAt: Timestamp
+    minPublishedAt: Timestamp
     categories: ObjectID
     searchInput: String
     lng: Longitude
