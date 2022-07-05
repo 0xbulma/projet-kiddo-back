@@ -1,18 +1,11 @@
 import eventModel from '../models/event.model.mjs';
 
 const POPULATE_EVENT =
-  'main_owner co_owners group_participants.user_id categories restrictions signalments.type signalments.sender_id reactions.type reactions.sender_id comments';
+  'main_owner co_owners group_participants.user_id categories restrictions signalments.signalment signalments.sender reactions.type reactions.sender_id comments';
 
 export default class EventRepository {
   // Récupération des données liées à l'évènement
-  async getEvents(
-    first = 12,
-    offset = 0,
-    filterKey = null,
-    filter = null,
-    geoloc = null,
-    maxDist = null
-  ) {
+  async getEvents(first = 12, offset = 0, filterKey = null, filter = null, geoloc = null, maxDist = null) {
     return await eventModel
       .find({ [filterKey]: filter })
       .skip(parseInt(offset))
@@ -34,11 +27,11 @@ export default class EventRepository {
     status,
     restrictionsArray
   ) {
-  const categoryKey = categories ? "categories" : null;
+    const categoryKey = categories ? 'categories' : null;
 
-   return await eventModel.count({
-      [categoryKey] : categories,
-       $or: [
+    return await eventModel.count({
+      [categoryKey]: categories,
+      $or: [
         {
           'content.title': { $regex: new RegExp(`.*${searchInput}.*`, 'i') },
         },
@@ -82,10 +75,10 @@ export default class EventRepository {
     status,
     restrictionsArray
   ) {
-    const categoryKey = categories ? "categories" : null;
+    const categoryKey = categories ? 'categories' : null;
     return await eventModel
       .find({
-        [categoryKey] : categories,
+        [categoryKey]: categories,
         $or: [
           {
             'content.title': { $regex: new RegExp(`.*${searchInput}.*`, 'i') },
@@ -153,10 +146,7 @@ export default class EventRepository {
   }
 
   async modifyEvent(eventId, eventInput, fields) {
-    return await eventModel
-      .findOneAndUpdate(eventId, eventInput, { new: true })
-      .populate(POPULATE_EVENT)
-      .exec();
+    return await eventModel.findOneAndUpdate(eventId, eventInput, { new: true }).populate(POPULATE_EVENT).exec();
   }
 
   async removeEvent(eventId) {
