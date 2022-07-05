@@ -21,8 +21,8 @@ enum Rank {
 }
 
 enum Gender {
-  MALE
-  FEMALE
+  Male
+  Female
   UNKNOWN
 }
 

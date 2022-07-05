@@ -5,20 +5,8 @@ const eventRepository = new EventRepository();
 
 export default {
   Query: {
-    events: async (
-      parent,
-      { first, offset, filterKey, filter, geoloc, maxDist },
-      context,
-      info
-    ) => {
-      return await eventRepository.getEvents(
-        first,
-        offset,
-        filterKey?.toLowerCase().trim(),
-        filter?.toLowerCase().trim(),
-        geoloc,
-        maxDist
-      );
+    events: async (parent, { first, offset, filterKey, filter, geoloc, maxDist }, context, info) => {
+      return await eventRepository.getEvents(first, offset, filterKey?.toLowerCase().trim(), filter?.toLowerCase().trim(), geoloc, maxDist);
     },
 
     eventsComplexQuery: async (
@@ -81,7 +69,7 @@ export default {
     },
 
     event: async (parent, { id }, context, info) => {
-      return await eventRepository.getEventById({ id });
+      return await eventRepository.getEventById(id);
     },
   },
 
