@@ -12,6 +12,7 @@ export const USER_CONNECTION = async (parent, { email, password }, { req, res })
     if (await bcrypt.compare(password, user.password)) {
       const cookie_options = {
         httpOnly: true,
+        secure: process.env.NODE_ENV === 'PROD',
         maxAge: 1000 * 60 * 60 * 24 * 7, //Store for 7 days
       };
       res.cookie('authorization', 'Bearer ' + user.token, cookie_options);
