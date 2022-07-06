@@ -47,6 +47,9 @@ export default {
       if (!inputObject?.offset) {
         inputObject.offset = 0;
       }
+      if (!inputObject?.maxDistMeters) {
+        inputObject.maxDistMeters = 200000;
+      }
       const count = await eventRepository.getCountByComplexSearch(inputObject);
       const response = await eventRepository.getEventsByComplexSearch(inputObject);
       return { count: count, results: response };

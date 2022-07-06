@@ -30,7 +30,6 @@ async function startApolloServer() {
 
   const server = new ApolloServer({
     context: (request) => {
-      console.log(request);
       return request;
     },
     schema,
