@@ -4,7 +4,7 @@ import { GraphQLError } from 'graphql';
 import UserRepository from '../../../mongo/repository/UserRepository.mjs';
 const userRepository = new UserRepository();
 
-export const USER_CONNECTION = async (parent, { email, password }, { res }) => {
+export const USER_CONNECTION = async (parent, { email, password }, { req, res }) => {
   const user = await userRepository.getByEmail(email);
   if (user == null) return new GraphQLError('Utiliateur introuvable !');
 
@@ -12,7 +12,6 @@ export const USER_CONNECTION = async (parent, { email, password }, { res }) => {
     if (await bcrypt.compare(password, user.password)) {
       const cookie_options = {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'PROD',
         maxAge: 1000 * 60 * 60 * 24 * 7, //Store for 7 days
       };
       res.cookie('authorization', 'Bearer ' + user.token, cookie_options);
