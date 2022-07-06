@@ -75,6 +75,18 @@ export default class EventRepository {
     if (input.minPublishedAt !== 0) {
       query['published_at'] = { $gte: input.minPublisheddAt };
     }
+    if (input.lng && input.lat && input.maxDistMeters) {
+      query['gps'] = {
+        $nearSphere: {
+          $geometry: {
+            type: 'Point',
+            coordinates: [input.lng, input.lat],
+          },
+          $maxDistance: input.maxDistMeters,
+        },
+      };
+    }
+
     return query;
   }
 
