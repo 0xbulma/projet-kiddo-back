@@ -29,9 +29,7 @@ async function startApolloServer() {
   });
 
   const server = new ApolloServer({
-    context: (request) => {
-      return request;
-    },
+    context: (req) => req,
     schema,
     csrfPrevention: true,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
@@ -44,17 +42,18 @@ async function startApolloServer() {
   app.use(bodyParser.json());
 
   const corsOptions = {
-    origin: [process.env.FRONT_URL, 'https://studio.apollographql.com'],
+    origin: [process.env.DEV_FRONT_URL, process.env.PROD_FRONT_URL, 'https://studio.apollographql.com'],
     credentials: true,
   };
-  // app.use(cors(corsOptions));
 
   // Application des Middleware
   server.applyMiddleware({ app, cors: corsOptions });
 
   // Création d'une promesse de connexion
   await new Promise((resolve) => httpServer.listen(process.env.PORT, resolve));
-  console.log(`[Serveur] Démarré avec succès : http://localhost:${process.env.PORT}`);
+  process.env.NODE_ENV === 'DEV'
+    ? console.log(`[Serveur] Démarré avec succès : http://localhost:${process.env.PORT}/graphql`)
+    : console.log(`[Serveur] Démarré avec succès :https://projet-kiddo.herokuapp.com/:${process.env.PORT}/graphql`);
 
   // DB : Connexion
   connectToDB();

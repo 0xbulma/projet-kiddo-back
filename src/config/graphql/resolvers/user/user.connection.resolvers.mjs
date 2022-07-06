@@ -4,7 +4,7 @@ import { GraphQLError } from 'graphql';
 import UserRepository from '../../../mongo/repository/UserRepository.mjs';
 const userRepository = new UserRepository();
 
-export const USER_CONNECTION = async (parent, { email, password }, { res }) => {
+export const USER_CONNECTION = async (parent, { email, password }, { req, res }) => {
   const user = await userRepository.getByEmail(email);
   if (user == null) return new GraphQLError('Utiliateur introuvable !');
 
