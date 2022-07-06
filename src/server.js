@@ -29,10 +29,7 @@ async function startApolloServer() {
   });
 
   const server = new ApolloServer({
-    context: (request) => {
-      console.log(request);
-      return request;
-    },
+    context: (req) => req,
     schema,
     csrfPrevention: true,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
@@ -48,7 +45,6 @@ async function startApolloServer() {
     origin: [process.env.FRONT_URL, 'https://studio.apollographql.com'],
     credentials: true,
   };
-  // app.use(cors(corsOptions));
 
   // Application des Middleware
   server.applyMiddleware({ app, cors: corsOptions });
