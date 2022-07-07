@@ -20,13 +20,6 @@ enum Rank {
   ADMINISTRATOR
 }
 
-enum Gender {
-  Male
-  Female
-  Bigender
-  UNKNOWN
-}
-
 ##############
 # Main Object
 ##############
@@ -90,7 +83,7 @@ type ResetPasswordToken {
 type Child {
   id: ObjectID
   name: String
-  gender: Gender
+  gender: String
   age: NonNegativeInt
 }
 
