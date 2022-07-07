@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { GraphQLError } from 'graphql';
+import { getUserByCookieToken } from '../../../../utils/authUtils.mjs';
 
 import UserRepository from '../../../mongo/repository/UserRepository.mjs';
 
@@ -19,16 +20,16 @@ export default {
     getUserByEmail: (parent, { email }, { res, req }) => userRepository.getByEmail(email),
     users: () => userRepository.getAll(),
     connectUser: connectionResolver.USER_CONNECTION,
-    checkToken: async (parent, { token }, context, info) => {
-      console.log(token);
-      return jwt.verify(token, process.env.JWT_TOKEN_SECRET, function (err, decoded) {
-        if (err) {
-          return new Error("Echec de l'authentification");
-        }
-        if (decoded) {
-          return userRepository.getById(decoded._id);
-        }
-      });
+    checkToken: async (parent, args, ctx, info) => {
+      const result = getUserByCookieToken(ctx.req);
+      if (!result) {
+        console.log('error')
+        return {_id: null, email: null, isConnected: false }
+      }
+      if (result) { 
+        const user = await userRepository.getById(result);
+        return {_id: user._id, email: user.email, isConnected: true }
+      }
     },
   },
 
