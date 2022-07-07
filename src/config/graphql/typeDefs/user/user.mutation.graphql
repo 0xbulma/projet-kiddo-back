@@ -64,7 +64,7 @@ input ConnectionHistoryInput {
 input ChildInput {
   id: ObjectID
   name: String
-  gender: Gender
+  gender: String
   age: NonNegativeInt
 }
 
