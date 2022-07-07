@@ -126,11 +126,7 @@ export const UserSchema = new mongoose.Schema(
     children: [
       {
         name: { type: String },
-        gender: {
-          type: String,
-          enum: constants.GENDER_VALUES,
-          default: constants.GENDER_VALUES.UNKNOWN,
-        },
+        gender: { type: String },
         age: { type: Number, default: 0, min: [0, 'doit être supérieur à 0'] },
       },
     ],
