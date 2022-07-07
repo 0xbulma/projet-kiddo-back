@@ -19,6 +19,17 @@ export default {
     getUserByEmail: (parent, { email }, { res, req }) => userRepository.getByEmail(email),
     users: () => userRepository.getAll(),
     connectUser: connectionResolver.USER_CONNECTION,
+    checkToken: async (parent, { token }, context, info) => {
+      console.log(token);
+      return jwt.verify(token, process.env.JWT_TOKEN_SECRET, function (err, decoded) {
+        if (err) {
+          return new Error("Echec de l'authentification");
+        }
+        if (decoded) {
+          return userRepository.getById(decoded._id);
+        }
+      });
+    },
   },
 
   Mutation: {
@@ -30,7 +41,9 @@ export default {
 
       const user = await userModel.create({ email: email, password: hash });
 
-      jwt.sign({ _id: user._id, email }, process.env.JWT_TOKEN_SECRET, { expiresIn: 1000 * 60 * 60 * 24 * 7 });
+      const token = jwt.sign({ _id: user._id, email }, process.env.JWT_TOKEN_SECRET, {
+        expiresIn: 1000 * 60 * 60 * 24 * 7,
+      });
       const cookie_options = {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'PROD',
