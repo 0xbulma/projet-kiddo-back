@@ -30,13 +30,12 @@ export default {
         const user = await userRepository.getById(result);
         if (user === null) {
           // Utilitaire de suppression de Cookie si l'utilisateur n'existe pas/plus (Bannissement / Suppression de compte etc...)
-            const cookie_options = {
-              httpOnly: true,
-              secure: process.env.NODE_ENV === 'PROD',
-              maxAge: 1,
-            }
-            ctx.res.cookie('authorization', 'Bearer ' + result, cookie_options);
-          }
+          const cookie_options = {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'PROD',
+            maxAge: 1,
+          };
+          ctx.res.cookie('authorization', 'Bearer ' + result, cookie_options);
           return new GraphQLError('Utiliateur introuvable !');
         }
         return user;
