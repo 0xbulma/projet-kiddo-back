@@ -90,7 +90,7 @@ type Child {
   id: ObjectID
   name: String
   gender: String
-  age: NonNegativeInt
+  age: Date
 }
 
 type FriendRequest {
