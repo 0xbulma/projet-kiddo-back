@@ -22,6 +22,7 @@ export const RECOVER_PASSWORD = async (parent, { email }, ctx) => {
 
   //Envoi d'un mail avec lien de récupération
   try {
+    console.log(resetPasswordToken);
     await sendEmail(resetPasswordToken.token, 'test@email.com');
   } catch (err) {
     console.log(err);
