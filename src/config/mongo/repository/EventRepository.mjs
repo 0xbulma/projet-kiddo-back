@@ -56,11 +56,6 @@ export default class EventRepository {
             $regex: new RegExp(`.*${input.searchInput}.*`, 'i'),
           },
         },
-        {
-          'adress.adress_line2': {
-            $regex: new RegExp(`.*${input.searchInput}.*`, 'i'),
-          },
-        },
       ];
     }
     if (input.status.length > 0) {
