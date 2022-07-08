@@ -42,14 +42,21 @@ export function isAdmin(req) {
 export function getUserByCookieToken(req) {
   const cookieToken = constants.getRequestCookies(req)['authorization'];
   const authCookieToken = cookieToken && cookieToken.split(' ')[1];
-
+  console.log(authCookieToken);
   if (authCookieToken == null) return 'THROW ERROR';
 
-  const jwtResult = jwt.verify(authCookieToken, process.env.JWT_TOKEN_SECRET, (err, result) => {
-    if (err) return null;
-    else if (result) return result._id;
-    else return null;
-  });
+  const jwtResult = jwt.verify(
+    authCookieToken,
+    process.env.JWT_TOKEN_SECRET,
+    (err, result) => {
+      console.log(err);
+      console.log(result);
+      if (err) return null;
+      else if (result) return result._id;
+      else return null;
+    }
+  );
+  console.log(jwtResult);
 
   return jwtResult;
 }

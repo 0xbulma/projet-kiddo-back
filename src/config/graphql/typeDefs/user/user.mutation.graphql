@@ -4,7 +4,12 @@ type Mutation {
   removeUser(_id: ObjectID!): User
   #Recover Password
   recoverPassword(email: Emailadress): User
-  resetPassword(_id: ObjectID, email: Emailadress, token: UUID, password: String): User
+  resetPassword(
+    _id: ObjectID
+    email: Emailadress
+    token: UUID
+    password: String
+  ): User
   #Friends
   sendFriendRequest(senderEmail: Emailadress!, targetEmail: Emailadress!): User
 }
@@ -15,7 +20,7 @@ type Mutation {
 input UserInput {
   connection_history: [ConnectionHistoryInput]
   rank: String
-
+  gender: String
   token: String
   email: Emailadress
   password: String
@@ -65,7 +70,7 @@ input ChildInput {
   id: ObjectID
   name: String
   gender: String
-  age: NonNegativeInt
+  age: Date
 }
 
 input FinishedEventInput {
