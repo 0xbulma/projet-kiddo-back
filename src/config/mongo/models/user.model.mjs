@@ -102,26 +102,25 @@ export const UserSchema = new mongoose.Schema(
         },
       },
     },
-    profil_picture: {
-      hd: [
-        {
-          type: String,
-          // validate: {
-          //   validator: (value) => check.isURL(value),
-          //   message: (props) => `${props.value} n'est pas une URL valide!`,
-          // },
-        },
-      ],
-      thumbnail: [
-        {
-          type: String,
-          // validate: {
-          //   validator: (value) => check.isURL(value),
-          //   message: (props) => `${props.value} n'est pas une URL valide!`,
-          // },
-        },
-      ],
-    },
+    profil_picture: { type: String },
+    // hd: [
+    //   {
+    //     type: String,
+    //     validate: {
+    //       validator: (value) => check.isURL(value),
+    //       message: (props) => `${props.value} n'est pas une URL valide!`,
+    //     },
+    //   },
+    // ],
+    // thumbnail: [
+    //   {
+    //     type: String,
+    //     validate: {
+    //       validator: (value) => check.isURL(value),
+    //       message: (props) => `${props.value} n'est pas une URL valide!`,
+    //     },
+    //   },
+    // ],
 
     description: { type: String },
     children: [
