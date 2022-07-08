@@ -127,7 +127,7 @@ export const UserSchema = new mongoose.Schema(
       {
         name: { type: String },
         gender: { type: String },
-        age: { type: Number, default: 0, min: [0, 'doit être supérieur à 0'] },
+        age: { type: Number, default: Date.now() },
       },
     ],
     is_available: { type: Boolean },

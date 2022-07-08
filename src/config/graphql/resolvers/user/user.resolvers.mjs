@@ -10,8 +10,6 @@ import * as passwordResolver from './user.password.resolvers.mjs';
 import * as connectionResolver from './user.connection.resolvers.mjs';
 import userModel from '../../../mongo/models/user.model.mjs';
 
-import * as authUtils from '../../../../utils/authUtils.mjs';
-
 const userRepository = new UserRepository();
 
 export default {
@@ -23,12 +21,11 @@ export default {
     checkToken: async (parent, args, ctx, info) => {
       const result = getUserByCookieToken(ctx.req);
       if (!result) {
-        console.log('error')
-        return {_id: null, email: null, isConnected: false }
+        return { _id: null, email: null, isConnected: false };
       }
-      if (result) { 
+      if (result) {
         const user = await userRepository.getById(result);
-        return {_id: user._id, email: user.email, isConnected: true }
+        return { _id: user._id, email: user.email, isConnected: true };
       }
     },
   },
