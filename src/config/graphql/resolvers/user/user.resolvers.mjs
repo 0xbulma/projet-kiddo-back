@@ -20,6 +20,7 @@ export default {
     getUserByEmail: (parent, { email }, { res, req }) => userRepository.getByEmail(email),
     users: () => userRepository.getAll(),
     connectUser: connectionResolver.USER_CONNECTION,
+    disconnectUser: connectionResolver.DISCONNECT_USER,
     checkToken: async (parent, args, ctx, info) => {
       const result = getUserByCookieToken(ctx.req);
       if (!result) {

@@ -3,5 +3,6 @@ type Query {
   getUserByEmail(email: Emailadress): User
   users: [User]
   connectUser(email: Emailadress, password: String): User
+  disconnectUser(_id: ObjectID!): User
   checkToken: User
 }
