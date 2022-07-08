@@ -53,7 +53,7 @@ type User {
   adress: Location
   gps: GeoLoc
 
-  profil_picture: Picture
+  profil_picture: String
   description: String
 
   children: [Child]

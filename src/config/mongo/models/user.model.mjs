@@ -53,10 +53,10 @@ export const UserSchema = new mongoose.Schema(
       // A check nature du Oauth (link ou id)
       {
         type: String,
-        validate: {
-          validator: (value) => check.isURL(value),
-          message: (props) => `${props.value} n'est pas une URL valide!`,
-        },
+        // validate: {
+        //   validator: (value) => check.isURL(value),
+        //   message: (props) => `${props.value} n'est pas une URL valide!`,
+        // },
       },
     ],
 

@@ -17,10 +17,10 @@ type Location {
   adress_line_2: String
 }
 
-type Picture {
-  hd: URL
-  thumbnail: URL
-}
+# type Picture {
+#   hd: URL
+#   thumbnail: URL
+# }
 
 type GeoLoc {
   lat: Latitude

@@ -6,10 +6,10 @@ input LocationInput {
   adress_line_2: String
 }
 
-input PictureInput {
-  hd: URL
-  thumbnail: URL
-}
+# input PictureInput {
+#   hd: URL
+#   thumbnail: URL
+# }
 
 input GeoLocInput {
   lat: Latitude

@@ -10,7 +10,9 @@ export default {
       return await commentRepository.getById(id);
     },
     getByTargetId: async (parent, { type, id }, context, info) => {
-      return await commentRepository.getByTargetId(type, id);
+      const comments = await commentRepository.getByTargetId(type, id);
+      console.log('Messages :', comments);
+      return comments;
     },
   },
 

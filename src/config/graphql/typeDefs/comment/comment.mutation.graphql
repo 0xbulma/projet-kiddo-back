@@ -22,5 +22,5 @@ input CommentInput {
 input CommentContentInput {
   title: String
   message: String
-  photos_url: URL
+  photos_url: [URL]
 }

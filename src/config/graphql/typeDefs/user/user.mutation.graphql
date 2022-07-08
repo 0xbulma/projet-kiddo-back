@@ -35,7 +35,7 @@ input UserInput {
   adress: LocationInput
   gps: GeoLocInput
 
-  profil_picture: PictureInput
+  profil_picture: String
   description: String
 
   children: [ChildInput]
