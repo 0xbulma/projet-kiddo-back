@@ -64,6 +64,7 @@ export const UserSchema = new mongoose.Schema(
     first_name: { type: String },
     last_name: { type: String },
     birthdate: { type: Date },
+    gender: { type: String, default: 'Unknown' },
 
     phone: {
       type: Number,

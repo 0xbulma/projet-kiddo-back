@@ -69,7 +69,7 @@ input ChildInput {
   id: ObjectID
   name: String
   gender: String
-  age: NonNegativeInt
+  age: Date
 }
 
 input FinishedEventInput {
