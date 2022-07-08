@@ -61,32 +61,32 @@ export const SIGNALMENT = {
 export const CONTENT_MEDIA = {
   banner_url: {
     type: String,
-    validate: {
-      validator: (value) => check.isURL(value),
-      message: (props) => `${props.value} n'est pas une url valide!`,
-    },
+    // validate: {
+    //   validator: (value) => check.isURL(value),
+    //   message: (props) => `${props.value} n'est pas une url valide!`,
+    // },
   },
   photo_url: [
     {
       type: String,
-      validate: {
-        validator: (value) => check.isURL(value),
-        message: (props) => `${props.value} n'est pas une url valide!`,
-      },
+      // validate: {
+      //   validator: (value) => check.isURL(value),
+      //   message: (props) => `${props.value} n'est pas une url valide!`,
+      // },
     },
   ],
   photo_main_url: {
     type: String,
-    validate: {
-      validator: (value) => check.isURL(value),
-      message: (props) => `${props.value} n'est pas une url valide!`,
-    },
+    // validate: {
+    //   validator: (value) => check.isURL(value),
+    //   message: (props) => `${props.value} n'est pas une url valide!`,
+    // },
   },
   video_url: {
     type: String,
-    validate: {
-      validator: (value) => check.isURL(value),
-      message: (props) => `${props.value} n'est pas une url valide!`,
-    },
+    // validate: {
+    //   validator: (value) => check.isURL(value),
+    //   message: (props) => `${props.value} n'est pas une url valide!`,
+    // },
   },
 };

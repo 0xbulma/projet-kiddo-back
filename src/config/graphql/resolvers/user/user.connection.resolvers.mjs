@@ -7,7 +7,19 @@ const userRepository = new UserRepository();
 
 export const USER_CONNECTION = async (parent, { email, password }, { req, res }) => {
   const user = await userRepository.getByEmail(email);
-  if (user == null) return new GraphQLError('Utiliateur introuvable !');
+  if (user == null) {
+    // Utilitaire de suppression de Cookie si l'utilisateur n'existe pas/plus
+    const reqToken = getUserTokenByCookies(req);
+    if (reqToken) {
+      const cookie_options = {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'PROD',
+        maxAge: 1,
+      };
+      res.cookie('authorization', 'Bearer ' + token, cookie_options);
+    }
+    return new GraphQLError('Utiliateur introuvable !');
+  }
   try {
     if (await bcrypt.compare(password, user.password)) {
       const cookie_options = {

@@ -22,15 +22,7 @@ const CommentSchema = new mongoose.Schema(
     content: {
       title: { type: String },
       message: { type: String },
-      photos_url: [
-        {
-          type: String,
-          validate: {
-            validator: (value) => check.isURL(value),
-            message: (props) => `${props.value} n'est pas une URL valide!`,
-          },
-        },
-      ],
+      photos_url: [{ type: String }],
     },
     reactions: [commonSchema.REACTION],
     pinned: { type: Boolean, default: false },
