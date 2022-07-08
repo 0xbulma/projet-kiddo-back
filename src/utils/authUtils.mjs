@@ -42,6 +42,7 @@ export function isAdmin(req) {
 export function getUserByCookieToken(req) {
   const cookieToken = constants.getRequestCookies(req)['authorization'];
   const authCookieToken = cookieToken && cookieToken.split(' ')[1];
+
   if (authCookieToken == null) return 'THROW ERROR';
 
   const jwtResult = jwt.verify(authCookieToken, process.env.JWT_TOKEN_SECRET, (err, result) => {
