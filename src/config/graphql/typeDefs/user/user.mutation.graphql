@@ -2,6 +2,9 @@ type Mutation {
   createUser(input: UserInput): User
   modifyUser(_id: ObjectID!, input: UserInput!): User
   removeUser(_id: ObjectID!): User
+  bookEvent(_id: ObjectID!, eventId: ObjectID!, bookedAt: Date): User
+  pinnedEvent(_id: ObjectID!, eventId: ObjectID!, pinnedAt: Date): User
+
   #Recover Password
   recoverPassword(email: Emailadress): User
   resetPassword(_id: ObjectID, email: Emailadress, token: UUID, password: String): User
@@ -26,6 +29,7 @@ input UserInput {
   first_name: String
   last_name: String
   birthdate: Date
+  gender: String
   phone: PhoneNumber
   profession: String
   adress: LocationInput

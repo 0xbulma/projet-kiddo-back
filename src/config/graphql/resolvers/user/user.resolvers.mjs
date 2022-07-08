@@ -3,15 +3,15 @@ import jwt from 'jsonwebtoken';
 import { GraphQLError } from 'graphql';
 
 import UserRepository from '../../../mongo/repository/UserRepository.mjs';
+import EventRepository from '../../../mongo/repository/EventRepository.mjs';
 
 import * as friendResolver from './user.friend.resolvers.mjs';
 import * as passwordResolver from './user.password.resolvers.mjs';
 import * as connectionResolver from './user.connection.resolvers.mjs';
 import userModel from '../../../mongo/models/user.model.mjs';
 
-import * as authUtils from '../../../../utils/authUtils.mjs';
-
 const userRepository = new UserRepository();
+const eventRepository = new EventRepository();
 
 export default {
   Query: {
@@ -19,6 +19,16 @@ export default {
     getUserByEmail: (parent, { email }, { res, req }) => userRepository.getByEmail(email),
     users: () => userRepository.getAll(),
     connectUser: connectionResolver.USER_CONNECTION,
+    checkToken: async (parent, args, ctx, info) => {
+      const result = getUserByCookieToken(ctx.req);
+      if (!result) {
+        return new GraphQLError('Erreur lors de la récupération des données par le Token ');
+      }
+      if (result) {
+        const user = await userRepository.getById(result);
+        return user;
+      }
+    },
   },
 
   Mutation: {
@@ -42,6 +52,42 @@ export default {
     },
     modifyUser: (parent, { _id, input }) => userRepository.modifyUser(_id, input),
     removeUser: (parent, { _id }) => userRepository.removeUser(_id),
+    bookEvent: async (parent, { _id, eventId, bookedAt }) => {
+      const user = await userRepository.getById(_id);
+      const bookedEvents = user.booked_events;
+
+      const event = await eventRepository.getEventById(eventId);
+
+      let isAlreadyBooked = false;
+      bookedEvents.map((bookedEvent) => {
+        if (bookedEvent._id.equals(event._id)) isAlreadyBooked = true;
+      });
+
+      if (isAlreadyBooked) {
+        return userRepository.modifyUser({ _id }, { bookedEvent: bookedEvents.filter((e) => e._id !== event._id) });
+      }
+
+      bookedEvents.push({ event, booked_at: bookedAt });
+      return userRepository.modifyUser({ _id }, { booked_events: bookedEvents });
+    },
+    pinnedEvent: async (parent, { _id, eventId, pinnedAt }) => {
+      const user = await userRepository.getById(_id);
+      const pinnedEvents = user.pinned_events;
+
+      const event = await eventRepository.getEventById(eventId);
+
+      let isAlreadyPinned = false;
+      pinnedEvents.map((pinnedEvent) => {
+        if (pinnedEvent._id.equals(event._id)) isAlreadyPinned = true;
+      });
+
+      if (isAlreadyPinned) {
+        return userRepository.modifyUser({ _id }, { pinned_events: pinnedEvents.filter((e) => e._id !== event._id) });
+      }
+
+      pinnedEvents.push({ event, pinned_at: pinnedAt });
+      return userRepository.modifyUser({ _id }, { pinned_events: pinnedEvents });
+    },
 
     // Password system
     recoverPassword: passwordResolver.RECOVER_PASSWORD,

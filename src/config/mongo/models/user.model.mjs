@@ -127,7 +127,7 @@ export const UserSchema = new mongoose.Schema(
       {
         name: { type: String },
         gender: { type: String },
-        age: { type: Number, default: 0, min: [0, 'doit être supérieur à 0'] },
+        age: { type: Date },
       },
     ],
     is_available: { type: Boolean },
@@ -191,8 +191,6 @@ export const UserSchema = new mongoose.Schema(
   },
   schemaOptions
 );
-
-// TODO: CASCADE SUR LES ARTICLES
 
 // CASCADE A LA SUPPRESSION D'UN UTILISATEUR //
 UserSchema.post('findOneAndRemove', async (doc, next) => {
