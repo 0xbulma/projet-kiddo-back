@@ -105,19 +105,19 @@ export const UserSchema = new mongoose.Schema(
       hd: [
         {
           type: String,
-          // validate: {
-          //   validator: (value) => check.isURL(value),
-          //   message: (props) => `${props.value} n'est pas une URL valide!`,
-          // },
+          validate: {
+            validator: (value) => check.isURL(value),
+            message: (props) => `${props.value} n'est pas une URL valide!`,
+          },
         },
       ],
       thumbnail: [
         {
           type: String,
-          // validate: {
-          //   validator: (value) => check.isURL(value),
-          //   message: (props) => `${props.value} n'est pas une URL valide!`,
-          // },
+          validate: {
+            validator: (value) => check.isURL(value),
+            message: (props) => `${props.value} n'est pas une URL valide!`,
+          },
         },
       ],
     },

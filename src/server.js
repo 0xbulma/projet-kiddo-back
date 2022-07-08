@@ -14,7 +14,6 @@ import resolvers from './config/graphql/resolvers/index__resolvers.mjs';
 import { typeDefs as scalarsTypedefs, resolvers as scalarsResolvers } from 'graphql-scalars';
 
 import { connectToDB } from './config/database.mjs';
-import{ isConnected} from './utils/authUtils.mjs';
 
 // Initialisation des paramètres de l'application
 async function startApolloServer() {
@@ -30,8 +29,7 @@ async function startApolloServer() {
   });
 
   const server = new ApolloServer({
-    context: (ctx) => {
-      return ctx},
+    context: (req) => req,
     schema,
     csrfPrevention: true,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],

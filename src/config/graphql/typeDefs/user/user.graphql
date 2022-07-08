@@ -20,12 +20,6 @@ enum Rank {
   ADMINISTRATOR
 }
 
-type UserConnected {
-  _id: ObjectID
-  email: Emailadress
-  isConnected: Boolean
-}
-
 ##############
 # Main Object
 ##############
