@@ -192,8 +192,6 @@ export const UserSchema = new mongoose.Schema(
   schemaOptions
 );
 
-// TODO: CASCADE SUR LES ARTICLES
-
 // CASCADE A LA SUPPRESSION D'UN UTILISATEUR //
 UserSchema.post('findOneAndRemove', async (doc, next) => {
   const userRepository = new UserRepository();
