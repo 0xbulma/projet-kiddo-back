@@ -47,6 +47,9 @@ export default {
     createUser: async (parent, { input }, { res }, info) => {
       let email = input.email;
 
+      const existingUser = await userRepository.getByEmail(email);
+      if (existingUser) return new GraphQLError('Adresse email déjà utilisé !');
+
       const salt = bcrypt.genSaltSync(10);
       const hash = bcrypt.hashSync(input.password, salt);
 

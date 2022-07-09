@@ -7,7 +7,7 @@ const userRepository = new UserRepository();
 
 export const USER_CONNECTION = async (parent, { email, password }, { req, res }) => {
   const user = await userRepository.getByEmail(email);
-  if (user == null) {
+  if (user === null) {
     // Utilitaire de suppression de Cookie si l'utilisateur n'existe pas/plus
     const reqToken = getUserTokenByCookies(req);
     if (reqToken) {
