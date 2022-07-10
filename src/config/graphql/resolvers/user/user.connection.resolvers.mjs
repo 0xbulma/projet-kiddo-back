@@ -34,7 +34,6 @@ export const USER_CONNECTION = async (parent, { email, password }, { req, res })
       return new GraphQLError('Mot de passe incorrecte !');
     }
   } catch (e) {
-    console.log('error', e);
     return new GraphQLError(e);
   }
 };

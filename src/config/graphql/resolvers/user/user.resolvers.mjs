@@ -1,7 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { GraphQLError } from 'graphql';
-import { getUserByCookieToken } from '../../../../utils/authUtils.mjs';
 
 import UserRepository from '../../../mongo/repository/UserRepository.mjs';
 import EventRepository from '../../../mongo/repository/EventRepository.mjs';
@@ -55,9 +54,7 @@ export default {
 
       const user = await userModel.create({ email: email, password: hash });
 
-      const token = jwt.sign({ _id: user._id, email }, process.env.JWT_TOKEN_SECRET, {
-        expiresIn: 1000 * 60 * 60 * 24 * 7,
-      });
+      jwt.sign({ _id: user._id, email }, process.env.JWT_TOKEN_SECRET, { expiresIn: 1000 * 60 * 60 * 24 * 7 });
       const cookie_options = {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'PROD',
