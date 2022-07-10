@@ -53,10 +53,10 @@ export const UserSchema = new mongoose.Schema(
       // A check nature du Oauth (link ou id)
       {
         type: String,
-        validate: {
-          validator: (value) => check.isURL(value),
-          message: (props) => `${props.value} n'est pas une URL valide!`,
-        },
+        // validate: {
+        //   validator: (value) => check.isURL(value),
+        //   message: (props) => `${props.value} n'est pas une URL valide!`,
+        // },
       },
     ],
 
@@ -64,6 +64,7 @@ export const UserSchema = new mongoose.Schema(
     first_name: { type: String },
     last_name: { type: String },
     birthdate: { type: Date },
+    gender: { type: String, default: 'Unknown' },
 
     phone: {
       type: Number,
@@ -101,33 +102,32 @@ export const UserSchema = new mongoose.Schema(
         },
       },
     },
-    profil_picture: {
-      hd: [
-        {
-          type: String,
-          validate: {
-            validator: (value) => check.isURL(value),
-            message: (props) => `${props.value} n'est pas une URL valide!`,
-          },
-        },
-      ],
-      thumbnail: [
-        {
-          type: String,
-          validate: {
-            validator: (value) => check.isURL(value),
-            message: (props) => `${props.value} n'est pas une URL valide!`,
-          },
-        },
-      ],
-    },
+    profil_picture: { type: String },
+    // hd: [
+    //   {
+    //     type: String,
+    //     validate: {
+    //       validator: (value) => check.isURL(value),
+    //       message: (props) => `${props.value} n'est pas une URL valide!`,
+    //     },
+    //   },
+    // ],
+    // thumbnail: [
+    //   {
+    //     type: String,
+    //     validate: {
+    //       validator: (value) => check.isURL(value),
+    //       message: (props) => `${props.value} n'est pas une URL valide!`,
+    //     },
+    //   },
+    // ],
 
     description: { type: String },
     children: [
       {
         name: { type: String },
         gender: { type: String },
-        age: { type: Number, default: 0, min: [0, 'doit être supérieur à 0'] },
+        age: { type: Date },
       },
     ],
     is_available: { type: Boolean },
@@ -191,8 +191,6 @@ export const UserSchema = new mongoose.Schema(
   },
   schemaOptions
 );
-
-// TODO: CASCADE SUR LES ARTICLES
 
 // CASCADE A LA SUPPRESSION D'UN UTILISATEUR //
 UserSchema.post('findOneAndRemove', async (doc, next) => {

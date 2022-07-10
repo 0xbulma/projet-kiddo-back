@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import jwt from 'jsonwebtoken';
 
 //Mongoose : Nom des tables pour les liaisons entre les schémas.
 export const COLLECTION_NAME = {
@@ -53,6 +54,20 @@ export function getRequestCookies(req) {
   });
 
   return list;
+}
+
+export function getUserTokenByCookies(req) {
+  const cookieToken = getRequestCookies(req)['authorization'];
+  const authCookieToken = cookieToken && cookieToken.split(' ')[1];
+  if (authCookieToken == null) return false;
+
+  const jwtResult = jwt.verify(authCookieToken, process.env.JWT_TOKEN_SECRET, (err, result) => {
+    if (err) return false;
+    else if (result) return true;
+    else return false;
+  });
+
+  return jwtResult ? authCookieToken : null;
 }
 
 export const TOKEN_VALIDITY_TIME = 3000 * 60 * 1000;

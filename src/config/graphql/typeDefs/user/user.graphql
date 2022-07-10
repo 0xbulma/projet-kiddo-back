@@ -20,6 +20,13 @@ enum Rank {
   ADMINISTRATOR
 }
 
+# type UserConnected {
+#   _id: ObjectID
+#   email: Emailadress
+
+#   isConnected: Boolean
+# }
+
 ##############
 # Main Object
 ##############
@@ -40,12 +47,13 @@ type User {
   first_name: String
   last_name: String
   birthdate: Date
+  gender: String
   phone: PhoneNumber
   profession: String
   adress: Location
   gps: GeoLoc
 
-  profil_picture: Picture
+  profil_picture: String
   description: String
 
   children: [Child]
@@ -84,7 +92,7 @@ type Child {
   id: ObjectID
   name: String
   gender: String
-  age: NonNegativeInt
+  age: Date
 }
 
 type FriendRequest {
