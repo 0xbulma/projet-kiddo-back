@@ -159,28 +159,28 @@ export const UserSchema = new mongoose.Schema(
 
     badges: [
       {
-        badge_id: commonSchema.OBJECT_ID_REF_BADGE,
+        badge: commonSchema.OBJECT_ID_REF_BADGE,
         unlocked_at: { type: Date, default: Date.now },
       },
     ],
 
     pinned_events: [
       {
-        event_id: commonSchema.OBJECT_ID_REF_EVENT,
+        event: commonSchema.OBJECT_ID_REF_EVENT,
         pinned_at: { type: Date, default: Date.now },
       },
     ],
 
     booked_events: [
       {
-        event_id: commonSchema.OBJECT_ID_REF_EVENT,
+        event: commonSchema.OBJECT_ID_REF_EVENT,
         booked_at: { type: Date, default: Date.now },
       },
     ],
 
     finished_events: [
       {
-        event_id: commonSchema.OBJECT_ID_REF_EVENT,
+        event: commonSchema.OBJECT_ID_REF_EVENT,
         booked_at: { type: Date, default: Date.now },
         canceled_at: { type: Date, default: Date.now },
         started_at: { type: Date, default: Date.now },
