@@ -41,9 +41,9 @@ export default {
       if (!inputObject?.status) {
         inputObject.status = '';
       }
-      if (!inputObject?.first) {
-        inputObject.first = 12;
-      }
+      // if (!inputObject?.first) {
+      //   inputObject.first = 12;
+      // }
       if (!inputObject?.offset) {
         inputObject.offset = 0;
       }
