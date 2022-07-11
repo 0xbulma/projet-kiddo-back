@@ -37,6 +37,7 @@ export default class UserRepository {
   // Création et modification de l'utilisateur
   //==========================================
   async modifyUser(id, input) {
+    console.log(input);
     return await userModel.findOneAndUpdate({ _id: id }, input, { new: true });
   }
 

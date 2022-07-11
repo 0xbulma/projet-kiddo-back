@@ -48,7 +48,10 @@ export const UserSchema = new mongoose.Schema(
       //   message: "le mot de passe n'est pas valable",
       // },
     },
-    reset_password_token: { token: { type: String }, created_at: { type: Date, default: Date.now } },
+    reset_password_token: {
+      token: { type: String },
+      created_at: { type: Date, default: Date.now },
+    },
     oAuth_link: [
       // A check nature du Oauth (link ou id)
       {
@@ -67,10 +70,11 @@ export const UserSchema = new mongoose.Schema(
     gender: { type: String, default: 'Unknown' },
 
     phone: {
-      type: Number,
+      type: String,
       validate: {
         validator: (value) => check.isMobilePhone(value),
-        message: (props) => `${props.value} n'est pas un numéro de téléphone valable`,
+        message: (props) =>
+          `${props.value} n'est pas un numéro de téléphone valable`,
       },
     },
 
@@ -199,14 +203,18 @@ UserSchema.post('findOneAndRemove', async (doc, next) => {
 
   // CASCADE SUR LE SYSTEME D'AMIS
   if (doc.friends_send_request) {
-    const otherUsers = await userRepository.getAllbyIds(doc.friends_send_request.map((obj) => obj.user_id));
+    const otherUsers = await userRepository.getAllbyIds(
+      doc.friends_send_request.map((obj) => obj.user_id)
+    );
 
     if (otherUsers) {
       for (const user of otherUsers) {
         await user.modifyUser(
           { _id: user._id },
           {
-            friends_receive_request: user.friends_receive_request.filter((obj) => obj.user_id !== doc._id),
+            friends_receive_request: user.friends_receive_request.filter(
+              (obj) => obj.user_id !== doc._id
+            ),
           }
         );
       }
@@ -214,14 +222,18 @@ UserSchema.post('findOneAndRemove', async (doc, next) => {
   }
 
   if (doc.friends_receive_request) {
-    const otherUsers = await userRepository.getAllbyIds(doc.friends_receive_request.map((obj) => obj.user_id));
+    const otherUsers = await userRepository.getAllbyIds(
+      doc.friends_receive_request.map((obj) => obj.user_id)
+    );
 
     if (otherUsers) {
       for (const user of otherUsers) {
         await user.modifyUser(
           { _id: user._id },
           {
-            friends_send_request: user.friends_send_request.filter((obj) => obj.user_id !== doc._id),
+            friends_send_request: user.friends_send_request.filter(
+              (obj) => obj.user_id !== doc._id
+            ),
           }
         );
       }
@@ -229,7 +241,9 @@ UserSchema.post('findOneAndRemove', async (doc, next) => {
   }
 
   if (doc.friends) {
-    const otherUsers = await userRepository.getAllbyIds(doc.friends.map((obj) => obj.user_id));
+    const otherUsers = await userRepository.getAllbyIds(
+      doc.friends.map((obj) => obj.user_id)
+    );
 
     if (otherUsers) {
       for (const user of otherUsers) {
@@ -245,7 +259,9 @@ UserSchema.post('findOneAndRemove', async (doc, next) => {
 
   // CASCADE SUR LES EVENTS
   if (doc.booked_events) {
-    const events = await eventRepository.getAllbyIds(doc.booked_events.map((obj) => obj.event_id));
+    const events = await eventRepository.getAllbyIds(
+      doc.booked_events.map((obj) => obj.event_id)
+    );
 
     if (events) {
       for (const event of events) {
@@ -255,8 +271,12 @@ UserSchema.post('findOneAndRemove', async (doc, next) => {
           await event.modifyEvent(
             { _id: event._id },
             {
-              group_participants: event.group_participants.filter((obj) => obj.user_id !== doc._id),
-              co_owners: event.co_owners.filter((obj) => obj.user_id !== doc._id),
+              group_participants: event.group_participants.filter(
+                (obj) => obj.user_id !== doc._id
+              ),
+              co_owners: event.co_owners.filter(
+                (obj) => obj.user_id !== doc._id
+              ),
             }
           );
         }
@@ -265,14 +285,18 @@ UserSchema.post('findOneAndRemove', async (doc, next) => {
   }
 
   if (doc.finished_events) {
-    const events = await eventRepository.getAllbyIds(doc.finished_events.map((obj) => obj.event_id));
+    const events = await eventRepository.getAllbyIds(
+      doc.finished_events.map((obj) => obj.event_id)
+    );
 
     if (events) {
       for (const event of events) {
         await event.modifyEvent(
           { _id: event._id },
           {
-            group_participants: event.group_participants.filter((obj) => obj.user_id !== doc._id),
+            group_participants: event.group_participants.filter(
+              (obj) => obj.user_id !== doc._id
+            ),
             co_owners: event.co_owners.filter((obj) => obj.user_id !== doc._id),
           }
         );
