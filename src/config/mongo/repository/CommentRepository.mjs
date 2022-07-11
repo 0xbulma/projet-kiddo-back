@@ -1,6 +1,6 @@
 import commentModel from '../models/comment.model.mjs';
 
-const POPULATE_COMMENT = 'parent child target_user target_event target_article sender signalments.signalment signalments.sender';
+const POPULATE_COMMENT = 'parent child target_user target_event target_article sender reactions.sender signalments.signalment signalments.sender';
 
 export default class CommentRepository {
   //===============================================
@@ -10,15 +10,15 @@ export default class CommentRepository {
     return await commentModel.find().populate(POPULATE_COMMENT).exec();
   }
 
-  async getAllbyIds(idsArray) {
-    return await userModel
+  async getAllByIds(idsArray) {
+    return await commentModel
       .find({ _id: { $in: idsArray } })
       .populate(POPULATE_COMMENT)
       .exec();
   }
 
   async getById(id) {
-    return await commentModel.findOne(id).populate(POPULATE_COMMENT).exec();
+    return await commentModel.findOne({ _id: id }).populate(POPULATE_COMMENT).exec();
   }
 
   async getByTargetId(type, id) {
@@ -47,8 +47,8 @@ export default class CommentRepository {
   }
 
   async modifyComment(id, input) {
-    const comment = await commentModel.findOneAndUpdate(id, input, { new: true });
-    return commentModel.findOne(id).populate(POPULATE_COMMENT).exec();
+    const comment = await commentModel.findOneAndUpdate({ _id: id }, input, { new: true });
+    return commentModel.findOne({ _id: id }).populate(POPULATE_COMMENT).exec();
   }
 
   async removeComment(id) {
