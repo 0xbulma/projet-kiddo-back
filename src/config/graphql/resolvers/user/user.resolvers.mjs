@@ -25,7 +25,7 @@ export default {
     checkToken: async (parent, args, ctx, info) => {
       const result = getUserByCookieToken(ctx.req);
       if (!result) {
-        return new GraphQLError('Erreur lors de la récupération des données par le Token ');
+        return new GraphQLError("Aucun token enregistré sur le navigateur pour l'auto connexion");
       }
       if (result) {
         const user = await userRepository.getById(result);
