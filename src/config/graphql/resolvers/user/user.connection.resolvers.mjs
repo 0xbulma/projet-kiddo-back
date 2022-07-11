@@ -18,7 +18,7 @@ export const USER_CONNECTION = async (parent, { email, password }, { req, res })
       };
       res.cookie('authorization', 'Bearer ' + token, cookie_options);
     }
-    return new GraphQLError('Utiliateur introuvable !');
+    return new GraphQLError('Utilisateur introuvable !');
   }
   try {
     if (await bcrypt.compare(password, user.password)) {

@@ -40,7 +40,7 @@ export function getCookieToken(req, res) {
   const cookieToken = constant.getRequestCookies(req)['authorization'];
   const authCookieToken = cookieToken && cookieToken.split(' ')[1];
 
-  if (authCookieToken == null) return 'THROW ERROR';
+  if (authCookieToken == null) return null;
 
   jwt.verify(authCookieToken, process.env.JWT_TOKEN_SECRET, (err, result) => {
     if (err) return null;

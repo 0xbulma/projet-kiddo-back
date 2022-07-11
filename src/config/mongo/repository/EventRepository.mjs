@@ -1,7 +1,7 @@
 import eventModel from '../models/event.model.mjs';
 
 const POPULATE_EVENT =
-  'main_owner co_owners group_participants.user categories restrictions signalments.signalment signalments.sender reactions.type reactions.sender_id comments';
+  'main_owner co_owners group_participants.user categories restrictions signalments.signalment signalments.sender reactions.type reactions.sender comments';
 
 export default class EventRepository {
   // Récupération des données liées à l'évènement

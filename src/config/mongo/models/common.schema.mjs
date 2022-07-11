@@ -49,7 +49,7 @@ export const SCHEMA_OPTIONS = (withTimestamp) => {
 
 export const REACTION = {
   type: { type: mongoose.Schema.Types.ObjectId, ref: constants.COLLECTION_NAME.REACTION },
-  sender_id: OBJECT_ID_REF_USER,
+  sender: OBJECT_ID_REF_USER,
 };
 
 export const SIGNALMENT = {

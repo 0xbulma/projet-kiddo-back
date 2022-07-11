@@ -1,7 +1,7 @@
 import userModel from '../models/user.model.mjs';
 
 const POPULATE_USER =
-  'pinned_events.event_id booked_events.event_id finished_events.event_id friends_send_request.user friends_receive_request.user friends.user signalments.signalment signalments.sender reactions.type reactions.sender_id comments';
+  'pinned_events.event_id booked_events.event_id finished_events.event_id friends_send_request.user friends_receive_request.user friends.user signalments.signalment signalments.sender reactions.type reactions.sender comments';
 
 export default class UserRepository {
   //===============================================
@@ -37,6 +37,7 @@ export default class UserRepository {
   // Création et modification de l'utilisateur
   //==========================================
   async modifyUser(id, input) {
+    console.log(input);
     return await userModel.findOneAndUpdate({ _id: id }, input, { new: true });
   }
 

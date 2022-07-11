@@ -10,6 +10,8 @@ import * as passwordResolver from './user.password.resolvers.mjs';
 import * as connectionResolver from './user.connection.resolvers.mjs';
 import userModel from '../../../mongo/models/user.model.mjs';
 
+import { getUserByCookieToken } from '../../../../utils/authUtils.mjs';
+
 const userRepository = new UserRepository();
 const eventRepository = new EventRepository();
 
