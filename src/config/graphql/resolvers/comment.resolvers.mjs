@@ -11,7 +11,6 @@ export default {
     },
     getByTargetId: async (parent, { type, id }, context, info) => {
       const comments = await commentRepository.getByTargetId(type, id);
-      console.log('Messages :', comments);
       return comments;
     },
   },
@@ -20,11 +19,30 @@ export default {
     createComment: async (parent, { input }, ctx, info) => {
       return await commentRepository.createComment(input);
     },
-    modifyComment: async (parent, { id, input }, ctx, info) => {
-      return await commentRepository.modifyComment(id, input);
+    modifyComment: async (parent, { input }, ctx, info) => {
+      return await commentRepository.modifyComment(input._id, input);
     },
     removeComment: async (parent, { id }, ctx, info) => {
       return await commentRepository.removeComment(id);
+    },
+    addReaction: async (parent, { id, input }) => {
+      const comment = await commentRepository.getById(id);
+      const reactions = comment.reactions;
+
+      const senderId = input.sender;
+
+      let isAlreadyReacted = false;
+      reactions.map((reaction) => {
+        if (reaction.sender._id.equals(senderId)) isAlreadyReacted = true;
+      });
+
+      if (isAlreadyReacted) {
+        return await commentRepository.modifyComment(id, { reactions: reactions.filter((r) => r.sender._id.toString() !== senderId) });
+      }
+
+      //Type ID est temporaire, represente l'id du like
+      reactions.push({ type: '62bef2b93fdb4c2bc213dac0', sender: senderId });
+      return await commentRepository.modifyComment(id, { reactions: reactions });
     },
   },
 };

@@ -22,7 +22,8 @@ export const RECOVER_PASSWORD = async (parent, { email }, ctx) => {
 
   //Envoi d'un mail avec lien de récupération
   try {
-    console.log(resetPasswordToken);
+    //Temp
+    console.log('Recover Password generated link : ', resetPasswordToken.token);
     await sendEmail(resetPasswordToken.token, 'test@email.com');
   } catch (err) {
     console.log(err);
@@ -33,17 +34,12 @@ export const RECOVER_PASSWORD = async (parent, { email }, ctx) => {
   return modifiedUser;
 };
 
-export const RESET_PASSWORD = async (
-  parent,
-  { _id, email, token, password }
-) => {
+export const RESET_PASSWORD = async (parent, { _id, email, token, password }) => {
   const user = await userRepository.getById(_id);
   if (user === null) return Error('User not found!');
 
   if (user.reset_password_token.token === token && user.email === email) {
-    const tokenCreatedAt = new Date(
-      user.reset_password_token.created_at
-    ).getTime();
+    const tokenCreatedAt = new Date(user.reset_password_token.created_at).getTime();
     const tokenValidity = Date.now() - tokenCreatedAt;
 
     if (tokenValidity > constants.TOKEN_VALIDITY_TIME) {

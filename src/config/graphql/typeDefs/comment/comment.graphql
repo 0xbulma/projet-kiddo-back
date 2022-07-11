@@ -10,7 +10,7 @@ type Comment {
   modified_at: DateTime
   deleted_at: DateTime
   content: CommentContent
-  reactions: [Reaction]
+  reactions: [CommentReaction]
   pinned: Boolean
   signalments: [SignalmentData]
 }
@@ -19,4 +19,9 @@ type CommentContent {
   title: String
   message: String
   photos_url: [URL]
+}
+
+type CommentReaction {
+  type: Reaction
+  sender: User
 }
