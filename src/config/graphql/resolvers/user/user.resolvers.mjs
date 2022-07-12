@@ -52,6 +52,8 @@ export default {
       const existingUser = await userRepository.getByEmail(email);
       if (existingUser) return new GraphQLError('Adresse email déjà utilisé !');
 
+      if (input.password.length < 8) return new GraphQLError('Le mot de passe doit faire 8 caractères minimum !');
+
       const salt = bcrypt.genSaltSync(10);
       const hash = bcrypt.hashSync(input.password, salt);
 
@@ -77,25 +79,22 @@ export default {
       const event = await eventRepository.getEventById(eventId);
       const participants = event.group_participants;
 
-      console.log('Book Event : ', event._id, ' || Participants : ', participant);
-
       let isAlreadyBooked = false;
       bookedEvents.map((bookedEvent) => {
         if (bookedEvent.event?._id.equals(event._id)) isAlreadyBooked = true;
       });
 
       if (isAlreadyBooked) {
-        console.log('Already Booked Remove Participant');
         await eventRepository.modifyEvent(
           { _id: event._id },
-          { group_participants: participants.filter((group) => !group.user.id.equals(user._id)) }
+          { group_participants: participants.filter((group) => !group.user._id.equals(user._id)) }
         );
         return userRepository.modifyUser({ _id }, { booked_events: bookedEvents.filter((bookedEvent) => !bookedEvent.event?._id.equals(event._id)) });
       }
 
-      console.log('P1 : ', participants.length);
-      participants.push({ user: user._id, booked_at: Date.now(), group_detail: participant });
-      console.log('P2 : ', participants.length);
+      if (participants?.booked_at === null) participants.booked_at = Date.now();
+
+      participants.push(participant);
       await eventRepository.modifyEvent({ _id: event._id }, { group_participants: participants });
 
       bookedEvents.push({ event: event._id, booked_at: Date.now() });
