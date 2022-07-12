@@ -56,7 +56,6 @@ export default {
     },
 
     event: async (parent, { id }, context, info) => {
-      console.log('new commit');
       return await eventRepository.getEventById(id);
     },
   },
