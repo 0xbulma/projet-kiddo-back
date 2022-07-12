@@ -52,8 +52,6 @@ export default {
       const existingUser = await userRepository.getByEmail(email);
       if (existingUser) return new GraphQLError('Adresse email déjà utilisé !');
 
-      if (input.password.length < 8) return new GraphQLError('Le mot de passe doit faire 8 caractères minimum !');
-
       const salt = bcrypt.genSaltSync(10);
       const hash = bcrypt.hashSync(input.password, salt);
 
