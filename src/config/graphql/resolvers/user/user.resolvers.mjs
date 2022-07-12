@@ -34,6 +34,7 @@ export default {
           const cookie_options = {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'PROD',
+            sameSite: 'none',
             maxAge: 1,
           };
           ctx.res.cookie('authorization', 'Bearer ' + result, cookie_options);
@@ -60,6 +61,7 @@ export default {
       const cookie_options = {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'PROD',
+        sameSite: 'none',
         maxAge: 1000 * 60 * 60 * 24 * 7, //Store for 7 days
       };
       res.cookie('authorization', 'Bearer ' + token, cookie_options);
@@ -73,6 +75,9 @@ export default {
       const bookedEvents = user.booked_events;
 
       const event = await eventRepository.getEventById(eventId);
+      const participants = event.group_participants;
+
+      console.log('Book Event : ', event._id, ' || Participants : ', participant);
 
       let isAlreadyBooked = false;
       bookedEvents.map((bookedEvent) => {
@@ -80,8 +85,18 @@ export default {
       });
 
       if (isAlreadyBooked) {
+        console.log('Already Booked Remove Participant');
+        await eventRepository.modifyEvent(
+          { _id: event._id },
+          { group_participants: participants.filter((group) => !group.user.id.equals(user._id)) }
+        );
         return userRepository.modifyUser({ _id }, { booked_events: bookedEvents.filter((bookedEvent) => !bookedEvent.event?._id.equals(event._id)) });
       }
+
+      console.log('P1 : ', participants.length);
+      participants.push({ user: user._id, booked_at: Date.now(), group_detail: participant });
+      console.log('P2 : ', participants.length);
+      await eventRepository.modifyEvent({ _id: event._id }, { group_participants: participants });
 
       bookedEvents.push({ event: event._id, booked_at: Date.now() });
       return userRepository.modifyUser({ _id }, { booked_events: bookedEvents });
