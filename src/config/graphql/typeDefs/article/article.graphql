@@ -46,9 +46,3 @@ type Content {
   description: String
   message: String
 }
-
-type ContentMedia {
-  photos_url: [URL]
-  photo_main_url: URL
-  video_url: URL
-}
