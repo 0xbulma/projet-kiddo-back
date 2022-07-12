@@ -4,6 +4,7 @@ import express from 'express';
 import http from 'http';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import path from 'path';
 
 import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
@@ -14,6 +15,12 @@ import resolvers from './config/graphql/resolvers/index__resolvers.mjs';
 import { typeDefs as scalarsTypedefs, resolvers as scalarsResolvers } from 'graphql-scalars';
 
 import { connectToDB } from './config/database.mjs';
+
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Initialisation des paramètres de l'application
 async function startApolloServer() {
@@ -40,6 +47,8 @@ async function startApolloServer() {
   // Application des modifications de l'application
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
+  app.use(express.static(path.join(__dirname, 'public')));
+
 
   const corsOptions = {
     origin: [process.env.DEV_FRONT_URL, process.env.PROD_FRONT_URL, 'https://studio.apollographql.com'],
@@ -48,6 +57,8 @@ async function startApolloServer() {
 
   // Application des Middleware
   server.applyMiddleware({ app, cors: corsOptions });
+
+
 
   // Création d'une promesse de connexion
   await new Promise((resolve) => httpServer.listen(process.env.PORT, resolve));

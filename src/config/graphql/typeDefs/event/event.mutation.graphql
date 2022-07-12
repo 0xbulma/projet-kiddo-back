@@ -49,9 +49,9 @@ input HighlightedMessageInput {
 }
 
 input ContentMediaInput {
-  photos_url: [URL]
-  photo_main_url: URL
-  video_url: URL
+  photos_url: [String]
+  photo_main_url: String
+  video_url: String
 }
 
 input ParticipantInput {
