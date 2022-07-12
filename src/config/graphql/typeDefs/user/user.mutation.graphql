@@ -2,17 +2,12 @@ type Mutation {
   createUser(input: UserInput): User
   modifyUser(_id: ObjectID!, input: UserInput!): User
   removeUser(_id: ObjectID!): User
-  bookEvent(_id: ObjectID!, eventId: ObjectID!, bookedAt: Date): User
+  bookEvent(_id: ObjectID!, eventId: ObjectID!, bookedAt: Date, participant: ParticipantInput): User
   pinnedEvent(_id: ObjectID!, eventId: ObjectID!, pinnedAt: Date): User
 
   #Recover Password
   recoverPassword(email: Emailadress): User
-  resetPassword(
-    _id: ObjectID
-    email: Emailadress
-    token: UUID
-    password: String
-  ): User
+  resetPassword(_id: ObjectID, email: Emailadress, token: UUID, password: String): User
   #Friends
   sendFriendRequest(senderEmail: Emailadress!, targetEmail: Emailadress!): User
 }

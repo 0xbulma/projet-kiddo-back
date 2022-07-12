@@ -25,7 +25,7 @@ export default {
     checkToken: async (parent, args, ctx, info) => {
       const result = getUserByCookieToken(ctx.req);
       if (!result) {
-        return new GraphQLError('Erreur lors de la récupération des données par le Token ');
+        return new GraphQLError("Aucun token enregistré sur le navigateur pour l'auto connexion");
       }
       if (result) {
         const user = await userRepository.getById(result);
@@ -68,7 +68,7 @@ export default {
     },
     modifyUser: (parent, { _id, input }) => userRepository.modifyUser(_id, input),
     removeUser: (parent, { _id }) => userRepository.removeUser(_id),
-    bookEvent: async (parent, { _id, eventId, bookedAt }) => {
+    bookEvent: async (parent, { _id, eventId, bookedAt, participant }) => {
       const user = await userRepository.getById(_id);
       const bookedEvents = user.booked_events;
 
@@ -79,8 +79,16 @@ export default {
         if (bookedEvent._id.equals(event._id)) isAlreadyBooked = true;
       });
 
+      const participants = event.group_participants;
+      console.log('Participants : ', participants);
+      console.log('Input Participants : ', participant);
+
       if (isAlreadyBooked) {
+        await eventRepository.modifyEvent({ _id: event._id }, { group_participants: participants.filter((g) => g.user._id !== user._id) });
         return userRepository.modifyUser({ _id }, { bookedEvent: bookedEvents.filter((e) => e._id !== event._id) });
+      } else {
+        participants.push(participant);
+        await eventRepository.modifyEvent({ _id: event._id }, { group_participants: participants });
       }
 
       bookedEvents.push({ event, booked_at: bookedAt });

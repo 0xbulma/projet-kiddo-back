@@ -18,7 +18,7 @@ type Comment {
 type CommentContent {
   title: String
   message: String
-  photos_url: [URL]
+  photos_url: [String]
 }
 
 type CommentReaction {
