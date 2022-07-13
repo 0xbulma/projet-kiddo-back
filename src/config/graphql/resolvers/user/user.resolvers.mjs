@@ -34,7 +34,7 @@ export default {
           const cookie_options = {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'PROD',
-            sameSite: 'none',
+            ssameSite: 'none',
             maxAge: 1,
           };
           ctx.res.cookie('authorization', 'Bearer ' + result, cookie_options);
@@ -64,8 +64,8 @@ export default {
         sameSite: 'none',
         maxAge: 1000 * 60 * 60 * 24 * 7, //Store for 7 days
       };
+      const token = jwt.sign({ _id: user._id, email }, process.env.JWT_TOKEN_SECRET, { expiresIn: 1000 * 60 * 60 * 24 * 7 });
       res.cookie('authorization', 'Bearer ' + token, cookie_options);
-
       return user;
     },
     modifyUser: (parent, { _id, input }) => userRepository.modifyUser(_id, input),
